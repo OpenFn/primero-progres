@@ -4,12 +4,7 @@ OpenFn jobs for interoperability inter-agency solution in Sudan.
 
 *Note that commits to `master` will be audo-deployed to OpenFn.org. Always work on a branch!*
 
-## Getting started
-
-1. create `/tmp` folder locally with a `state.json` file that you don't commit to github
-2. start writing and testing jobs locally with the relevant adaptor
-
-## Project Checklist
+## Implementation Checklist
 ### (1) Functional Requirements
 - [ ] Design POCs identified? 
 - [x] Business value articulated? Link: [Draft SRD document](https://unhcr365.sharepoint.com/:w:/r/teams/Project-I-UNICEF/_layouts/15/Doc.aspx?sourcedoc=%7B6C92757A-CA36-4ADE-92A7-F9A9304AFA0C%7D&file=SRD_DTP_PRIMERO_draft.docx&action=default&mobileredirect=true)
