@@ -1,0 +1,50 @@
+{
+   "@no-lock": "true",
+   "@latematerialize": "true",
+   "entity": {
+      "@name": "progres_lpintervention",
+      "attribute": [
+         {
+            "@name": "progres_interventiontype2"
+         },
+         {
+            "@name": "progres_interventionnumber"
+         },
+         {
+            "@name": "progres_individual"
+         },
+         {
+            "@name": "progres_interventionsubtype2"
+         }
+      ],
+      "filter": {
+         "condition": {
+            "@attribute": "progres_interventionnumber",
+            "@operator": "eq",
+            "@value": "NAI-21-PRTITV-0000001"
+         }
+      },
+      "link-entity": {
+         "@name": "progres_individual",
+         "@from": "progres_individualid",
+         "@to": "progres_individual",
+         "attribute": {
+            "@name": "progres_sex"
+         },
+         "link-entity": {
+            "@name": "progres_specificneed",
+            "@from": "progres_individual",
+            "@to": "progres_individualid",
+            "@link-type": "outer",
+            "attribute": [
+               {
+                  "@name": "progres_spnsubcategory2"
+               },
+               {
+                  "@name": "progres_spncategory2"
+               }
+            ]
+         }
+      }
+   }
+}
