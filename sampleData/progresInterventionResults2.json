@@ -1,0 +1,59 @@
+{
+   "@morerecords": "0",
+   "@paging-cookie": "<cookie page=\"1\"><progres_lpinterventionid last=\"{1D5A5148-B859-EB11-80F8-00155D3407BF}\" first=\"{1D5A5148-B859-EB11-80F8-00155D3407BF}\" /><\/cookie>",
+   "result": [
+      {
+         "progres_interventiontype2": {
+            "@name": "BID",
+            "@type": "10533",
+            "#text": "{6E8CFD32-80A1-EA11-8105-00155D680582}"
+         },
+         "progres_interventionnumber": "NAI-21-PRTITV-0000001",
+         "progres_individual": {
+            "@name": "TGO-00323343",
+            "@type": "10073",
+            "#text": "{26DD5B10-0D9A-4EB6-AE38-6111634C2219}"
+         },
+         "progres_lpinterventionid": "{1D5A5148-B859-EB11-80F8-00155D3407BF}",
+         "progres_individual.progres_sex": {
+            "@name": "Female",
+            "@formattedvalue": "125080000",
+            "#text": "125080000"
+         },
+         "progres_individualid.progres_spncategory2": {
+            "@name": "Disability",
+            "@type": "10475",
+            "#text": "{A3C5B4FB-8F76-E611-80C9-00155D340529}"
+         }
+      },
+      {
+         "progres_interventiontype2": {
+            "@name": "BID",
+            "@type": "10533",
+            "#text": "{6E8CFD32-80A1-EA11-8105-00155D680582}"
+         },
+         "progres_interventionnumber": "NAI-21-PRTITV-0000001",
+         "progres_individual": {
+            "@name": "TGO-00323343",
+            "@type": "10073",
+            "#text": "{26DD5B10-0D9A-4EB6-AE38-6111634C2219}"
+         },
+         "progres_lpinterventionid": "{1D5A5148-B859-EB11-80F8-00155D3407BF}",
+         "progres_individual.progres_sex": {
+            "@name": "Female",
+            "@formattedvalue": "125080000",
+            "#text": "125080000"
+         },
+         "progres_individualid.progres_spnsubcategory2": {
+            "@name": "Tracing required",
+            "@type": "10476",
+            "#text": "{597995AC-9876-E611-80C9-00155D340529}"
+         },
+         "progres_individualid.progres_spncategory2": {
+            "@name": "Family unity",
+            "@type": "10475",
+            "#text": "{A7C5B4FB-8F76-E611-80C9-00155D340529}"
+         }
+      }
+   ]
+}
