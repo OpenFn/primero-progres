@@ -1,0 +1,19 @@
+<fetch no-lock="true" latematerialize="true">
+  <entity name="progres_interoperabilityreferral">
+    <attribute name="progres_interoperabilityreferralnumber" />
+    <attribute name="progres_interoperabilityreferralrouteto" />
+    <attribute name="progres_interoperabilityreferralrouteserviceunito" />
+    <attribute name="progres_interventiontype" />
+    <attribute name="progres_reviewdate" />
+    <attribute name="progres_reviewby" />
+    <attribute name="progres_reviewdecision" />
+    <attribute name="progres_interoperabilityreferralrejectionomment" />
+    <attribute name="progres_interoperabiltyreferralrejectionreason" />
+    <attribute name="progres_individualid" />
+    <attribute name="progres_orgreferralid" />
+    <filter>
+      <condition attribute="progres_reviewdecision" operator="not-null" />
+      <condition attribute="progres_interoperabilityreferralnumber" operator="eq" value="REF-IOP-DAD-000000152" />
+    </filter>
+  </entity>
+</fetch>
