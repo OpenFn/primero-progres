@@ -1,0 +1,76 @@
+<fetch no-lock="true" latematerialize="true">
+  <entity name="progres_lpintervention">
+    <attribute name="progres_interventionstartdate" />
+    <attribute name="progres_businessowner" />
+    <attribute name="progres_interventionnumber" />
+    <attribute name="progres_interventiontype2" />
+    <attribute name="progres_interventionsubtype2" />
+    <attribute name="progres_comments_nonrestrictedstore" />
+    <attribute name="progres_interventiondescription" />
+    <filter>
+      <condition attribute="progres_interventionnumber" operator="eq" value="DAD-21-PRTITV-0000001" />
+    </filter>
+    <link-entity name="progres_childprotectioncase" from="progres_childprotectioncaseid" to="progres_childprotectioncase">
+      <attribute name="progres_priority" />
+    </link-entity>
+    <link-entity name="systemuser" from="systemuserid" to="progres_businessowner">
+      <attribute name="progres_partner" />
+      <attribute name="title" />
+      <attribute name="internalemailaddress" />
+      <attribute name="mobilephone" />
+    </link-entity>
+    <link-entity name="progres_individual" from="progres_individualid" to="progres_individual">
+      <attribute name="progres_id" />
+      <attribute name="progres_registrationgroupid" />
+      <attribute name="progres_givenname" />
+      <attribute name="progres_middlename" />
+      <attribute name="progres_familyname" />
+      <attribute name="progres_commonyusedname" />
+      <attribute name="progres_dateofbirth" />
+      <attribute name="progres_sex" />
+      <attribute name="progres_coalocationlevel1" />
+      <attribute name="progres_coalocationlevel2" />
+      <attribute name="progres_coalocationlevel3" />
+      <attribute name="progres_coalocationlevel4" />
+      <attribute name="progres_coalocationlevel5" />
+      <attribute name="progres_coalocationlevel6" />
+      <attribute name="progres_primaryphonenumber" />
+      <filter type="and">
+        <condition attribute="statecode" operator="eq" value="0" />
+        <filter type="or">
+          <condition attribute="statuscode" operator="eq" value="1" />
+          <condition attribute="statuscode" operator="eq" value="125080000" />
+        </filter>
+      </filter>
+      <link-entity name="progres_specificneed" from="progres_individual" to="progres_individualid" link-type="outer">
+        <attribute name="progres_spncategory2" />
+        <attribute name="progres_spnsubcategory2" />
+        <filter type="and">
+          <condition attribute="statecode" operator="eq" value="0" />
+          <condition attribute="progres_specificneedstatus" operator="eq" value="125080001" />
+          <condition attribute="progres_assessmenttype" operator="eq" value="125080003" />
+          <filter type="or">
+            <condition attribute="progres_spncategory2" operator="eq" value="a1c5b4fb-8f76-e611-80c9-00155d340529" uiname="Child at risk" uitype="progres_specificneedcode" />
+            <condition attribute="progres_spncategory2" operator="eq" value="a3c5b4fb-8f76-e611-80c9-00155d340529" uiname="Disability" uitype="progres_specificneedcode" />
+            <condition attribute="progres_spncategory2" operator="eq" value="adc5b4fb-8f76-e611-80c9-00155d340529" uiname="Serious medical condition" uitype="progres_specificneedcode" />
+            <condition attribute="progres_spncategory2" operator="eq" value="a9c5b4fb-8f76-e611-80c9-00155d340529" uiname="Specific legal and physical protection needs" uitype="progres_specificneedcode" />
+            <condition attribute="progres_spncategory2" operator="eq" value="b1c5b4fb-8f76-e611-80c9-00155d340529" uiname="SGBV" uitype="progres_specificneedcode" />
+            <condition attribute="progres_spncategory2" operator="eq" value="b3c5b4fb-8f76-e611-80c9-00155d340529" uiname="Torture" uitype="progres_specificneedcode" />
+            <condition attribute="progres_spncategory2" operator="eq" value="abc5b4fb-8f76-e611-80c9-00155d340529" uiname="Unaccompanied or separated child" uitype="progres_specificneedcode" />
+          </filter>
+        </filter>
+      </link-entity>
+      <link-entity name="progres_language" from="progres_individualid" to="progres_individualid" link-type="outer">
+        <attribute name="progres_languagecodeid" />
+        <attribute name="progres_readlevel" />
+        <attribute name="progres_writelevel" />
+        <attribute name="progres_speaklevel" />
+        <attribute name="progres_comprehensionlevel" />
+        <attribute name="progres_mothertongue" />
+        <filter>
+          <condition attribute="statecode" operator="eq" value="0" />
+        </filter>
+      </link-entity>
+    </link-entity>
+  </entity>
+</fetch>
