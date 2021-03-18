@@ -87,4 +87,5 @@
     "consent_for_data_collection": true,
     "record_in_scope": true,
     "alert_count": 1,
-    "referral_s
+    "referral_section": []
+}
