@@ -57,7 +57,7 @@
             "service_request_agency": "Save the Children",
             "service_request_phone": "33469725468",
             "service_request_email": "leena.sadik@savethechildren.org",
-            "service_implementing_agency": "International Rescue Committee",           
+            "service_implementing_agency": "International Rescue Committee",
             "service_type": "basic_psychosocial_support",
             "service_type_other": "PSS service",
             "service_response_type": "service_provision",
@@ -78,6 +78,7 @@
         "abandonment",
         "emotional_or_psychological"
     ],
+    "protection_concerns_other": "other",
     "consent_for_services": true,
     "created_organization": "UNICEF",
     "associated_user_names": [
@@ -87,5 +88,19 @@
     "consent_for_data_collection": true,
     "record_in_scope": true,
     "alert_count": 1,
-    "referral_section": []
+    "referral_section": [],
+    "user": {
+        "id": 1,
+        "full_name": "Primero CP",
+        "user_name": "primero_cp",
+        "email": "primero_cp@primero.com",
+        "agency_id": 1,
+        "role_id": "role-primero-cp",
+        "time_zone": "UTC",
+        "locale": "en",
+        "send_mail": true,
+        "created_at": "2019-08-09T19:54:36.592Z",
+        "updated_at": "2019-08-09T19:54:36.592Z",
+        "identity_provider_unique_id": "primeroims_2"
+    }
 }
