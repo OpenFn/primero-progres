@@ -49,7 +49,7 @@
             "unique_id": "66299d30-7d59-40aa-a4fc-289669d0e16a",
             "type": "Referral",
             "to_user_local_status": "in_progress",
-            "rejected reason": "Not able to provide service due to shortage of staff",
+            "rejected_reason": "Not able to provide service due to shortage of staff",
             "progres_interventionnumber": "A1B2C3",
             "service_request_external": true,
             "service_referral_notes": "Referral is needed to provide family tracing and reunification",
