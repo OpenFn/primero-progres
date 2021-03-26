@@ -1,8 +1,7 @@
 {
-    "id": "c48bd8ca-b290-4bca-9be9-4fb0f9e7b59a",
-    "case_id": "234bbac3-7278-430a-98b5-1abc460671ec",
-    "progres_interventionnumber": "A1B2C3",
-    "owned_by": "primero_cp",
+    "primero_case_id": "234bbac3-7278-430a-98b5-1abc460671ec",
+    "primero_user": "primero_cp",
+    "interoperabilityReferral": "5EB7997E-3200-4C6E-AE7F-C8F44B9849EA",
     "status": "rejected",
-    "closure_reason": "Sample reason for rejection"
+    "reason": "Sample reason for rejection",
 }
