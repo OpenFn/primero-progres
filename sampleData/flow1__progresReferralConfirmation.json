@@ -1,7 +1,7 @@
 {
-    "primero_case_id": "234bbac3-7278-430a-98b5-1abc460671ec",
+    "case_id": "234bbac3-7278-430a-98b5-1abc460671ec",
     "primero_user": "primero_cp",
-    "interoperabilityReferral": "5EB7997E-3200-4C6E-AE7F-C8F44B9849EA",
+    "progres_interventionnumber": "A1B2C3",
     "status": "rejected",
     "reason": "Sample reason for rejection",
 }
