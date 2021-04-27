@@ -14,10 +14,16 @@ getCases(
 
     state.cases = cases;
 
-    const { openfnInboxUrl } = state.configuration;
-    return http.post({
-      url: openfnInboxUrl,
-      data: cases,
-    })(state);
+    const { openfnInboxUrl, xApiKey } = state.configuration;
+    return http
+      .post({
+        url: openfnInboxUrl,
+        data: cases,
+        headers: { 'x-api-key': xApiKey },
+      })(state)
+      .then(() => {
+        console.log('Cases posted to openfn inbox.');
+        return state;
+      });
   }
 );
