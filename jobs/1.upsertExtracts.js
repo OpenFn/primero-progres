@@ -41,7 +41,7 @@ alterState(state => {
     service_response_type: '', // advise on mapping
   };
 
-  console.log(body);
+  console.log(`data:{ ${body} }`);
 
   return getCases(
     {
