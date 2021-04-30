@@ -49,6 +49,7 @@ each(
         },
       })(state)
       .then(() => {
+        console.log(JSON.stringify(state.data, null, 2));
         console.log('Response uploaded to DTP/Progres.');
         return state;
       });
