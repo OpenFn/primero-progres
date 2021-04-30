@@ -1,5 +1,5 @@
 each(
-  '$._json[*]',
+  dataPath('._json[*]'),
   alterState(state => {
     const { data, configuration } = state;
     const { urlDTP, key, cert } = configuration;
