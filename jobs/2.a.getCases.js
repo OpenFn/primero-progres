@@ -18,7 +18,7 @@ getCases(
     return http
       .post({
         url: openfnInboxUrl,
-        data: cases,
+        data: cases, "request_type": "primero_outbound_referral",
         headers: { 'x-api-key': xApiKey },
       })(state)
       .then(() => {
