@@ -34,6 +34,7 @@ each(
       progres_priority:
         risk_level === 'High' ? 'High and Emergency' : risk_level,
     };
+    console.log('Mapping referral to DTP:', JSON.stringify(state.data, null, 2));
 
     return http
       .post({
