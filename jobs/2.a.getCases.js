@@ -9,8 +9,6 @@ getCases(
         data.services_section[0].service_implementing_agency === 'unhcr'
     );
     
-    cases.request_type = 'primero_referral'; 
-
     console.log(cases.length, 'referrals fetched.');
     console.log('Posting to Inbox...');
 
