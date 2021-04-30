@@ -8,8 +8,10 @@ getCases(
         data.services_section &&
         data.services_section[0].service_implementing_agency === 'unhcr'
     );
+    
+    cases.request_type = 'primero_referral'; 
 
-    console.log(cases.length, 'fetched.');
+    console.log(cases.length, 'referrals fetched.');
     console.log('Posting to Inbox...');
 
     state.cases = cases;
@@ -18,7 +20,7 @@ getCases(
     return http
       .post({
         url: openfnInboxUrl,
-        data: cases, "request_type": "primero_outbound_referral",
+        data: cases,
         headers: { 'x-api-key': xApiKey },
       })(state)
       .then(() => {
