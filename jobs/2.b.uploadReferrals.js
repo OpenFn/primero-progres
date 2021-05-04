@@ -38,8 +38,8 @@ each(
       progres_orgreferralid: data.id,
       progres_priority:
         risk_level && risk_level!==undefined ? 
-        (risk_level && risk_level === 'High' ? 'High and Emergency' : risk_level) : 
-        risk_level,
+        (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) : 
+        undefined,
     };
     console.log('Mapping referral to DTP:', JSON.stringify(state.data, null, 2));
 
