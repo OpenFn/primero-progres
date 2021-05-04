@@ -1,3 +1,8 @@
+alterState((state) => {
+  console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
+  return state; 
+});
+
 each(
   dataPath('._json[*]'),
   alterState(state => {
