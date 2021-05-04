@@ -16,7 +16,7 @@ each(
       progres_otherrequestedservices: '', // inside an array
       progres_reasonforreferral: '', // absent from case
       progres_organizationfrom: data.owned_by_agency_id,
-      progres_orgreferredby: data.user.full_name,
+      progres_orgreferredby: data.user.name,
       progres_orgposition: data.user.position,
       progres_orgemail: data.user.email,
       progres_orgphonenumber: data.user.phone,
