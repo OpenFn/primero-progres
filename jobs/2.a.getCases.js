@@ -5,8 +5,9 @@ getCases(
   state => {
     const cases = state.data.filter(
       data =>
-        data.services_section &&
-        data.services_section[0].service_implementing_agency === 'unhcr'
+        data.assigned_user_names === ['unhcr_cw']
+        //data.services_section &&
+        //data.services_section[0].service_implementing_agency === 'unhcr'
         //where last_updated_at = since last run
     );
     
