@@ -42,7 +42,7 @@ each(
       //   (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) : 
       //   undefined,
     };
-    console.log('Mapping referral to DTP:', JSON.stringify(state.data, null, 2));
+    console.log('Mapping referral to DTP:', JSON.stringify(obj, null, 2));
 
     return http
       .post({
