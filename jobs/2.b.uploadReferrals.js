@@ -1,5 +1,6 @@
 alterState((state) => {
-  console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
+  console.log('Primero referral to send to DTP...');
+  //console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
   return state; 
 });
 
