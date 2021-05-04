@@ -14,6 +14,7 @@ alterState(state => {
         status: data.status,
         reason: '', // advise on mapping
       };
+      console.log('Decision to send to DTP: ', JSON.stringify(decision, null, 2)); 
 
       return http
         .post({
