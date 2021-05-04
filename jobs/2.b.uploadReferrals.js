@@ -16,10 +16,10 @@ each(
       progres_otherrequestedservices: '', // inside an array
       progres_reasonforreferral: '', // absent from case
       progres_organizationfrom: data.owned_by_agency_id,
-      progres_orgreferredby: data.user.name,
-      progres_orgposition: data.user.position,
-      progres_orgemail: data.user.email,
-      progres_orgphonenumber: data.user.phone,
+      progres_orgreferredby: data.owned_by, //data.user.full_name
+      progres_orgposition: data.user ? data.user.position : 'Case Worker', //TODO: Get user info from endpoint? 
+      progres_orgemail: data.user ? data.user.email : 'test@primero.org',
+      progres_orgphonenumber: data.user ? data.user.phone : '0790970543',
       progres_unhcrid: data.unhcr_individual_no,
       progres_pocotheridnumber: data.unhcr_id_no,
       progres_pocfirstname: data.name_first,
