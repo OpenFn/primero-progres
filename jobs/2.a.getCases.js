@@ -15,7 +15,7 @@ getCases(
     ); */
     
     console.log(cases.length, 'referrals fetched.');
-    console.log('Posting to Inbox...');
+    console.log('Posting to Inbox...', JSON.stringify(state.data, null, 2));
 
     state.cases = cases;
 
