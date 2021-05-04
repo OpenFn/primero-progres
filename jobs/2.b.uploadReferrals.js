@@ -36,10 +36,11 @@ each(
       progres_primerotransferstatus: '', // inside an array
       progres_comments: '', // field present multiple times
       progres_orgreferralid: data.id,
-      progres_priority:
-        risk_level && risk_level!==undefined ? 
-        (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) : 
-        undefined,
+      progres_priority: 'High and Emergency'
+      // progres_priority:
+      //   risk_level && risk_level!==undefined ? 
+      //   (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) : 
+      //   undefined,
     };
     console.log('Mapping referral to DTP:', JSON.stringify(state.data, null, 2));
 
