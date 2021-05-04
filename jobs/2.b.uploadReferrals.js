@@ -37,7 +37,7 @@ each(
       progres_comments: '', // field present multiple times
       progres_orgreferralid: data.id,
       progres_priority:
-        risk_level ? 
+        risk_level && risk_level!==undefined ? 
         (risk_level === 'High' ? 'High and Emergency' : risk_level) : 
         risk_level,
     };
