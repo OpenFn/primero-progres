@@ -2,15 +2,17 @@ getCases(
   {
     remote: true,
     assigned_user_names: ['unhcr_cw']
+    //where last_updated_at = since last run
   },
   state => {
-    const cases = state.data.filter(
+    const cases = state.data
+    /*.filter(
       data =>
         //data.assigned_user_names === ['unhcr_cw']
         data.services_section &&
         data.services_section[0].service_implementing_agency === 'unhcr'
-        //where last_updated_at = since last run
-    );
+         
+    ); */
     
     console.log(cases.length, 'referrals fetched.');
     console.log('Posting to Inbox...');
