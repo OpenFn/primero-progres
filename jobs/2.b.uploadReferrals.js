@@ -28,6 +28,7 @@ each(
 
     //====================================================================================================//
     //==== UPDATE: We now map the Primero Ids for DTP to map to the Progres fields ======================// 
+    const referrals = [];
     services_section.forEach(service => {
       const obj = {
         service_implementing_agency: service.service_implementing_agency, //Dadaab UAT hardcoded GUID for testing
@@ -41,9 +42,9 @@ each(
         service_referral_notes: service.service_referral_notes,
         owned_by_agency_id: data.owned_by_agency_id,
         owned_by: data.owned_by,
-        position: user ? user.position : 'Case Worker',
-        email: user ? user.email : 'test@primero.org',
-        phone: user ? user.phone : '0790970543',
+        position: user.position ? user.position : 'Case Worker',
+        email: user.email ? user.email : 'test@primero.org',
+        phone: user.phone ? user.phone : '0790970543',
         full_name: user ? user.full_name : 'Primero CP',
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
@@ -51,7 +52,7 @@ each(
         name_middle: data.name_middle,
         name_last: data.name_last,
         name_nickname: data.name_nickname,
-        date_of_birth: new Date(data.date_of_birth),
+        date_of_birth: new Date(data.date_of_birth).toISOString().substring(0, 10),
         sex: data.sex,
         address_current: data.address_current,
         telephone_current: data.telephone_current,
@@ -59,14 +60,25 @@ each(
         //=======TODO: Update maping per specs for progres_spneedcategory ================//
         //protection_concerns: '', 
         protection_concerns_other: data.protection_concerns_other,
-        status: data.status, // inside an array
-        language: data.language ? data.language.join(",") : data.language, // field present multiple times
+        //status: data.status, //QUESTION: To map at this stage? 
+        language: 'English',
+        //language: data.language ? data.language.join(",") : data.language, //QUESTION: Test data? 
         id: data.id,
+        //=======TODO: Update maping per specs for progres_priority ================//
         risk_level: 'High and Emergency'
-        //progres_priority: 'High and Emergency',
+        // risk_level:
+        //   risk_level && risk_level!==undefined ?
+        //     (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) :
+        //     'High and Emergency',
       };
+      console.log('Mapping referral data to DTP:', JSON.stringify(obj, null, 2));
+      referrals.push(obj);
     });
-    console.log('Mapping referral data to DTP:', JSON.stringify(obj, null, 2));
+    //console.log('referrals...', JSON.stringify(referrals, null, 2));
+
+    const referral1 = referrals[0]; //TODO: Send each referral via a separate request to DTP
+    console.log('referral to upload...', JSON.stringify(referral1, null, 2));
+
 
     //====================================================================================================//
     //==== UPDATE: We no longer provide Progres Ids, but rather the Primero Ids for DTP to map ===========// 
@@ -115,7 +127,7 @@ each(
     return http
       .post({
         url: urlDTP,
-        data: obj,
+        data: referral1, //obj
         headers: {
           'Ocp-Apim-Subscription-Key':
             configuration['Ocp-Apim-Subscription-Key'],
