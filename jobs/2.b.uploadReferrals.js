@@ -1,16 +1,31 @@
 alterState(state => {
   console.log('Primero referral to send to DTP...');
+  const { host, token } = state.configuration;
   //console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
-  return state;
+  return http
+    .get({
+      url: `${host}/api/v2/users`,
+      headers: {
+        Authorization: `Basic ${token}`,
+      },
+    })(state)
+    .then(({ data }) => {
+      const users = data.data;
+      return { ...state, users };
+    });
 });
 
 each(
   dataPath('._json[*]'),
   alterState(state => {
-    const { data, configuration } = state;
+    console.log('here');
+    const { data, configuration, users } = state;
     const { urlDTP, key, cert } = configuration;
-
     const { services_section } = data;
+
+    const user = users.find(user => user.user_name === data.owned_by);
+    // console.log('user', user);
+
     services_section.forEach(service => {
       const obj = {
         // progres_businessunit: 'd69e8ec1-e80b-e611-80d3-001dd8b71f12', //Dadaab UAT hardcoded GUID for testing
@@ -21,13 +36,13 @@ each(
         progres_requestedservice: service.service_type, // inside an array
         // progres_otherrequestedservices: '', // inside an array
         progres_otherrequestedservices: service.service_type_other, // inside an array
-        // progres_reasonforreferral: 'Testing for interoperability', // absent from case
-        progres_reasonforreferral: service.service_referral_notes, // absent from case
+        // progres_reasonforreferral: 'Testing for interoperability',
+        progres_reasonforreferral: service.service_referral_notes,
         progres_organizationfrom: data.owned_by_agency_id,
         progres_orgreferredby: data.owned_by, //data.user.full_name
-        progres_orgposition: data.user ? data.user.position : 'Case Worker', //TODO: Get user info from endpoint?
-        progres_orgemail: data.user ? data.user.email : 'test@primero.org',
-        progres_orgphonenumber: data.user ? data.user.phone : '0790970543',
+        progres_orgposition: user ? user.position : 'Case Worker', //TODO: Get user info from endpoint?
+        progres_orgemail: user ? user.email : 'test@primero.org',
+        progres_orgphonenumber: user ? user.phone : '0790970543',
         progres_unhcrid: data.unhcr_individual_no,
         progres_pocotheridnumber: data.unhcr_id_no,
         progres_pocfirstname: data.name_first,
@@ -52,6 +67,7 @@ each(
       console.log('Mapping referral to DTP:', JSON.stringify(obj, null, 2));
     });
 
+    // return state;
     return http
       .post({
         url: urlDTP,
