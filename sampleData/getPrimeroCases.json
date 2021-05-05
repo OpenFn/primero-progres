@@ -1,35 +1,154 @@
 {
   "data": [
     {
-      "id": "b3222e84-a5d7-4692-a643-1ab3d41f17d6",
-      "age": 16,
+      "id": "d8273796-3212-445c-8ffc-e84df202006d",
+      "enabled": true,
+      "last_updated_at": "2021-05-04T14:44:44.296Z",
+      "age": 13,
       "sex": "female",
-      "name": "Edwine Edgemont",
-      "owned_by": "primero",
-      "created_at": "2019-05-10T05:34:59.514Z",
-      "case_id_display": "f15a1a9",
-      "registration_date": "2019-05-10",
-      "photos": [
-          "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBJdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--fd11045a88ede3b0b1e92ce60b75bb21f219c33c/photo.jpg"
-      ]
-    },
-    {
-      "id": "442fa6e6-4682-4fdf-b9dc-2cdf51c5e8c3",
-      "age": 22,
-      "sex": "male",
-      "name": "Johnsy Jones",
-      "owned_by": "primero",
-      "created_at": "2019-05-08T03:14:15.133Z",
-      "case_id_display": "af0f298",
-      "registration_date": "2019-05-07",
-      "photos": [
-          "/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBJdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--fd11045a88ede3b0b1e92ce60b75bb21f219c33c/photo.jpg"
-      ]
+      "name": "Safia Mara",
+      "status": "open",
+      "case_id": "9c506517-96c8-48e7-8fad-bb9711707174",
+      "cpims_id": "SCI-57844398",
+      "language": [
+        "language1"
+      ],
+      "owned_by": "primero_cp",
+      "religion": [
+        "religion3"
+      ],
+      "short_id": "1707174",
+      "workflow": "service_provision",
+      "ethnicity": [
+        "ethnicity3"
+      ],
+      "module_id": "primeromodule-cp",
+      "name_last": "Mara",
+      "created_at": "2021-04-28T19:25:19.889Z",
+      "created_by": "primero_cp",
+      "name_first": "Safia",
+      "risk_level": "medium",
+      "nationality": [
+        "kenya"
+      ],
+      "unhcr_id_no": "CDO4756435098435-A",
+      "record_state": true,
+      "date_of_birth": "2008-01-25",
+      "name_nickname": "Saffa",
+      "notes_section": [],
+      "reopened_logs": [],
+      "address_current": "Camp A",
+      "case_id_display": "1707174",
+      "owned_by_groups": [
+        "usergroup-primero-cp"
+      ],
+      "section_18383df": "Zone B",
+      "location_current": "KE007030001",
+      "services_section": [
+        {
+          "unique_id": "f5a15466-e827-4d53-bdfe-285081f98e26",
+          "service_type": "documentation",
+          "service_location": null,
+          "service_provider": null,
+          "service_referral": "internal_referral",
+          "service_type_other": "And PSS",
+          "service_implemented": "not_implemented",
+          "focal_agency_location": null,
+          "service_request_email": null,
+          "service_request_phone": null,
+          "service_request_title": null,
+          "service_response_type": "service_provision",
+          "caregivers_suggestions": null,
+          "service_referral_notes": "Testing for interoperability",
+          "service_request_agency": null,
+          "caregivers_satisfaction": null,
+          "service_internal_header": null,
+          "service_status_referred": true,
+          "suggestions_improvement": null,
+          "accountability_separator": null,
+          "details_service_provided": null,
+          "recommendations_followup": null,
+          "service_appointment_date": null,
+          "service_appointment_time": null,
+          "service_expected_outcome": "Testing ",
+          "service_request_external": false,
+          "referral_follow_up_header": null,
+          "referral_follow_up_medium": [],
+          "service_delivery_location": null,
+          "service_external_referral": false,
+          "service_response_day_time": "2021-04-28T19:34:43.000Z",
+          "progres_interventionnumber": null,
+          "service_implemented_header": null,
+          "service_response_timeframe": null,
+          "service_implementing_agency": "unhcr",
+          "service_implemented_day_time": null,
+          "note_on_referral_from_provider": null,
+          "referral_follow_up_contact_who": null,
+          "referral_follow_up_medium_other": null,
+          "service_request_external_header": null,
+          "service_external_referral_header": null,
+          "service_implementing_agency_external": null,
+          "service_implementing_agency_individual": "unhcr_cw"
+        }
+      ],
+      "consent_reporting": true,
+      "interview_subject": "child",
+      "owned_by_location": "XX0101",
+      "protection_status": "living_with_biological_parent_or_primary_caregiver",
+      "registration_date": "2021-04-28",
+      "telephone_current": "+3349195154",
+      "owned_by_agency_id": "UNICEF",
+      "assessment_due_date": "2021-04-30",
+      "assigned_user_names": [
+        "unhcr_cw"
+      ],
+      "consent_for_tracing": true,
+      "protection_concerns": [
+        "sexual_exploitation",
+        "difficulty_with_self_care"
+      ],
+      "unhcr_export_opt_in": true,
+      "unhcr_individual_no": "CDO4756435098435",
+      "consent_for_services": true,
+      "created_organization": "UNICEF",
+      "associated_user_names": [
+        "primero_cp",
+        "unhcr_cw"
+      ],
+      "disclosure_other_orgs": true,
+      "care_arrangements_section": [
+        {
+          "unique_id": "60b3d0d1-f86f-448b-abb2-d20bf1f17038",
+          "caregiver_age": 33,
+          "caregiver_sex": "female",
+          "name_caregiver": "Andrea",
+          "relationship_caregiver": "mother",
+          "caregiver_date_of_birth": "1988-01-01"
+        }
+      ],
+      "country_of_origin_be16aa0": "KE007030001",
+      "consent_for_data_collection": true,
+      "information_shared_services": [
+        "cash_assistance",
+        "shelter"
+      ],
+      "hh_reg__group_number_04b3b03": "CDO4756435098435-B",
+      "date_of_arrival_in_kenya_549f1e8": "2021-04-19",
+      "date_of_arrival_in_dadaab_d8d2956": "2021-04-19",
+      "is_the_perpetrator_known__b748278": false,
+      "was_the_child_subjected_to_sgbv__766f460": false,
+      "record_in_scope": true,
+      "flag_count": 0,
+      "alert_count": 0,
+      "photo": null,
+      "upload_bia_document": [],
+      "upload_bid_document": [],
+      "upload_other_document": [],
+      "current_photo_key": [],
+      "recorded_audio": [],
+      "photos": [],
+      "incident_details": [],
+      "sync_status": "sent"
     }
-  ],
-  "metadata": {
-      "total": 2,
-      "per": 20,
-      "page": 1
-  }
+  ]
 }
