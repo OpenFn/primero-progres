@@ -6,13 +6,13 @@ getCases(
   },
   state => {
     const cases = state.data
-    /*.filter(
+    .filter(
       data =>
         //data.assigned_user_names === ['unhcr_cw']
         data.services_section &&
         data.services_section[0].service_implementing_agency === 'unhcr'
          
-    ); */
+    ); 
     
     console.log(cases.length, 'referrals fetched.');
     console.log('Posting to Inbox...', JSON.stringify(state.data, null, 2));
