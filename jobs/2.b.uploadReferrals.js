@@ -71,13 +71,14 @@ each(
         //     (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) :
         //     'High and Emergency',
       };
-      console.log('Mapping referral data to DTP:', JSON.stringify(obj, null, 2));
+      console.log('Mapping referral data to DTP');
+      //console.log('Mapping referral data to DTP:', JSON.stringify(obj, null, 2));
       referrals.push(obj);
     });
     //console.log('referrals...', JSON.stringify(referrals, null, 2));
 
     const referral1 = referrals[0]; //TODO: Send each referral via a separate request to DTP
-    console.log('referral to upload...', JSON.stringify(referral1, null, 2));
+    console.log('Referral to upload to DTP...', JSON.stringify(referral1, null, 2));
 
 
     //====================================================================================================//
