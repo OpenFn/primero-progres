@@ -18,7 +18,7 @@ alterState(state => {
 each(
   dataPath('._json[*]'),
   alterState(state => {
-    console.log('here');
+    console.log('Creating referral for each unhcr service...');
     const { data, configuration, users } = state;
     const { urlDTP, key, cert } = configuration;
     const { services_section } = data;
@@ -64,10 +64,9 @@ each(
         id: data.id,
         risk_level: 'High and Emergency'
         //progres_priority: 'High and Emergency',
-
       };
-      console.log('Mapping referral to DTP:', JSON.stringify(obj, null, 2));
     });
+    console.log('Mapping referral data to DTP:', JSON.stringify(obj, null, 2));
 
     //====================================================================================================//
     //==== UPDATE: We no longer provide Progres Ids, but rather the Primero Ids for DTP to map ===========// 
