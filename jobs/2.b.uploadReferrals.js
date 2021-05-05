@@ -71,7 +71,7 @@ each(
         //     (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) :
         //     'High and Emergency',
       };
-      console.log('Mapping referral data to DTP');
+      //console.log('Mapping referral data to DTP');
       //console.log('Mapping referral data to DTP:', JSON.stringify(obj, null, 2));
       referrals.push(obj);
     });
@@ -79,9 +79,29 @@ each(
 
     const referral1 = referrals[0]; //TODO: Send each referral via a separate request to DTP
     console.log('Referral to upload to DTP...', JSON.stringify(referral1, null, 2));
+    return http
+      .post({
+        url: urlDTP,
+        data: referral1, //TODO: Send 1 http request for each referral, not just 1 referral - see L80 
+        headers: {
+          'Ocp-Apim-Subscription-Key':
+            configuration['Ocp-Apim-Subscription-Key'],
+        },
+        agentOptions: {
+          key,
+          cert,
+        },
+      })(state)
+      .then(() => {
+        console.log(JSON.stringify(state.data, null, 2));
+        console.log('Response uploaded to DTP/Progres.');
+        return state;
+      });
+  })
+);
 
 
-    //====================================================================================================//
+    //==== LEGACY MAPPINGS ===============================================================================//
     //==== UPDATE: We no longer provide Progres Ids, but rather the Primero Ids for DTP to map ===========// 
     //   const obj = {
     //     // progres_businessunit: 'd69e8ec1-e80b-e611-80d3-001dd8b71f12', //Dadaab UAT hardcoded GUID for testing
@@ -124,24 +144,4 @@ each(
     // });
     //====================================================================================================//
 
-    // return state;
-    return http
-      .post({
-        url: urlDTP,
-        data: referral1, //obj
-        headers: {
-          'Ocp-Apim-Subscription-Key':
-            configuration['Ocp-Apim-Subscription-Key'],
-        },
-        agentOptions: {
-          key,
-          cert,
-        },
-      })(state)
-      .then(() => {
-        console.log(JSON.stringify(state.data, null, 2));
-        console.log('Response uploaded to DTP/Progres.');
-        return state;
-      });
-  })
-);
+
