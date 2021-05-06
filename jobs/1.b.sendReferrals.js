@@ -1,6 +1,5 @@
 alterState(state => {
-  const { data } = state;
-  getCases(
+  return getCases(
     {
       remote: true,
       //case_id: data.progres_primeroid || data['individuals.progres_id'], //wrong filter
@@ -9,39 +8,73 @@ alterState(state => {
       //2) data.services_section[...] contains service where progres_interventionnumber!==undefined
     },
     state => {
-      const { urlDTP, key, cert } = state.configuration;
+      const { data, configuration } = state;
+      const { urlDTP, key, cert } = configuration;
 
+      const today = new Date();
+      const yesterday = new Date(new Date().getTime());
+      yesterday.setDate(yesterday.getDate() - 1);
 
-      const decision = {
-        case_id: data.case_id,
-        owned_by: data.owned_by,
-        progres_interventionnumber: data.progres_interventionnumber,
-        status: data.status,
-        closure_reason: '', // advise on mapping 
-        request_type: 'Primero Referral Decision' //default hardcode
-      };
-      console.log('Decision to send to DTP: ', JSON.stringify(decision, null, 2));
+      const nonOpenedCases = data
+        .filter(
+          ref =>
+            ref.status !== 'open' &&
+            new Date(ref.last_updated_at) > yesterday &&
+            new Date(ref.last_updated_at) < today
+        )
+        .filter(ref =>
+          ref.services_section.some(
+            service => service.progres_interventionnumber
+          )
+        );
 
-      return http
-        .post({
-          url: urlDTP,
-          data: decision,
-          headers: {
-            'Ocp-Apim-Subscription-Key':
-              state.configuration['Ocp-Apim-Subscription-Key'],
-          },
-          agentOptions: {
-            key,
-            cert,
-          },
-        })(state)
-        .then(() => {
-          console.log('Decision has been sent.');
+      if (nonOpenedCases.length === 0)
+        console.log('No decisions to send to DTP');
+
+      return each(nonOpenedCases, state => {
+        // console.log(state.data);
+        const { data } = state;
+        const { services_section } = data;
+
+        return each(services_section, state => {
+          if (state.data.progres_interventionnumber) {
+            const decision = {
+              case_id: data.case_id,
+              owned_by: data.owned_by,
+              progres_interventionnumber: state.data.progres_interventionnumber,
+              status: data.status,
+              closure_reason: '', // advise on mapping
+              request_type: 'Primero Referral Decision', //default hardcode
+            };
+
+            console.log(
+              'Decision to send to DTP: ',
+              JSON.stringify(decision, null, 2)
+            );
+            // return state;
+            return http
+              .post({
+                url: urlDTP,
+                data: decision,
+                headers: {
+                  'Ocp-Apim-Subscription-Key':
+                    state.configuration['Ocp-Apim-Subscription-Key'],
+                },
+                agentOptions: {
+                  key,
+                  cert,
+                },
+              })(state)
+              .then(() => {
+                console.log('Decision has been sent.');
+                return state;
+              });
+          }
           return state;
-        });
+        })(state);
+      })(state);
     }
-  );
-  return state;
+  )(state);
 });
 
 //==== Example decision output to post to DTP ===///
@@ -52,4 +85,4 @@ alterState(state => {
 //   status: 'rejected',
 //   closure_reason: 'primero reason for rejection',
 //   request_type: 'Primero Referral Decision'
-// }; 
+// };
