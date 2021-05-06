@@ -43,11 +43,11 @@ each(
         service_referral_notes: '', // IS PRESENT TWICE IN THE MAPPING SHEET
         created_by: '', // advise on mapping
         created_by_source: '', // advise on mapping
-        service_response_type: '', // advise on mapping
+        service_response_type: '' // advise on mapping
       };
       //console.log('Mapping referral data to Primero');
       referrals.push(obj);
-    };
+    });
 
     const body = referrals;
 
