@@ -22,6 +22,9 @@ each(
         service_request_agency: data['systemuser.progres_partner'],
         service_request_phone: data['systemuser.mobilephone'],
         service_request_email: data['systemuser.internalemailaddress'],
+        service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
+        service_response_type: '', // advise on mapping
+        closure_reason: data.progres_comments_nonrestrictedstore,
         unhcr_individual_no: data['individuals.progres_id'],
         unhcr_id_no: data['individuals.progres_id_registrationgroupid'],
         name_first: data['individuals.progres_givenname'],
@@ -34,16 +37,13 @@ each(
         address_current: '', // advise on mapping
         telephone_current: data['individuals.progres_primaryphonenumber'],
         protection_concerns: '', // advise on mapping
-        language: '', // Field on sheet is multi-value
-        service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
-        status: '', // advise on mapping
-        closure_reason: data.progres_comments_nonrestrictedstore,
-        module_id: '', // set on update
+        language: [], // Field on sheet is multi-value
+        status: 'open', // advise on mapping
+        module_id: 'primero-cp', //hardcode default
+        remote: true, //hardcode default
         id: data.progres_primeroid || data['individuals.progres_id'], // Advise on mapping
-        service_referral_notes: '', // IS PRESENT TWICE IN THE MAPPING SHEET
-        //created_by: '', // advise on mapping
+        created_by: 'unhcr_cq' //Confirm focial poin user assignment
         //created_by_source: '', // advise on mapping
-        service_response_type: '' // advise on mapping
       };
       //console.log('Mapping referral data to Primero');
       referrals.push(obj);
