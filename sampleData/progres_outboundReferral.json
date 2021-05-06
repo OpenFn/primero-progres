@@ -1,0 +1,27 @@
+{
+    "__query_params": {},
+    "interventions": [
+        {
+            "childprotection.progres_priority": "125080001",
+            "individuals.progres_dateofbirth": "1982-10-09T17:00:00Z",
+            "individuals.progres_familyname": "Byars",
+            "individuals.progres_givenname": "Arron",
+            "individuals.progres_id": "NUR-00142746",
+            "individuals.progres_registrationgroupid": {
+                "Id": "90dfc030-d1f1-e511-80ce-001dd8b71f16",
+                "KeyAttributes": [],
+                "LogicalName": "progres_registrationgroup",
+                "Name": "NUR-15-05387",
+                "RowVersion": null
+            },
+            "individuals.progres_sex": "125080001",
+            "progres_businessowner": "1e029de1-94b5-e711-80dd-00155d34082d",
+            "progres_interventionnumber": "NUR-21-PRTITV-0000079",
+            "progres_interventionstartdate": "2021-05-04T17:00:00Z",
+            "progres_interventiontype2": "124d0594-77a1-ea11-8105-00155d680582",
+            "progres_lpinterventionid": "4dd4d5cd-86ad-eb11-80fe-00155d3407c8",
+            "user.internalemailaddress": "batista@unhcr.org"
+        }
+    ],
+    "request_type": "PrimeroOutgoingReferral"
+}
