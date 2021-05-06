@@ -31,17 +31,17 @@ each(
     const referrals = [];
     services_section.forEach(service => {
       const obj = {
-        service_implementing_agency: service.service_implementing_agency, //Dadaab UAT hardcoded GUID for testing
+        service_implementing_agency: 'UNICEF', //TODO: Update dynamically? service.service_implementing_agency,
         // service_response_day_time: '2021-04-28T19:34:43.000Z', // inside an array
         service_response_day_time: service.service_response_day_time, // inside an array
-        // service_type: 'documentation', // inside an array
-        service_type: service.service_type, // inside an array
+        service_type: 'Documentation',
+        //service_type: service.service_type, // inside an array
         // service_type_other: '', // inside an array
         service_type_other: service.service_type_other, // inside an array
         // progres_reasonforreferral: 'Testing for interoperability',
         service_referral_notes: service.service_referral_notes,
         owned_by_agency_id: data.owned_by_agency_id,
-        owned_by: data.owned_by,
+        primero_user: data.owned_by,
         position: user.position ? user.position : 'Case Worker',
         email: user.email ? user.email : 'test@primero.org',
         phone: user.phone ? user.phone : '0790970543',
@@ -49,7 +49,8 @@ each(
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
         name_first: data.name_first,
-        name_middle: data.name_middle,
+        name_middle: null,
+        //name_middle: data.name_middle,
         name_last: data.name_last,
         name_nickname: data.name_nickname,
         date_of_birth: new Date(data.date_of_birth)
@@ -58,16 +59,17 @@ each(
         sex: data.sex,
         address_current: data.address_current,
         telephone_current: data.telephone_current,
-        protection_concerns: 'DS-SC', //Hardcoded sample
+        protection_concerns: 'CR-AF', //Hardcoded sample
         //=======TODO: Update maping per specs for progres_spneedcategory ================//
-        //protection_concerns: '',
-        protection_concerns_other: data.protection_concerns_other,
-        //status: data.status, //QUESTION: To map at this stage?
+        //protection_concerns: '', 
+        protection_concerns_other: null, //TODO: Should we default null if no value
+        //protection_concerns_other: data.protection_concerns_other,
+        //status: data.status, //QUESTION: To map at this stage? 
         language: 'English',
-        //language: data.language ? data.language.join(",") : data.language, //QUESTION: Test data?
-        id: data.id,
+        //language: data.language ? data.language.join(",") : data.language, //QUESTION: Test data? 
+        id: data.case_id,
         //=======TODO: Update maping per specs for progres_priority ================//
-        risk_level: 'High and Emergency',
+        risk_level: 'Normal' //TODO: default to Normal if no other value provided
         // risk_level:
         //   risk_level && risk_level!==undefined ?
         //     (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) :
