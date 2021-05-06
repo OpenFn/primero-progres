@@ -41,8 +41,8 @@ each(
         module_id: '', // set on update
         id: data.progres_primeroid || data['individuals.progres_id'], // Advise on mapping
         service_referral_notes: '', // IS PRESENT TWICE IN THE MAPPING SHEET
-        created_by: '', // advise on mapping
-        created_by_source: '', // advise on mapping
+        //created_by: '', // advise on mapping
+        //created_by_source: '', // advise on mapping
         service_response_type: '' // advise on mapping
       };
       //console.log('Mapping referral data to Primero');
