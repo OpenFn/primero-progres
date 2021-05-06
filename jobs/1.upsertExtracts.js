@@ -42,8 +42,8 @@ each(
         module_id: 'primero-cp', //hardcode default
         remote: true, //hardcode default
         id: data.progres_primeroid || data['individuals.progres_id'], // Advise on mapping
-        "assigned_user_names": [
-          "unhcr_cw"
+        assigned_user_names: [
+          'unhcr_cw'
         ]
         //created_by: 'unhcr_cw' //Confirm if we set this on update? 
         //created_by_source: '', // advise on mapping
