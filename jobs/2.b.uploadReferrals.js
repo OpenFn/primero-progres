@@ -34,8 +34,8 @@ each(
         service_implementing_agency: 'UNICEF', //TODO: Update dynamically? service.service_implementing_agency,
         // service_response_day_time: '2021-04-28T19:34:43.000Z', // inside an array
         service_response_day_time: service.service_response_day_time, // inside an array
-        // service_type: 'documentation', // inside an array
-        service_type: service.service_type, // inside an array
+        service_type: 'Documentation',
+        //service_type: service.service_type, // inside an array
         // service_type_other: '', // inside an array
         service_type_other: service.service_type_other, // inside an array
         // progres_reasonforreferral: 'Testing for interoperability',
