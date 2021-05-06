@@ -1,5 +1,5 @@
 each(
-  dataPath('$.interventions[*]'),
+  dataPath('interventions[*]'),
   alterState(state => {
     const { data } = state;
     const { interventions } = data;
