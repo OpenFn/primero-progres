@@ -1,5 +1,6 @@
 alterState(state => {
   const { data } = state;
+  const { urlDTP, key, cert } = state.configuration;
   const decision = {
         case_id: 'b30cba6b-8d97-4524-b77f-a8f50cfcc974',
         owned_by: 'unhcr_cw',
