@@ -7,13 +7,23 @@ alterState(state => {
     },
     state => {
       const { urlDTP, key, cert } = state.configuration;
+    
       const decision = {
-        case_id: data.case_id,
-        primero_user: '', // Advise on mapping
-        progres_interventionnumber: data.progres_interventionnumber,
-        status: data.status,
-        reason: '', // advise on mapping
-      };
+        case_id: 'b30cba6b-8d97-4524-b77f-a8f50cfcc974',
+        owned_by: 'unhcr_cw',
+        progres_interventionnumber: 'NAI-20-PRTITV-0000006',
+        status: 'rejected',
+        closure_reason: 'primero reason for rejection',
+        request_type: 'Primero Referral Decision'
+      }; 
+      // const decision = {
+      //   case_id: data.case_id,
+      //   owned_by: '', // Advise on mapping
+      //   progres_interventionnumber: data.progres_interventionnumber,
+      //   status: data.status,
+      //   closure_reason: '', // advise on mapping
+      //   request_type: 'Primero Referral Decision'
+      // };
       console.log('Decision to send to DTP: ', JSON.stringify(decision, null, 2)); 
 
       return http
