@@ -1,0 +1,99 @@
+{
+    "__query_params": {},
+    "_json": [
+        {
+            "consent_for_services": true,
+            "consent_for_tracing": true,
+            "reopened_logs": [],
+            "interview_subject": "child",
+            "enabled": true,
+            "current_photo_key": [],
+            "record_in_scope": true,
+            "date_of_birth": "2011-05-11",
+            "incident_details": [],
+            "sync_status": "sent",
+            "owned_by": "primero",
+            "photos": [],
+            "created_by": "primero",
+            "id": "c098ba41-eb20-425f-86ac-2657b461d216",
+            "upload_bia_document": [],
+            "protection_status": "unaccompanied",
+            "unhcr_individual_no": "CDO4756435098499",
+            "photo": null,
+            "name_nickname": "Riri",
+            "unhcr_export_opt_in": true,
+            "location_current": "KE",
+            "recorded_audio": [],
+            "name_middle": "Mo",
+            "upload_bid_document": [],
+            "information_shared_services": [
+                "alternative_care",
+                "cash_assistance",
+                "education_formal",
+                "family_tracing_and_reunification",
+                "shelter"
+            ],
+            "was_the_child_subjected_to_sgbv__766f460": false,
+            "case_id": "0c0edf93-2c44-4803-b8ae-727ede7a9d84",
+            "created_organization": "UNICEF",
+            "workflow": "service_provision",
+            "name_first": "Rebecca",
+            "age": 9,
+            "name_last": "Mskinya",
+            "status": "open",
+            "services_section": [
+                {
+                    "referral_follow_up_medium": [],
+                    "service_implemented": "not_implemented",
+                    "service_implementing_agency": "unhcr",
+                    "service_implementing_agency_individual": "unhcr_cw",
+                    "service_referral": "internal_referral",
+                    "service_referral_notes": "sample referral notes",
+                    "service_response_day_time": "2021-05-07T16:47:01.000Z",
+                    "service_response_type": "service_provision",
+                    "service_status_referred": true,
+                    "service_type": "documentation",
+                    "unique_id": "a41a10ad-e7ca-4898-8233-a463c88c6eb9"
+                }
+            ],
+            "assigned_user_names": [
+                "unhcr_cw"
+            ],
+            "consent_for_data_collection": true,
+            "created_at": "2021-05-07T16:46:45.375Z",
+            "name": "Rebecca Mo Mskinya",
+            "record_state": true,
+            "owned_by_groups": [
+                "usergroup-primero-cp",
+                "usergroup-primero-ftr"
+            ],
+            "sex": "female",
+            "risk_level": "high",
+            "consent_reporting": true,
+            "module_id": "primeromodule-cp",
+            "language": [
+                "language6",
+                "_french"
+            ],
+            "case_id_display": "e7a9d84",
+            "registration_date": "2021-05-07",
+            "owned_by_agency_id": "UNICEF",
+            "unhcr_id_no": "CDO4756435098499-A",
+            "last_updated_at": "2021-05-07T16:55:55.389Z",
+            "alert_count": 0,
+            "protection_concerns": [
+                "unaccompanied",
+                "sm_ad__addiction"
+            ],
+            "associated_user_names": [
+                "primero",
+                "unhcr_cw"
+            ],
+            "disclosure_other_orgs": true,
+            "short_id": "e7a9d84",
+            "notes_section": [],
+            "upload_other_document": [],
+            "flag_count": 0
+        }
+    ]
+}
