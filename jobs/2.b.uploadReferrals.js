@@ -26,33 +26,57 @@ each(
     const user = users.find(user => user.user_name === data.owned_by);
     // console.log('user', user);
 
+    const serviceMap = {
+      'BIA': 'alternative_care', //TESTING: DO NOT USE
+      'Protection': 'security',
+      'Education': 'education',
+      'Education': 'non_formal_education',
+      'BIA': 'family_tracing_and_reunification', //TESTING: DO NOT USE
+      'Psycho-social Assistance': 'basic_psychosocial_support',
+      'Health Assistance': 'focused_non_specialized_mhpss_care',
+      'Health Assistance': 'specialized_mhpss_services',
+      'Food Assistance': 'food',
+      'CRI Assistance': 'non_food_items',
+      'Cash Assistance': 'cash_assistance',
+      'Livelihoods': 'livelihoods',
+      'Health Assistance': 'medical',
+      'Health Assistance': 'nutrition',
+      'Legal Aid': 'legal_support',
+      'Documentation': 'documentation',
+      'BIA': 'services_for_children_with_disabilities', //TESTING: DO NOT USE
+      'Health Assistance': 'sexual_and_reproductive_health',
+      'Accomodation': 'shelter',
+      'Other': 'wash',
+      'Other': 'durable_solution',
+      'Protection': 'relocation',
+      'Other': 'other_please_specify',
+    };
+    state.serviceMap = serviceMap;
+
     //====================================================================================================//
     //==== UPDATE: We now map the Primero Ids for DTP to map to the Progres fields ======================//
     const referrals = [];
     services_section.forEach(service => {
       const obj = {
-        service_implementing_agency: data.created_organization, //TODO: Update dynamically? service.service_implementing_agency,
-        // service_response_day_time: '2021-04-28T19:34:43.000Z', // inside an array
-        service_response_day_time: service.service_response_day_time, // inside an array
-        service_type: 'Documentation',
-        //service_type: service.service_type, // inside an array
-        // service_type_other: '', // inside an array
-        service_type_other: service.service_type_other, // inside an array
-        // progres_reasonforreferral: 'Testing for interoperability',
+        service_implementing_agency: data.created_organization, //TODO: Update after country selection?
+        service_response_day_time: service.service_response_day_time,
+        service_type: 'Documentation', //Hardcoded sample
+        //=======TODO: Update maping per specs for Service Mapping ================//
+        service_type: state.serviceMap[service.service_type],
+        service_type_other: service.service_type_other ? service.service_type_other : null,
         service_referral_notes: service.service_referral_notes,
         owned_by_agency_id: data.owned_by_agency_id,
         primero_user: data.owned_by,
-        position: data.owned_by_position ? data.owned_by_position : user.position ? user.position : 'Case Worker',
+        position: data.owned_by_position ? data.owned_by_position : (user.position ? user.position : 'Case Worker'), //Hardcoded defaults for testing
         email: data.owned_by_email ? data.owned_by_email : user.email ? user.email : 'test@primero.org',
         phone: data.owned_by_phone ? data.owned_by_phone : user.phone ? user.phone : '0790970543',
         full_name: data.owned_by_full_name ? data.owned_by_full_name : user ? user.full_name : 'Primero CP',
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
         name_first: data.name_first,
-        name_middle: null,
-        //name_middle: data.name_middle,
         name_last: data.name_last,
-        name_nickname: data.name_nickname,
+        name_middle: data.name_middle ? data.name_middle : null,
+        name_nickname: data.name_nickname ? data.name_nickname : null,
         date_of_birth: new Date(data.date_of_birth)
           .toISOString()
           .substring(0, 10),
@@ -62,14 +86,13 @@ each(
         protection_concerns: 'CR-AF', //Hardcoded sample
         //=======TODO: Update maping per specs for progres_spneedcategory ================//
         //protection_concerns: '', 
-        protection_concerns_other: null, //TODO: Should we default null if no value
-        //protection_concerns_other: data.protection_concerns_other,
-        //status: data.status, //QUESTION: To map at this stage? 
+        protection_concerns_other: data.protection_concerns_other ? data.protection_concerns_other : null, //TODO: Should we default null if no value
         language: 'English',
-        //language: data.language ? data.language.join(",") : data.language, //QUESTION: Test data? 
+        //=======TODO: Clean languages in array like '[english, somali]' => return as 'English, Somali' ================//
+        //language: data.language ? data.language.join(",") : null, 
         id: data.case_id,
-        //=======TODO: Update maping per specs for progres_priority ================//
-        risk_level: 'Normal' //TODO: default to Normal if no other value provided
+        risk_level: 'Normal' //TBD: default to Normal if no other value provided?
+        //=======TODO: Update maping per specs for progres_priority after country selected ============//
         // risk_level:
         //   risk_level && risk_level!==undefined ?
         //     (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) :
@@ -81,15 +104,15 @@ each(
     });
     //console.log('referrals...', JSON.stringify(referrals, null, 2));
 
-    const referral1 = referrals[0]; //TODO: Send each referral via a separate request to DTP
+    //====TODO: Confirm each referral is sent via a separate request to DTP ========================//
     console.log(
       'Referral to upload to DTP...',
-      JSON.stringify(referral1, null, 2)
+      JSON.stringify(referrals, null, 2)
     );
     return http
       .post({
         url: urlDTP,
-        data: referral1, //TODO: Send 1 http request for each referral, not just 1 referral - see L80
+        data: referrals,
         headers: {
           'Ocp-Apim-Subscription-Key':
             configuration['Ocp-Apim-Subscription-Key'],
