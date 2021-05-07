@@ -31,7 +31,7 @@ each(
     const referrals = [];
     services_section.forEach(service => {
       const obj = {
-        service_implementing_agency: 'UNICEF', //TODO: Update dynamically? service.service_implementing_agency,
+        service_implementing_agency: data.created_organization, //TODO: Update dynamically? service.service_implementing_agency,
         // service_response_day_time: '2021-04-28T19:34:43.000Z', // inside an array
         service_response_day_time: service.service_response_day_time, // inside an array
         service_type: 'Documentation',
@@ -42,10 +42,10 @@ each(
         service_referral_notes: service.service_referral_notes,
         owned_by_agency_id: data.owned_by_agency_id,
         primero_user: data.owned_by,
-        position: user.position ? user.position : 'Case Worker',
-        email: user.email ? user.email : 'test@primero.org',
-        phone: user.phone ? user.phone : '0790970543',
-        full_name: user ? user.full_name : 'Primero CP',
+        position: data.owned_by_position ? data.owned_by_position : user.position ? user.position : 'Case Worker',
+        email: data.owned_by_email ? data.owned_by_email : user.email ? user.email : 'test@primero.org',
+        phone: data.owned_by_phone ? data.owned_by_phone : user.phone ? user.phone : '0790970543',
+        full_name: data.owned_by_full_name ? data.owned_by_full_name : user ? user.full_name : 'Primero CP',
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
         name_first: data.name_first,

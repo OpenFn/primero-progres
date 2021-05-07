@@ -2,129 +2,46 @@
   "__query_params": {},
   "_json": [
     {
-      "consent_for_services": true,
-      "is_the_perpetrator_known__b748278": false,
-      "consent_for_tracing": true,
-      "reopened_logs": [],
-      "interview_subject": "child",
-      "enabled": true,
-      "current_photo_key": [],
-      "record_in_scope": true,
       "date_of_birth": "2008-01-25",
-      "incident_details": [],
-      "sync_status": "sent",
       "owned_by": "primero_cp",
-      "photos": [],
-      "created_by": "primero_cp",
-      "id": "d8273796-3212-445c-8ffc-e84df202006d",
-      "upload_bia_document": [],
+      "owned_by_position": "Case Worker",
+      "owned_by_email": "test@primero.org",
+      "owned_by_phone": "0928828282",
+      "owned_by_full_name": "Primero CP",
       "protection_status": "living_with_biological_parent_or_primary_caregiver",
       "telephone_current": "+3349195154",
       "unhcr_individual_no": "CDO4756435098435",
-      "hh_reg__group_number_04b3b03": "CDO4756435098435-B",
-      "photo": null,
-      "country_of_origin_be16aa0": "KE007030001",
       "name_nickname": "Saffa",
-      "unhcr_export_opt_in": true,
-      "location_current": "KE007030001",
-      "recorded_audio": [],
-      "upload_bid_document": [],
-      "information_shared_services": [
-        "cash_assistance",
-        "shelter"
-      ],
       "was_the_child_subjected_to_sgbv__766f460": false,
       "case_id": "9c506517-96c8-48e7-8fad-bb9711707174",
       "created_organization": "UNICEF",
-      "assessment_due_date": "2021-04-30",
-      "workflow": "service_provision",
-      "section_18383df": "Zone B",
-      "date_of_arrival_in_kenya_549f1e8": "2021-04-19",
       "name_first": "Safia",
-      "owned_by_location": "XX0101",
-      "age": 13,
+      "name_middle": null,
       "name_last": "Mara",
-      "status": "open",
+      "age": 13,
       "services_section": [
         {
-          "details_service_provided": null,
-          "focal_agency_location": null,
-          "progres_interventionnumber": null,
-          "recommendations_followup": null,
-          "referral_follow_up_contact_who": null,
-          "referral_follow_up_medium": [],
-          "referral_follow_up_medium_other": null,
-          "service_appointment_date": null,
-          "service_delivery_location": null,
-          "service_expected_outcome": "Testing ",
-          "service_external_referral": false,
-          "service_implemented": "not_implemented",
-          "service_implemented_day_time": null,
-          "service_implemented_header": null,
-          "service_implementing_agency": "unhcr",
-          "service_implementing_agency_individual": "unhcr_cw",
-          "service_provider": null,
-          "service_referral": "internal_referral",
           "service_referral_notes": "Testing for interoperability",
-          "service_request_email": null,
-          "service_request_external": false,
           "service_response_day_time": "2021-04-28T19:34:43.000Z",
           "service_response_type": "service_provision",
-          "service_status_referred": true,
           "service_type": "documentation",
           "service_type_other": "And PSS",
-          "suggestions_improvement": null,
           "unique_id": "f5a15466-e827-4d53-bdfe-285081f98e26"
         }
       ],
-      "assigned_user_names": [
-        "unhcr_cw"
-      ],
-      "consent_for_data_collection": true,
-      "created_at": "2021-04-28T19:25:19.889Z",
-      "name": "Safia Mara",
-      "cpims_id": "SCI-57844398",
-      "record_state": true,
-      "owned_by_groups": [
-        "usergroup-primero-cp"
-      ],
       "sex": "female",
-      "religion": [
-        "religion3"
-      ],
-      "date_of_arrival_in_dadaab_d8d2956": "2021-04-19",
       "risk_level": "medium",
-      "consent_reporting": true,
       "address_current": "Camp A",
-      "module_id": "primeromodule-cp",
-      "ethnicity": [
-        "ethnicity3"
-      ],
       "language": [
-        "language1"
+        "English"
       ],
-      "nationality": [
-        "kenya"
-      ],
-      "case_id_display": "1707174",
-      "registration_date": "2021-04-28",
       "owned_by_agency_id": "UNICEF",
       "unhcr_id_no": "CDO4756435098435-A",
-      "last_updated_at": "2021-05-04T14:44:44.296Z",
-      "alert_count": 0,
       "protection_concerns": [
         "sexual_exploitation",
         "difficulty_with_self_care"
       ],
-      "associated_user_names": [
-        "primero_cp",
-        "unhcr_cw"
-      ],
-      "disclosure_other_orgs": true,
-      "short_id": "1707174",
-      "notes_section": [],
-      "upload_other_document": [],
-      "flag_count": 0
+      "protection_concerns_other": null
     }
   ]
 }
