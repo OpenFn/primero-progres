@@ -34,8 +34,8 @@
             "unhcr_id_no": "CDO4756435098435-A",
             "unhcr_individual_no": "CDO4756435098435",
             "protection_concerns": [
-                "sexual_exploitation",
-                "difficulty_with_self_care"
+                "unaccompanied",
+                "sm_ad__addiction"
             ],
             "protection_concerns_other": null
         }
