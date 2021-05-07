@@ -4,5 +4,5 @@
     "progres_interventionnumber": "NAI-20-PRTITV-0000006",
     "status": "rejected",
     "closure_reason": "primero reason for rejection",
-    "request_type": "Primero Referral Decision"
+    "request_type": "PrimeroIncomingReferralDecision"
 }
