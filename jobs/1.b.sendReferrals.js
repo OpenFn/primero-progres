@@ -44,7 +44,7 @@ alterState(state => {
               progres_interventionnumber: state.data.progres_interventionnumber,
               status: data.status,
               closure_reason: '', // advise on mapping
-              request_type: 'Primero Referral Decision', //default hardcode
+              request_type: 'PrimeroIncomingReferralDecision"', //default hardcode
             };
 
             console.log(
