@@ -24,7 +24,7 @@ each(
     const { services_section } = data;
 
     const user = users.find(user => user.user_name === data.owned_by);
-    // console.log('user', user);
+    console.log('user', user);
 
     const serviceMap = {
       'BIA': 'alternative_care', //TESTING: DO NOT USE
@@ -67,10 +67,10 @@ each(
         service_referral_notes: service.service_referral_notes,
         owned_by_agency_id: data.owned_by_agency_id,
         primero_user: data.owned_by,
-        position: data.owned_by_position ? data.owned_by_position : (user.position ? user.position : 'Case Worker'), //Hardcoded defaults for testing
-        email: data.owned_by_email ? data.owned_by_email : user.email ? user.email : 'test@primero.org',
-        phone: data.owned_by_phone ? data.owned_by_phone : user.phone ? user.phone : '0790970543',
-        full_name: data.owned_by_full_name ? data.owned_by_full_name : user ? user.full_name : 'Primero CP',
+        position: user ? (user.position ? user.position : 'Case Worker') : data.owned_by_position, //Hardcoded defaults for testing
+        email: user ? (user.email ? user.email : 'test@primero.org') : data.owned_by_email,
+        phone: user ? (user.phone ? user.phone : '0790970543') : data.owned_by_phone,
+        full_name: user ? (user.full_name ? user.full_name : 'Primero CP') : data.owned_by_full_name,
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
         name_first: data.name_first,
