@@ -26,6 +26,7 @@ each(
     const user = users.find(user => user.user_name === data.owned_by);
     console.log('user', user);
 
+    //TODO: Not sure this map is implemented correctly, but here are the mappings...
     const serviceMap = {
       'BIA': 'alternative_care', //TESTING: DO NOT USE
       'Protection': 'security',
@@ -53,6 +54,20 @@ each(
     };
     state.serviceMap = serviceMap;
 
+    //TODO: Not sure this map is implemented correctly, but here are the mappings...
+    const protectionMap = {
+      'SC-UC': 'unaccompanied',
+      'SM-AD': 'sm_ad__addiction',
+      'DS-V': 'vision'
+    };
+
+    //TODO: Not sure this map is implemented correctly, but here are the mappings...
+    const languageMap = {
+      'English': '_english',
+      'French': '_french',
+      'Somali': 'language6'
+    };
+
     //====================================================================================================//
     //==== UPDATE: We now map the Primero Ids for DTP to map to the Progres fields ======================//
     const referrals = [];
@@ -62,7 +77,7 @@ each(
         service_response_day_time: service.service_response_day_time,
         service_type: 'Documentation', //Hardcoded sample
         //=======TODO: Update maping per specs for Service Mapping ================//
-        //service_type: state.serviceMap[service.service_type], //GET THIS TO WORK
+        //service_type: state.serviceMap[service.service_type], //GET THIS TO WORK; see L30
         service_type_other: service.service_type_other ? service.service_type_other : null,
         service_referral_notes: service.service_referral_notes,
         owned_by_agency_id: data.owned_by_agency_id,
@@ -85,11 +100,11 @@ each(
         telephone_current: data.telephone_current,
         protection_concerns: 'CR-AF', //Hardcoded sample
         //=======TODO: Update maping per specs for progres_spneedcategory ================//
-        //protection_concerns: state.serviceMap[data.protection_concerns], //GET THIS TO WORK
+        //protection_concerns: state.protectionMap[data.protection_concerns], //GET THIS TO WORK; see L58
         protection_concerns_other: data.protection_concerns_other ? data.protection_concerns_other : null, //TODO: Should we default null if no value
         language: 'English',
         //=======TODO: Clean languages in array like '[english, somali]' => return as 'English, Somali' ================//
-        //language: data.language ? data.language.join(",") : null, 
+        //language: data.language ? data.language.join(",") : null, //SEE L66 for languageMap
         id: data.case_id,
         risk_level: 'Normal' //TBD: default to Normal if no other value provided?
         //=======TODO: Update maping per specs for progres_priority after country selected ============//
