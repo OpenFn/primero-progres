@@ -68,6 +68,11 @@ alterState(state => {
               .then(() => {
                 console.log('Decision has been sent.');
                 return state;
+              })
+              .catch(error => {
+                let newError = error;
+                newError.config = 'REDACTED';
+                throw newError;
               });
           }
           return state;
