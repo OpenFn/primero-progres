@@ -99,16 +99,16 @@ each(
         //     'High and Emergency',
       };
       //console.log('Mapping referral data to DTP');
-      //console.log('Mapping referral data to DTP:', JSON.stringify(obj, null, 2));
+      console.log('Mapping referral data to DTP:', JSON.stringify(obj, null, 2));
       referrals.push(obj);
     });
     //console.log('referrals...', JSON.stringify(referrals, null, 2));
 
     //====TODO: Confirm each referral is sent via a separate request to DTP ========================//
-    console.log(
-      'Referral to upload to DTP...',
-      JSON.stringify(referrals, null, 2)
-    );
+    // console.log(
+    //   'Referral to upload to DTP...',
+    //   JSON.stringify(referrals, null, 2)
+    // );
     return http
       .post({
         url: urlDTP,
@@ -123,7 +123,7 @@ each(
         },
       })(state)
       .then(() => {
-        console.log(JSON.stringify(state.data, null, 2));
+        //console.log(JSON.stringify(state.data, null, 2));
         console.log('Response uploaded to DTP/Progres.');
         return state;
       })
