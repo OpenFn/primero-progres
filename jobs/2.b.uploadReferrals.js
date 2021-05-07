@@ -62,7 +62,7 @@ each(
         service_response_day_time: service.service_response_day_time,
         service_type: 'Documentation', //Hardcoded sample
         //=======TODO: Update maping per specs for Service Mapping ================//
-        service_type: state.serviceMap[service.service_type],
+        //service_type: state.serviceMap[service.service_type], //GET THIS TO WORK
         service_type_other: service.service_type_other ? service.service_type_other : null,
         service_referral_notes: service.service_referral_notes,
         owned_by_agency_id: data.owned_by_agency_id,
@@ -85,7 +85,7 @@ each(
         telephone_current: data.telephone_current,
         protection_concerns: 'CR-AF', //Hardcoded sample
         //=======TODO: Update maping per specs for progres_spneedcategory ================//
-        //protection_concerns: '', 
+        //protection_concerns: state.serviceMap[data.protection_concerns], //GET THIS TO WORK
         protection_concerns_other: data.protection_concerns_other ? data.protection_concerns_other : null, //TODO: Should we default null if no value
         language: 'English',
         //=======TODO: Clean languages in array like '[english, somali]' => return as 'English, Somali' ================//
@@ -109,10 +109,12 @@ each(
     //   'Referral to upload to DTP...',
     //   JSON.stringify(referrals, null, 2)
     // );
+    const referrals1 = referrals[0]; //TODO: UPDATE TO ONLY SEND 1
+
     return http
       .post({
         url: urlDTP,
-        data: referrals,
+        data: referrals1, //referrals,
         headers: {
           'Ocp-Apim-Subscription-Key':
             configuration['Ocp-Apim-Subscription-Key'],
