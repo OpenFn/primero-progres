@@ -18,20 +18,22 @@ getCases(
     state.cases = cases;
 
     const { openfnInboxUrl, xApiKey } = state.configuration;
-    return http
-      .post({
-        url: openfnInboxUrl,
-        data: cases,
-        headers: { 'x-api-key': xApiKey },
-      })(state)
-      .then(() => {
-        console.log('Cases posted to openfn inbox.');
-        return state;
-      })
-      .catch(error => {
-        let newError = error;
-        newError.config = 'REDACTED';
-        throw newError;
-      });
+    return each(cases, state => {
+      return http
+        .post({
+          url: openfnInboxUrl,
+          data: state.data,
+          headers: { 'x-api-key': xApiKey },
+        })(state)
+        .then(() => {
+          console.log('Cases posted to openfn inbox.');
+          return state;
+        })
+        .catch(error => {
+          let newError = error;
+          newError.config = 'REDACTED';
+          throw newError;
+        });
+    })(state);
   }
 );
