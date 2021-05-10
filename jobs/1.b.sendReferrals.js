@@ -1,5 +1,4 @@
-alterState(state => {
-  return getCases(
+getCases(
     {
       remote: true,
       //case_id: data.progres_primeroid || data['individuals.progres_id'], //wrong filter
@@ -79,8 +78,7 @@ alterState(state => {
         })(state);
       })(state);
     }
-  )(state);
-});
+  );
 
 //==== Example decision output to post to DTP ===///
 // decision = {
