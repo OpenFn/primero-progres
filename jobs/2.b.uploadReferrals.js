@@ -73,6 +73,7 @@ each(
     const referrals = [];
     services_section.forEach(service => {
       const obj = {
+        request_type: 'ReceiveIncomingReferral',
         service_implementing_agency: data.created_organization, //TODO: Update after country selection?
         service_response_day_time: service.service_response_day_time,
         service_type: 'Documentation', //Hardcoded sample
