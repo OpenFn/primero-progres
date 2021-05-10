@@ -71,6 +71,9 @@ each(
     let lang = [];
     data.language.forEach(l => lang.push(languageMap[l]));
 
+    let protection = [];
+    data.protection_concerns.forEach(pc => protection.push(protectionMap[pc]));
+
     //====================================================================================================//
     //==== UPDATE: We now map the Primero Ids for DTP to map to the Progres fields ======================//
     const referrals = [];
@@ -120,7 +123,8 @@ each(
         sex: data.sex,
         address_current: data.address_current,
         telephone_current: data.telephone_current,
-        protection_concerns: 'CR-AF', //Hardcoded sample
+        // protection_concerns: 'CR-AF', //Hardcoded sample
+        protection_concerns: protection[0] ? protection.join(', ') : null,
         //=======TODO: Update maping per specs for progres_spneedcategory ================//
         //protection_concerns: state.protectionMap[data.protection_concerns], //GET THIS TO WORK; see L58
         protection_concerns_other: data.protection_concerns_other
@@ -153,7 +157,6 @@ each(
     // );
     const referrals1 = referrals[0]; //TODO: UPDATE TO ONLY SEND 1
 
-    // return state;
     return http
       .post({
         url: urlDTP,
