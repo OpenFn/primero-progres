@@ -38,6 +38,7 @@ alterState(state => {
           data: state => decision,
         })(state);
       }
+      return state;
     }
   )(state);
 });
