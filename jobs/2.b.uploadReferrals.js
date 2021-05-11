@@ -125,7 +125,7 @@ each(
         address_current: data.address_current,
         telephone_current: data.telephone_current,
         // protection_concerns: 'CR-AF', //Hardcoded sample
-        protection_concerns: protection[0] ? protection.join(', ') : null,
+        protection_concerns: protection[0] ? protection : null,
         //=======TODO: Update maping per specs for progres_spneedcategory ================//
         //protection_concerns: state.protectionMap[data.protection_concerns], //GET THIS TO WORK; see L58
         protection_concerns_other: data.protection_concerns_other
