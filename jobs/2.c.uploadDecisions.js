@@ -25,17 +25,17 @@ alterState(state => {
       case_id: data.progres_primeroid || data['individuals.progres_id'],
     },
     state => {
-      console.log(state.data);
+      // console.log(state.data);
       if (state.data.length === 0) {
         return createCase({
           data: state => ({
-            ...decision,
+            ...interventions,
             service_response_day_time: new Date().toISOString(), // set on creation
           }),
         })(state);
       } else if (state.data.length === 1) {
         return updateCase({
-          data: state => decision,
+          data: state => interventions,
         })(state);
       }
       return state;
