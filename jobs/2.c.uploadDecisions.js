@@ -29,7 +29,7 @@ each(state.data.interventions, state => {
         // })(state);
       } else if (state.data.length === 1) {
         const id = state.data[0].id;
-        console.log('Updating decision.');
+        console.log(`Updating decision with id: ${id}.`);
         return updateCase(id, {
           data: state => decision,
         })(state);
