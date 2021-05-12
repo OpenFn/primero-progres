@@ -2,7 +2,7 @@ each(state.data.interventions, state => {
   const { data } = state;
   const decision = {
     module_id: 'primero-cp', //Keep; TO CONFIRM WITH UNHCR
-    case_id: data.progres_interoperabilityreferralid, //New mapping for case_id
+    case_id: data.progres_orgreferralid, //New mapping for case_id
     progres_interventionnumber: data.progres_interoperabilityreferralnumber, //New mapping; to confirm if this is same as inter no
     unhcr_individual_no: data.progres_individualid, //New mapping
     unhcr_id_no: data.progres_interoperabilityreferralid, //New mapping
@@ -16,16 +16,17 @@ each(state.data.interventions, state => {
   return getCases(
     {
       remote: true,
-      case_id: data.progres_interoperabilityreferralid,
+      case_id: data.progres_orgreferralid,
     },
     state => {
       if (state.data.length === 0) {
-        return createCase({
-          data: state => ({
-            ...decision,
-            service_response_day_time: new Date().toISOString(), // set on creation
-          }),
-        })(state);
+        throw new Error();
+        // return createCase({
+        //   data: state => ({
+        //     ...decision,
+        //     service_response_day_time: new Date().toISOString(), // set on creation
+        //   }),
+        // })(state);
       } else if (state.data.length === 1) {
         return updateCase({
           data: state => decision,
