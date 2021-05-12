@@ -28,7 +28,8 @@ each(state.data.interventions, state => {
         //   }),
         // })(state);
       } else if (state.data.length === 1) {
-        return updateCase({
+        console.log('Updating decision.');
+        return updateCase(data.progres_orgreferralid, {
           data: state => decision,
         })(state);
       }
