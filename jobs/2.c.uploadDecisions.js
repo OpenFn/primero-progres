@@ -28,8 +28,9 @@ each(state.data.interventions, state => {
         //   }),
         // })(state);
       } else if (state.data.length === 1) {
+        const id = state.data[0].id;
         console.log('Updating decision.');
-        return updateCase(data.progres_orgreferralid, {
+        return updateCase(id, {
           data: state => decision,
         })(state);
       }
