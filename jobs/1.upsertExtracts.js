@@ -72,7 +72,7 @@ each(
           service_request_phone: data['systemuser.mobilephone'],
           service_request_email: data['systemuser.internalemailaddress'],
           service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
-          service_response_type: '', // advise on mapping
+          service_response_type: serviceMap['data.progres_interventiontype2'], // advise on mapping
           service_implementing_agency: ''
         },
       ],
