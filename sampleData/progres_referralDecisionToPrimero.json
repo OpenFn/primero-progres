@@ -9,8 +9,8 @@
       "progres_interoperabiltyreferralrejectionreason": "sample reason",
       "progres_interventiontype": "string",
       "progres_orgreferralid": "string",
-      "progres_reviewby": "string",
-      "progres_reviewdate": "2012-04-23T18:25:43.511Z",
+      "progres_reviewby": "559e1776-b856-e511-80c7-001dd8b71f12",
+      "progres_reviewdate": "2021-05-11T00:00:00Z",
       "progres_reviewdecision": "125080003"
     }
   ],
