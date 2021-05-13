@@ -2,18 +2,17 @@
   "__query_params": {},
   "interventions": [
     {
-      "progres_individualid": "string",
-      "progres_interoperabilityreferralnumber": "string",
-      "progres_interoperabilityreferralrejectionomment": "string",
-      "progres_interoperabilityreferralrouteserviceunito": "string",
-      "progres_interoperabilityreferralrouteto": "string",
-      "progres_interoperabiltyreferralrejectionreason": "string",
+      "progres_individualid": "cd60d1db-369e-e911-80fc-00155d25ac5d"",
+      "progres_interoperabilityreferralnumber": "REF-IOP-DAD-000000051",
+      "progres_interoperabilityreferralrejectioncomment": "sample comments",
+      "progres_interoperabilityreferralrouteto": "125080001",
+      "progres_interoperabiltyreferralrejectionreason": "sample reason",
       "progres_interventiontype": "string",
       "progres_orgreferralid": "string",
       "progres_reviewby": "string",
       "progres_reviewdate": "2012-04-23T18:25:43.511Z",
-      "progres_reviewdecision": "accepted"
+      "progres_reviewdecision": "rejected"
     }
   ],
-  "request_type": "decision"
+  "request_type": "PrimeroIncomingReferralDecision"
 }
