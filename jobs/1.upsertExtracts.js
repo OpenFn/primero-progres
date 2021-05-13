@@ -29,7 +29,7 @@ each(
       ],
       closure_reason: data.progres_comments_nonrestrictedstore,
       unhcr_individual_no: data['individuals.progres_id'],
-      unhcr_id_no: data['individuals.progres_id_registrationgroupid'],
+      unhcr_id_no: data['individuals.progres_id_registrationgroupid.Name'],
       name_first: data['individuals.progres_givenname'],
       name_middle: data['individuals.progres_middlename'],
       name_last: data['individuals.progres_familyname'],
