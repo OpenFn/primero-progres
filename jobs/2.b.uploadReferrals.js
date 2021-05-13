@@ -66,6 +66,7 @@ each(
       _english: 'English',
       _french: 'French',
       language6: 'Somali',
+      language1: 'English'
     };
 
     let lang = [];
