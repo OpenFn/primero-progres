@@ -25,9 +25,10 @@ each(
           service_request_email: data['systemuser.internalemailaddress'],
           service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
           service_response_type: '', // advise on mapping
+          service_implementing_agency: ''
         },
       ],
-      closure_reason: data.progres_comments_nonrestrictedstore,
+      //closure_reason: data.progres_comments_nonrestrictedstore,
       unhcr_individual_no: data['individuals.progres_id'],
       unhcr_id_no: data['individuals.progres_id_registrationgroupid.Name'],
       name_first: data['individuals.progres_givenname'],
