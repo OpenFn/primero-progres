@@ -21,7 +21,7 @@ each(state.data.interventions, state => {
     state => {
       if (state.data.length === 0) {
         throw new Error(
-          `No case found in Primero for id ${data.progres_orgreferralid}`
+          `No case found in Primero for case id ${data.progres_orgreferralid}`
         );
         // return createCase({
         //   data: state => ({
