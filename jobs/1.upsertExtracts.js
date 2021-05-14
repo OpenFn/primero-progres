@@ -67,10 +67,10 @@ each(
           service_response_day_time: data.progres_interventionstartdate,
           service_request_external: true, //Confirm primero mapping
           service_referral_notes: data.progres_comments_nonrestrictedstore, //confirm mapping
-          service_request_title: data['systemuser.title'],
-          service_request_agency: data['systemuser.progres_partner'],
-          service_request_phone: data['systemuser.mobilephone'],
-          service_request_email: data['systemuser.internalemailaddress'],
+          service_request_title: data['user.title'],
+          service_request_agency: data['user.progres_partner'],
+          service_request_phone: data['user.mobilephone'],
+          service_request_email: data['user.internalemailaddress'],
           service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
           service_response_type: serviceMap['data.progres_interventiontype2'], // advise on mapping
           service_implementing_agency: ''
