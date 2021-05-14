@@ -72,8 +72,9 @@ each(
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
-          service_response_type: serviceMap['data.progres_interventiontype2'], // advise on mapping
-          service_implementing_agency: ''
+          service_type: serviceMap['data.progres_interventiontype2'], //TODO: Confirm service mapping works
+          service_implementing_agency: 'UNICEF', //To confirm
+          service_response_type: '' //To confirm
         },
       ],
       //closure_reason: data.progres_comments_nonrestrictedstore,
@@ -86,14 +87,14 @@ each(
       date_of_birth: data['individuals.progres_dateofbirth'].split('T')[0],
       age: calculateAge(new Date(data['individuals.progres_dateofbirth'])),
       sex: data['individuals.progres_sex'],
-      address_current: '', // advise on mapping
+      address_current: '', //TODO; Contactenate locationlevel1, 2, ...6 (comma separated)
       telephone_current: data['individuals.progres_primaryphonenumber'],
-      protection_concerns: protection[0] ? protection : null,
-      language: lang[0] ? lang : null, // Field on sheet is multi-value
-      status: 'open', // advise on mapping
+      protection_concerns: protection[0] ? protection : null, //TODO; Confirm protecton mapping works
+      language: lang[0] ? lang : null, //TODO; Confirm language mapping works
+      status: 'open', 
       module_id: 'primero-cp', //hardcode default - to confirm
       remote: true, //hardcode default
-      case_id: data.progres_primeroid ? data.progres_primeroid : '', // Advise on mapping
+      case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
       assigned_user_names: ['unhcr_cw'],
       //created_by: 'unhcr_cw' //Confirm if we set this on update?
       //created_by_source: '', // advise on mapping
