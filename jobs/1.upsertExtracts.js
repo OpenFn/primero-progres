@@ -61,6 +61,8 @@ each(
     lang.push(languageMap[data['languages.progres_languagecodeid'].Name]);
     //data.language.forEach(l => lang.push(languageMap[l]));
 
+    const address_current = `${data['individuals.progres_coalocationlevel1'].Name}, ${data['individuals.progres_coalocationlevel2'].Name}, ${data['individuals.progres_coalocationlevel3'].Name}, ${data['individuals.progres_coalocationlevel4'].Name}, ${data['individuals.progres_coalocationlevel5'].Name}, ${data['individuals.progres_coalocationlevel6'].Name}`;
+
     const body = {
       progres_interventionnumber: data.progres_interventionnumber,
       // owned_by: '',
@@ -90,7 +92,7 @@ each(
       date_of_birth: data['individuals.progres_dateofbirth'].split('T')[0],
       age: calculateAge(new Date(data['individuals.progres_dateofbirth'])),
       sex: data['individuals.progres_sex'],
-      address_current: '', //TODO; Contactenate locationlevel1, 2, ...6 (comma separated)
+      address_current, //TODO; Contactenate locationlevel1, 2, ...6 (comma separated)
       telephone_current: data['individuals.progres_primaryphonenumber'],
       protection_concerns: protection[0] ? protection : null, //TODO; Confirm protecton mapping works
       language: lang[0] ? lang : null, //TODO; Confirm language mapping works
