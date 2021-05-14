@@ -11,51 +11,54 @@ each(
     };
 
     const serviceMap = {
-      alternative_care: 'BIA', //TESTING: DO NOT USE
-      security: 'Protection',
-      education: 'Education',
-      non_formal_education: 'Education',
-      family_tracing_and_reunification: 'BIA', //TESTING: DO NOT USE
-      basic_psychosocial_support: 'Psycho-social Assistance',
-      focused_non_specialized_mhpss_care: 'Health Assistance',
-      specialized_mhpss_services: 'Health Assistance',
-      food: 'Food Assistance',
-      non_food_items: 'CRI Assistance',
-      cash_assistance: 'Cash Assistance',
-      Livelihoods: 'livelihoods',
-      medical: 'Health Assistance',
-      nutrition: 'Health Assistance',
-      legal_support: 'Legal Aid',
-      documentation: 'Documentation',
-      services_for_children_with_disabilities: 'BIA', //TESTING: DO NOT USE
-      sexual_and_reproductive_health: 'Health Assistance',
-      shelter: 'Accomodation',
-      wash: 'Other',
-      durable_solution: 'Other',
-      relocation: 'Protection',
-      other_please_specify: 'Other',
+      'a8b00885-b3c3-e611-80ca-00155d340529': 'security', // mapping should be like  {[valueInSampleDAta]: 'valueToUpload'}
+      // alternative_care: 'BIA', //TESTING: DO NOT USE
+      // security: 'Protection',
+      // education: 'Education',
+      // non_formal_education: 'Education',
+      // family_tracing_and_reunification: 'BIA', //TESTING: DO NOT USE
+      // basic_psychosocial_support: 'Psycho-social Assistance',
+      // focused_non_specialized_mhpss_care: 'Health Assistance',
+      // specialized_mhpss_services: 'Health Assistance',
+      // food: 'Food Assistance',
+      // non_food_items: 'CRI Assistance',
+      // cash_assistance: 'Cash Assistance',
+      // Livelihoods: 'livelihoods',
+      // medical: 'Health Assistance',
+      // nutrition: 'Health Assistance',
+      // legal_support: 'Legal Aid',
+      // documentation: 'Documentation',
+      // services_for_children_with_disabilities: 'BIA', //TESTING: DO NOT USE
+      // sexual_and_reproductive_health: 'Health Assistance',
+      // shelter: 'Accomodation',
+      // wash: 'Other',
+      // durable_solution: 'Other',
+      // relocation: 'Protection',
+      // other_please_specify: 'Other',
     };
     state.serviceMap = serviceMap;
 
     const protectionMap = {
-      sexual_exploitation: 'a1c5b4fb-8f76-e611-80c9-00155d340529', //CR
-      slavery_sale_abduction: 'a3c5b4fb-8f76-e611-80c9-00155d340529', //DS
-      in_conflict_with_the_law: 'DS-V', //CR-CS
+      'a1c5b4fb-8f76-e611-80c9-00155d340529': 'sexual_exploitation', //CR
+      'a3c5b4fb-8f76-e611-80c9-00155d340529': 'slavery_sale_abduction', //DS
+      'DS-V': 'in_conflict_with_the_law', //CR-CS
     };
 
     let protection = [];
-    protection.push(protectionMap[data.specificneeds.progres_spncategory2.Id]);
+    protection.push(
+      protectionMap[data['specificneeds.progres_spncategory2'].Id]
+    );
     //data.interventions.forEach(pc => protection.push(protectionMap[pc.specificneeds.progres_spncategory2.Id]));
 
     const languageMap = {
-      language1: 'English',
-      _english: 'English', //to confirm
-      _french: 'French',
-      language6: 'Somali',
+      English: 'language1',
+      English: '_english', //to confirm
+      French: '_french',
+      Somali: 'language6',
     };
 
     let lang = [];
-    lang.push(languageMap[data.languages.progres_languagecodeid.Name]);
+    lang.push(languageMap[data['languages.progres_languagecodeid'].Name]);
     //data.language.forEach(l => lang.push(languageMap[l]));
 
     const body = {
@@ -72,9 +75,9 @@ each(
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
-          service_type: serviceMap['data.progres_interventiontype2'], //TODO: Confirm service mapping works
+          service_type: serviceMap[data.progres_interventiontype2], //TODO: Confirm service mapping works
           service_implementing_agency: 'UNICEF', //To confirm
-          service_response_type: '' //To confirm
+          service_response_type: '', //To confirm
         },
       ],
       //closure_reason: data.progres_comments_nonrestrictedstore,
@@ -91,7 +94,7 @@ each(
       telephone_current: data['individuals.progres_primaryphonenumber'],
       protection_concerns: protection[0] ? protection : null, //TODO; Confirm protecton mapping works
       language: lang[0] ? lang : null, //TODO; Confirm language mapping works
-      status: 'open', 
+      status: 'open',
       module_id: 'primero-cp', //hardcode default - to confirm
       remote: true, //hardcode default
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
