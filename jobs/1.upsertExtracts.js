@@ -58,7 +58,11 @@ each(
     };
 
     let lang = [];
-    lang.push(languageMap[data['languages.progres_languagecodeid'].Name]);
+    lang.push(
+      languageMap[data['languages.progres_languagecodeid'].Name]
+        ? languageMap[data['languages.progres_languagecodeid'].Name]
+        : 'other'
+    );
     //data.language.forEach(l => lang.push(languageMap[l]));
 
     const address_current = `${data['individuals.progres_coalocationlevel1'].Name}, ${data['individuals.progres_coalocationlevel2'].Name}, ${data['individuals.progres_coalocationlevel3'].Name}, ${data['individuals.progres_coalocationlevel4'].Name}, ${data['individuals.progres_coalocationlevel5'].Name}, ${data['individuals.progres_coalocationlevel6'].Name}`;
