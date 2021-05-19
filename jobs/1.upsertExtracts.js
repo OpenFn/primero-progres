@@ -11,11 +11,12 @@ each(
     };
 
     const serviceMap = {
-      'a8b00885-b3c3-e611-80ca-00155d340529': 'security', // mapping should be like  {[valueInSampleDAta]: 'valueToUpload'}
+      'services_for_children_with_disabilities': 'Advocacy / Direct intervention'
+      // 'a8b00885-b3c3-e611-80ca-00155d340529': 'security', // mapping should be like  {[valueInSampleDAta]: 'valueToUpload'}
       // alternative_care: 'BIA', //TESTING: DO NOT USE
-      // security: 'Protection',
-      // education: 'Education',
-      // non_formal_education: 'Education',
+      security: 'Protection',
+      education: 'Education',
+      non_formal_education: 'Education',
       // family_tracing_and_reunification: 'BIA', //TESTING: DO NOT USE
       // basic_psychosocial_support: 'Psycho-social Assistance',
       // focused_non_specialized_mhpss_care: 'Health Assistance',
@@ -81,7 +82,7 @@ each(
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
-          service_type: serviceMap[data.progres_interventiontype2], //TODO: Confirm service mapping works
+          service_type: serviceMap[data.interventiontype.progres_description], //Replaces: progres_interventiontype2
           service_implementing_agency: 'UNICEF', //To confirm
           service_response_type: '', //To confirm
         },
