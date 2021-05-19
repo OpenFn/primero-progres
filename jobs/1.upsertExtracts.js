@@ -11,12 +11,12 @@ each(
     };
 
     const serviceMap = {
-      'services_for_children_with_disabilities': 'Advocacy / Direct intervention'
+      'Advocacy / Direct intervention': 'services_for_children_with_disabilities',
       // 'a8b00885-b3c3-e611-80ca-00155d340529': 'security', // mapping should be like  {[valueInSampleDAta]: 'valueToUpload'}
       // alternative_care: 'BIA', //TESTING: DO NOT USE
-      security: 'Protection',
-      education: 'Education',
-      non_formal_education: 'Education',
+//       security: 'Protection',
+//       education: 'Education',
+//       non_formal_education: 'Education',
       // family_tracing_and_reunification: 'BIA', //TESTING: DO NOT USE
       // basic_psychosocial_support: 'Psycho-social Assistance',
       // focused_non_specialized_mhpss_care: 'Health Assistance',
