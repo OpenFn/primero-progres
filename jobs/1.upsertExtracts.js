@@ -14,9 +14,9 @@ each(
       'Advocacy / Direct intervention': 'services_for_children_with_disabilities',
       // 'a8b00885-b3c3-e611-80ca-00155d340529': 'security', // mapping should be like  {[valueInSampleDAta]: 'valueToUpload'}
       // alternative_care: 'BIA', //TESTING: DO NOT USE
-//       security: 'Protection',
-//       education: 'Education',
-//       non_formal_education: 'Education',
+      //       security: 'Protection',
+      //       education: 'Education',
+      //       non_formal_education: 'Education',
       // family_tracing_and_reunification: 'BIA', //TESTING: DO NOT USE
       // basic_psychosocial_support: 'Psycho-social Assistance',
       // focused_non_specialized_mhpss_care: 'Health Assistance',
@@ -40,9 +40,9 @@ each(
     state.serviceMap = serviceMap;
 
     const protectionMap = {
-//       'a1c5b4fb-8f76-e611-80c9-00155d340529': 'sexual_exploitation', //CR
-//       'a3c5b4fb-8f76-e611-80c9-00155d340529': 'slavery_sale_abduction', //DS
-//       'DS-V': 'in_conflict_with_the_law', //CR-CS
+      //       'a1c5b4fb-8f76-e611-80c9-00155d340529': 'sexual_exploitation', //CR
+      //       'a3c5b4fb-8f76-e611-80c9-00155d340529': 'slavery_sale_abduction', //DS
+      //       'DS-V': 'in_conflict_with_the_law', //CR-CS
       'Lower Body Mobility': 'physical_abuse_violence',
       'Upper Body Mobility': 'sexual_abuse_violence',
       'Vision': 'rape',
@@ -128,9 +128,9 @@ each(
       'Sexual and Gender Based Violence': 'sv__sexual_and_gender_based_violence_0fca34d',
       'Torture': 'tr__torture_b92f06b',
     };
-    
-    const spneed = data['specificneeds.progres_spnsubcategory2'] ? data['specificneeds.progres_spnsubcategory2'].Name : 
-      data['specificneeds.progres_spncategory2'] ? data['specificneeds.progres_spncategory2'].Name : undefined; 
+
+    const spneed = data['specificneeds.progres_spnsubcategory2'] ? data['specificneeds.progres_spnsubcategory2'].Name :
+      data['specificneeds.progres_spncategory2'] ? data['specificneeds.progres_spncategory2'].Name : undefined;
 
     let protection = [];
     protection.push(
@@ -175,8 +175,8 @@ each(
       'Arabic, Standard': '_arabic',
       'Arabic, Sudanese Creole': '_arabic',
       'Arabic, Sudanese Spoken': '_arabic',
-      'Arabic, Ta'izzi-adeni Spoken': '_arabic',
-      'Arabic, Tajiki Spoken': '_arabic',
+      "Arabic, Ta'izzi-adeni Spoken": '_arabic',
+      "Arabic, Tajiki Spoken": '_arabic',
       'Arabic, Tunisian Spoken': '_arabic',
       'Arabic, Uzbeki Spoken': '_arabic',
       'Boma': '_boma',
@@ -253,7 +253,7 @@ each(
       'Haiphong Sign Language': '_sign_language',
       'Hanoi Sign Language': '_sign_language',
       'Hausa Sign Language': '_sign_language',
-      'Hawai'i Pidgin Sign Language': '_sign_language',
+      "Hawai'i Pidgin Sign Language": '_sign_language',
       'Ho Chi Minh City Sign Language': '_sign_language',
       'Hungarian Sign Language': '_sign_language',
       'Icelandic Sign Language': '_sign_language',
@@ -278,7 +278,7 @@ each(
       'Malaysian Sign Language': '_sign_language',
       'Maltese Sign Language': '_sign_language',
       'Maritime Sign Language': '_sign_language',
-      'Martha's Vineyard Sign Language': '_sign_language',
+      "Martha's Vineyard Sign Language": '_sign_language',
       'Mexican Sign Language': '_sign_language',
       'Monastic Sign Language': '_sign_language',
       'Mongolian Sign Language': '_sign_language',
@@ -354,7 +354,7 @@ each(
       'English': 'language6',
       'Fernando Po Creole English': 'language6',
       'Guyanese Creole English': 'language6',
-      'Hawai'i Creole English': 'language6',
+      "Hawai'i Creole English": 'language6',
       'Islander Creole English': 'language6',
       'Jamaican Creole English': 'language6',
       'Liberian English': 'language6',
@@ -395,7 +395,7 @@ each(
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
           service_type: serviceMap[data.interventiontype.progres_description], //Replaces: progres_interventiontype2
-          service_implementing_agency:  data.progres_businessunit==='d69e8ec1-e80b-e611-80d3-001dd8b71f12' ? 'UNICEF' : 'UNICEF', //To confirm no more BUs to map
+          service_implementing_agency: data.progres_businessunit === 'd69e8ec1-e80b-e611-80d3-001dd8b71f12' ? 'UNICEF' : 'UNICEF', //To confirm no more BUs to map
           service_response_type: '', //To confirm
         },
       ],
