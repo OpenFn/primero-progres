@@ -6,7 +6,8 @@ each(state.data.interventions, state => {
     progres_interventionnumber: data.progres_interoperabilityreferralnumber, //New mapping; to confirm if this is same as inter no
     unhcr_individual_no: data.progres_individualid, //New mapping
     unhcr_id_no: data.progres_interoperabilityreferralid, //New mapping
-    status: 'accepted', //data.progres_reviewdecision, //TODO: add tansformation so if DTP sends '125080000', return the string 'Accepted'
+    status: data.progres_reviewdecision==='125080000'? 'accepted' : 
+      data.progres_reviewdecision==='125080001' ? 'rejected' : undefined, //TODO: Throw error if decision not recognized?
     //closure_reason: data.progres_comments_nonrestrictedstore, //comment out for now;TO CONFIRM WITH UNHCR
     //service_referral_notes: data.progres_comments_nonrestrictedstore, //comment out for now; TO CONFIRM WITH UNHCR
     //service_type: data.progres_interventiontype2, //comment out for now; TO CONFIRM
