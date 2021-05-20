@@ -1,6 +1,7 @@
 alterState(state => {
     console.log(JSON.stringify(state.data, null, 2)); 
     const error = state.error || '';
+    const { urlDTP, key, cert } = state.configuration;
 
     let status = 'failed';
     for (elt of error)
