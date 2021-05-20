@@ -1,4 +1,5 @@
 alterState(state => {
+    console.log(JSON.stringify(state.data, null, 2)); 
     const error = state.error || '';
 
     let status = 'failed';
