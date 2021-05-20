@@ -23,13 +23,8 @@ each(state.data.interventions, state => {
       if (state.data.length === 0) {
         throw new Error(
           `No case found in Primero for case id ${data.progres_orgreferralid}`
+          //TODO: Catch error and send notification to DTP
         );
-        // return createCase({
-        //   data: state => ({
-        //     ...decision,
-        //     service_response_day_time: new Date().toISOString(), // set on creation
-        //   }),
-        // })(state);
       } else if (state.data.length === 1) {
         const id = state.data[0].id;
         console.log(`Updating decision with id: ${id}.`);
