@@ -1,4 +1,5 @@
 alterState(state => {
+    const { configuration } = state;
     console.log(JSON.stringify(state.data, null, 2)); 
     const error = state.error || '';
     const { urlDTP, key, cert } = state.configuration;
