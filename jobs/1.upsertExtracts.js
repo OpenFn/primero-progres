@@ -380,6 +380,8 @@ each(
 
     const address_current = `${data['individuals.progres_coalocationlevel1'].Name}, ${data['individuals.progres_coalocationlevel2'].Name}, ${data['individuals.progres_coalocationlevel3'].Name}, ${data['individuals.progres_coalocationlevel4'].Name}, ${data['individuals.progres_coalocationlevel5'].Name}, ${data['individuals.progres_coalocationlevel6'].Name}`;
 
+    const progres_description = data[interventiontype.progres_description];
+
     const body = {
       progres_interventionnumber: data.progres_interventionnumber,
       // owned_by: '',
@@ -394,7 +396,7 @@ each(
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
-          service_type: serviceMap[data.interventiontype.progres_description], //Replaces: progres_interventiontype2
+          service_type: serviceMap[progres_description], //Replaces: progres_interventiontype2
           service_implementing_agency: data.progres_businessunit === 'd69e8ec1-e80b-e611-80d3-001dd8b71f12' ? 'UNICEF' : 'UNICEF', //To confirm no more BUs to map
           service_response_type: '', //To confirm
         },
