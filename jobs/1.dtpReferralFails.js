@@ -9,7 +9,7 @@ alterState(state => {
         }
 
     const data = {
-        interventionNumber: state.data.data.progres_interventionnumber,
+        interventionNumber: state.data.interventions[0].progres_interventionnumber,
         reason: 'Intervention referral is missing fields required for sending to Primero. Please include missing fields and re-send the request.'
     };
 
