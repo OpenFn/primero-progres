@@ -380,7 +380,7 @@ each(
 
     const address_current = `${data['individuals.progres_coalocationlevel1'].Name}, ${data['individuals.progres_coalocationlevel2'].Name}, ${data['individuals.progres_coalocationlevel3'].Name}, ${data['individuals.progres_coalocationlevel4'].Name}, ${data['individuals.progres_coalocationlevel5'].Name}, ${data['individuals.progres_coalocationlevel6'].Name}`;
 
-    const progres_description = data[interventiontype.progres_description];
+    const progres_description = data['interventiontype.progres_description'];
 
     const body = {
       progres_interventionnumber: data.progres_interventionnumber,
