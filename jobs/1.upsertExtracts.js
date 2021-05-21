@@ -372,11 +372,10 @@ each(
 
     let lang = [];
     lang.push(
-      languageMap[data['languages.progres_languagecodeid'].Name]
-        ? languageMap[data['languages.progres_languagecodeid'].Name]
-        : 'if_other_language__please_specify_335944b'
+      data['languages.progres_languagecodeid']
+        ? languageMap[data['languages.progres_languagecodeid'].Name] || 'if_other_language__please_specify_335944b'
+        : undefined
     );
-    //data.language.forEach(l => lang.push(languageMap[l]));
 
     const address_current = `${data['individuals.progres_coalocationlevel1'].Name}, ${data['individuals.progres_coalocationlevel2'].Name}, ${data['individuals.progres_coalocationlevel3'].Name}, ${data['individuals.progres_coalocationlevel4'].Name}, ${data['individuals.progres_coalocationlevel5'].Name}, ${data['individuals.progres_coalocationlevel6'].Name}`;
 
@@ -392,7 +391,7 @@ each(
           service_request_external: true, //Confirm primero mapping
           service_referral_notes: data.progres_comments_nonrestrictedstore, //confirm mapping
           service_request_title: data['user.title'],
-          service_request_agency: data['user.progres_partner'],
+          service_request_agency: data['user.progres_partner'] ? data['user.progres_partner'] : 'UNICEF',
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
@@ -409,7 +408,7 @@ each(
       name_last: data['individuals.progres_familyname'],
       name_nickname: data['individuals.progres_id_commonyusedname'],
       date_of_birth: data['individuals.progres_dateofbirth'].split('T')[0],
-      age: calculateAge(new Date(data['individuals.progres_dateofbirth'])),
+      age: data['individuals.progres_dateofbirth'] ? calculateAge(new Date(data['individuals.progres_dateofbirth'])) : undefined,
       sex: data['individuals.progres_sex'],
       address_current, //TODO; Contactenate locationlevel1, 2, ...6 (comma separated)
       telephone_current: data['individuals.progres_primaryphonenumber'],
