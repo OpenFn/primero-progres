@@ -10,32 +10,30 @@ each(
       return Math.abs(age_dt.getUTCFullYear() - 1970);
     };
 
+    //TODO: Evaluate subtype AND type for service mappings
     const serviceMap = {
-      'Advocacy / Direct intervention': 'services_for_children_with_disabilities',
-      // 'a8b00885-b3c3-e611-80ca-00155d340529': 'security', // mapping should be like  {[valueInSampleDAta]: 'valueToUpload'}
-      // alternative_care: 'BIA', //TESTING: DO NOT USE
-      //       security: 'Protection',
-      //       education: 'Education',
-      //       non_formal_education: 'Education',
-      // family_tracing_and_reunification: 'BIA', //TESTING: DO NOT USE
-      // basic_psychosocial_support: 'Psycho-social Assistance',
-      // focused_non_specialized_mhpss_care: 'Health Assistance',
-      // specialized_mhpss_services: 'Health Assistance',
-      // food: 'Food Assistance',
-      // non_food_items: 'CRI Assistance',
-      // cash_assistance: 'Cash Assistance',
-      // Livelihoods: 'livelihoods',
-      // medical: 'Health Assistance',
-      // nutrition: 'Health Assistance',
-      // legal_support: 'Legal Aid',
-      // documentation: 'Documentation',
-      // services_for_children_with_disabilities: 'BIA', //TESTING: DO NOT USE
-      // sexual_and_reproductive_health: 'Health Assistance',
-      // shelter: 'Accomodation',
-      // wash: 'Other',
-      // durable_solution: 'Other',
-      // relocation: 'Protection',
-      // other_please_specify: 'Other',
+      'Accessibility': 'services_for_children_with_disabilities',
+      'Advocacy / Direct intervention': 'other',
+      'Alternative Care': 'alternative_care',
+      'BIA': 'alternative_care',
+      'BID': 'alternative_care',
+      'Documentation': 'alternative_care',
+      'Education': 'education_formal',
+      'Energy': 'non_food_items',
+      'Family Tracing and Reunification': 'family_tracing_and_reunification',
+      'Follow-up actions': 'basic_psychosocial_support',
+      'Health Assistance': 'medical',
+      'Housing/Shelter': 'shelter',
+      'Law Enforcement (police / Security)': 'security_e_g_safe_shelter',
+      'Legal Aid': 'legal_support',
+      'Livelihoods': 'livelihoods',
+      'Mediation': 'basic_psychosocial_support',
+      'Other': 'other',
+      'Other Material Support': 'non_food_items',
+      'Psychosocial Support (focused)': 'focuses_non_specialized_mhpss_care',
+      'Safety': 'security_e_g_safe_shelter',
+      'Social Skills': 'non_formal_education',
+      'Wash': 'wash',
     };
     state.serviceMap = serviceMap;
 
