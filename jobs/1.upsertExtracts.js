@@ -138,6 +138,14 @@ each(
     );
     //data.interventions.forEach(pc => protection.push(protectionMap[pc.specificneeds.progres_spncategory2.Id]));
 
+    const sexMap = {
+      '125080000': 'female',
+      '125080001': 'male',
+      '125080002': 'other',
+      '125080003': 'unknown',
+    };
+
+
     const languageMap = {
       //'English': 'language1', //old tests
       //'English': '_english', 
@@ -380,6 +388,7 @@ each(
     const address_current = data['individuals.progres_coalocationlevel1'] ? `${data['individuals.progres_coalocationlevel1'].Name}, ${data['individuals.progres_coalocationlevel2'].Name}, ${data['individuals.progres_coalocationlevel3'].Name}, ${data['individuals.progres_coalocationlevel4'].Name}, ${data['individuals.progres_coalocationlevel5'].Name}, ${data['individuals.progres_coalocationlevel6'].Name}` : undefined;
 
     const progres_description = data['interventiontype.progres_description'];
+    const progres_sex = data['individuals.progres_sex'];
 
     const body = {
       progres_interventionnumber: data.progres_interventionnumber,
@@ -408,7 +417,7 @@ each(
       name_nickname: data['individuals.progres_id_commonyusedname'],
       date_of_birth: data['individuals.progres_dateofbirth'].split('T')[0],
       age: data['individuals.progres_dateofbirth'] ? calculateAge(new Date(data['individuals.progres_dateofbirth'])) : undefined,
-      sex: data['individuals.progres_sex'],
+      sex: data['individuals.progres_sex'] ? sexMap[progres_sex] : undefined,
       address_current, //TODO; Contactenate locationlevel1, 2, ...6 (comma separated)
       telephone_current: data['individuals.progres_primaryphonenumber'],
       protection_concerns: protection[0] ? protection : null, //TODO; Confirm protecton mapping works
