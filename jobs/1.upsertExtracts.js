@@ -383,7 +383,6 @@ each(
 
     const body = {
       progres_interventionnumber: data.progres_interventionnumber,
-      // owned_by: '',
       // service_type: data.progres_interventiontype2,
       services_section: [
         {
@@ -397,7 +396,7 @@ each(
           service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
           service_type: serviceMap[progres_description], //Replaces: progres_interventiontype2
           service_implementing_agency: data.progres_businessunit === 'd69e8ec1-e80b-e611-80d3-001dd8b71f12' ? 'UNICEF' : 'UNICEF', //To confirm no more BUs to map
-          service_response_type: '', //To confirm
+          service_response_type: 'service_provision',
         },
       ],
       //closure_reason: data.progres_comments_nonrestrictedstore,
@@ -415,11 +414,12 @@ each(
       protection_concerns: protection[0] ? protection : null, //TODO; Confirm protecton mapping works
       language: lang[0] ? lang : null, //TODO; Confirm language mapping works
       status: 'open',
-      module_id: 'primero-cp', //hardcode default - to confirm
+      module_id: 'primeromodule-cp', //hardcode default - to confirm
       remote: true, //hardcode default
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
       assigned_user_names: ['unhcr_cw'],
-      //created_by: 'unhcr_cw' //Confirm if we set this on update?
+      owned_by: 'unhcr_cw',
+      created_by: 'open_function' //Confirm if we set this on update?
       //created_by_source: '', // advise on mapping
     };
     // console.log('Mapping referral data to Primero');
