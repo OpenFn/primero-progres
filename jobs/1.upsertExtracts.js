@@ -476,7 +476,7 @@ each(
               }),
             },
             state => {
-              console.log(`New case created for ${state.data.case_id}`);
+              console.log(`New case created for case id:${state.data.case_id}`);
               return state;
             }
           )(state);
