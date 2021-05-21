@@ -16,7 +16,7 @@
                 "service_request_email": "mohan.verma@unhcr.local",
                 "service_type": "services_for_children_with_disabilities",
                 "service_implementing_agency": "UNICEF",
-                "service_response_type": null,
+                "service_response_type": "service_provision",
                 "unique_id": "741a501e-231f-4b93-8183-93116b94bd2a",
                 "service_implemented": "not_implemented"
             }
