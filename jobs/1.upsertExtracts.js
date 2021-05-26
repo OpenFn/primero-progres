@@ -400,12 +400,12 @@ each(
         : undefined
     );
     
-    const address1 = data['individuals.progres_coalocationlevel1'] ? data['individuals.progres_coalocationlevel1'].Name : undefined; 
-    const address2 = data['individuals.progres_coalocationlevel2'] ? data['individuals.progres_coalocationlevel2'].Name : undefined; 
-    const address3 = data['individuals.progres_coalocationlevel3'] ? data['individuals.progres_coalocationlevel3'].Name : undefined; 
-    const address4 = data['individuals.progres_coalocationlevel4'] ? data['individuals.progres_coalocationlevel4'].Name : undefined; 
-    const address5 = data['individuals.progres_coalocationlevel5'] ? data['individuals.progres_coalocationlevel5'].Name : undefined; 
-    const address6 = data['individuals.progres_coalocationlevel6'] ? data['individuals.progres_coalocationlevel6'] : undefined; 
+    const address1 = data['individuals.progres_coalocationlevel1'] ? data['individuals.progres_coalocationlevel1'].Name : ''; 
+    const address2 = data['individuals.progres_coalocationlevel2'] ? data['individuals.progres_coalocationlevel2'].Name : ''; 
+    const address3 = data['individuals.progres_coalocationlevel3'] ? data['individuals.progres_coalocationlevel3'].Name : ''; 
+    const address4 = data['individuals.progres_coalocationlevel4'] ? data['individuals.progres_coalocationlevel4'].Name : ''; 
+    const address5 = data['individuals.progres_coalocationlevel5'] ? data['individuals.progres_coalocationlevel5'].Name : ''; 
+    const address6 = data['individuals.progres_coalocationlevel6'] ? data['individuals.progres_coalocationlevel6'] : ''; 
 
     const address_current = address1 + ' ' + address2 + ' ' + address3 + ' ' + address4 + ' ' + address5 + ' ' + address6; 
 
