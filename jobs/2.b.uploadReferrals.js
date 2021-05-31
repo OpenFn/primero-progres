@@ -237,7 +237,8 @@ each(
           ? service.service_type_other
           : null,
         service_referral_notes: service.service_referral_notes,
-        owned_by_agency_id: data.owned_by_agency_id,
+        owned_by_agency_id: 'Terres des Hommes',
+        //owned_by_agency_id: data.owned_by_agency_id, //FOR PROD
         primero_user: data.owned_by,
         position: user
           ? user.position
