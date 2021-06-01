@@ -24,7 +24,7 @@ each(
     const { services_section } = data;
 
     const user = users.find(user => user.user_name === data.owned_by);
-    console.log('user', user);
+    //console.log('user', user);
 
     //TODO: Not sure this map is implemented correctly, but here are the mappings...
     const serviceMap = {
@@ -292,11 +292,15 @@ each(
         //     (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) :
         //     'High and Emergency',
       };
+      const shortid = data.case_id_display; 
       //console.log('Mapping referral data to DTP');
       console.log(
         'Mapping referral data to DTP:',
         JSON.stringify(obj, null, 2)
       );
+      console.log(
+        'case_id_display:', shortid); 
+        
       referrals.push(obj);
     });
     //console.log('referrals...', JSON.stringify(referrals, null, 2));
