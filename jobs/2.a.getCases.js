@@ -3,7 +3,7 @@ getCases(
     remote: true,
     assigned_user_names: ['unhcr_cw'],
     //TODO: add where last_updated_at = last24hours
-    last_updated_at: '2021-06-01'//new Date().toISOString(),
+    //last_updated_at: new Date().toISOString(), //TODO: Set timestamp to 00:00
   },
   state => {
     const cases = state.data.filter(
