@@ -156,8 +156,8 @@ each(
     const sexMap = {
       125080000: 'female',
       125080001: 'male',
-      125080002: 'other',
-      125080003: 'unknown',
+      125080002: 'other_b25f252',
+      125080003: 'unknown_4b34795',
     };
 
     const languageMap = {
