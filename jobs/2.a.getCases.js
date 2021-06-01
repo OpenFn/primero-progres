@@ -2,7 +2,7 @@ getCases(
   {
     remote: true,
     assigned_user_names: ['unhcr_cw'],
-    //where last_updated_at = since last run
+    //TODO: add where last_updated_at = last24hours
   },
   state => {
     const cases = state.data.filter(
