@@ -224,7 +224,8 @@ each(
     //====================================================================================================//
     //==== UPDATE: We now map the Primero Ids for DTP to map to the Progres fields ======================//
     const referrals = [];
-    services_section.forEach(service => {
+    return each(services_section, state => {
+      const service = state.data;
       if (service.service_implementing_agency_individual === 'unhcr_cw') {
         const obj = {
           request_type: 'ReceiveIncomingReferral',
@@ -304,41 +305,33 @@ each(
         );
         console.log('case_id_display:', shortid);
 
-        referrals.push(obj);
+        // referrals.push(obj);
+        return http
+          .post({
+            url: urlDTP,
+            data: obj, //referrals,
+            headers: {
+              'Ocp-Apim-Subscription-Key':
+                configuration['Ocp-Apim-Subscription-Key'],
+            },
+            agentOptions: {
+              key,
+              cert,
+            },
+          })(state)
+          .then(() => {
+            //console.log(JSON.stringify(state.data, null, 2));
+            console.log('Response uploaded to DTP/Progres.');
+            return state;
+          })
+          .catch(error => {
+            let newError = error;
+            newError.config = 'REDACTED';
+            throw newError;
+          });
       }
-    });
-    //console.log('referrals...', JSON.stringify(referrals, null, 2));
-
-    //====TODO: Confirm each referral is sent via a separate request to DTP ========================//
-    // console.log(
-    //   'Referral to upload to DTP...',
-    //   JSON.stringify(referrals, null, 2)
-    // );
-    const referrals1 = referrals[0]; //TODO: UPDATE TO ONLY SEND 1
-
-    return http
-      .post({
-        url: urlDTP,
-        data: referrals1, //referrals,
-        headers: {
-          'Ocp-Apim-Subscription-Key':
-            configuration['Ocp-Apim-Subscription-Key'],
-        },
-        agentOptions: {
-          key,
-          cert,
-        },
-      })(state)
-      .then(() => {
-        //console.log(JSON.stringify(state.data, null, 2));
-        console.log('Response uploaded to DTP/Progres.');
-        return state;
-      })
-      .catch(error => {
-        let newError = error;
-        newError.config = 'REDACTED';
-        throw newError;
-      });
+      return state;
+    })(state);
   })
 );
 
