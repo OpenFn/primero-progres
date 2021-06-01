@@ -49,7 +49,7 @@ getCases(
             owned_by: data.owned_by,
             progres_interventionnumber: state.data.progres_interventionnumber,
             status: data.status,
-            closure_reason: '', // advise on mapping
+            closure_reason: data.closure_reason, 
             request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
           };
 
