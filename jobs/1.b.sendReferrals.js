@@ -3,7 +3,7 @@ getCases(
     remote: true,
     //case_id: data.progres_primeroid || data['individuals.progres_id'], //wrong filter
     //TODO: get all cases where...
-    query: state => {
+    /* query: state => {
       var d = new Date(),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
@@ -12,7 +12,8 @@ getCases(
       if (month.length < 2) month = '0' + month;
       if (day.length < 2) day = '0' + day;
       return `last_updated_at=${year}-${month}-${day}`;
-    },
+    }, */
+    last_updated_at: new Date().toISOString(),
     //1) data.last_updated_at = Last 24 hours AND data.status !== 'open'
     //2) data.services_section[...] contains service where progres_interventionnumber!==undefined
   },
@@ -35,7 +36,8 @@ getCases(
         ref.services_section.some(service => service.progres_interventionnumber)
       );
 
-    if (nonOpenedCases.length === 0) console.log('All cases have "open" status. No decisions to send to DTP');
+    if (nonOpenedCases.length === 0)
+      console.log('All cases have "open" status. No decisions to send to DTP');
 
     return each(nonOpenedCases, state => {
       // console.log(state.data);
@@ -49,7 +51,7 @@ getCases(
             owned_by: data.owned_by,
             progres_interventionnumber: state.data.progres_interventionnumber,
             status: data.status,
-            closure_reason: data.closure_reason, 
+            closure_reason: data.closure_reason,
             request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
           };
 
@@ -95,4 +97,4 @@ getCases(
 //         status: 'rejected',
 //         closure_reason: 'primero reason for rejection',
 //         request_type: 'ReceiveDecisionOutgoingReferral'
-//       }; 
+//       };
