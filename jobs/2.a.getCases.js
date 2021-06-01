@@ -3,6 +3,7 @@ getCases(
     remote: true,
     assigned_user_names: ['unhcr_cw'],
     //TODO: add where last_updated_at = last24hours
+    last_updated_at: new Date().toISOString(),
   },
   state => {
     const cases = state.data.filter(
@@ -13,7 +14,7 @@ getCases(
     );
 
     console.log(cases.length, 'referrals fetched.');
-    console.log('Posting to Inbox...', JSON.stringify(state.data, null, 2));
+    console.log('Posting to Inbox...', JSON.stringify(cases, null, 2));
 
     state.cases = cases;
 
