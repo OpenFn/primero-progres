@@ -8,7 +8,7 @@ getCases(
     const cases = state.data.filter(
       data =>
         //data.assigned_user_names === ['unhcr_cw']
-        data.services_section &&
+        data.services_section && data.services_section.length > 0 && 
         data.services_section[0].service_implementing_agency_individual === 'unhcr_cw'
         //data.services_section[0].service_implementing_agency === 'unhcr'
     );
