@@ -269,7 +269,9 @@ each(
         date_of_birth: new Date(data.date_of_birth)
           .toISOString()
           .substring(0, 10),
-        sex: data.sex === 'unknown_4b34795' ? 'unknow' : data.sex,
+        sex: data.sex === 'unknown_4b34795' ? 'unknow' : 
+          (data.sex === 'other_b25f252' ? 
+          'other' : data.sex),
         address_current: data.address_current,
         telephone_current: data.telephone_current,
         // protection_concerns: 'CR-AF', //Hardcoded sample
