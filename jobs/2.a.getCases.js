@@ -2,9 +2,9 @@ getCases(
   {
     remote: true,
     assigned_user_names: ['unhcr_cw'],
-    // last_updated_at: new Date(
-    //   new Date().toISOString().split('T')[0]
-    // ).toISOString(),
+    last_updated_at: new Date(
+      new Date().toISOString().split('T')[0]
+    ).toISOString(),
   },
   state => {
     const cases = state.data.filter(
