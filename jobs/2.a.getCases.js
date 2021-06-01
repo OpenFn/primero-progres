@@ -10,7 +10,8 @@ getCases(
       data =>
         //data.assigned_user_names === ['unhcr_cw']
         data.services_section &&
-        data.services_section[0].service_implementing_agency === 'unhcr'
+        data.services_section[0].service_implementing_agency_individual === 'unhcr_cw'
+        //data.services_section[0].service_implementing_agency === 'unhcr'
     );
 
     console.log(cases.length, 'referrals fetched.');
