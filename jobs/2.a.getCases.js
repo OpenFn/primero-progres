@@ -9,7 +9,7 @@ getCases(
       data =>
         data.services_section && 
         data.services_section[0].service_implementing_agency === 'unhcr' //old criteria
-        //data.services_section[0].service_implementing_agency_individual === 'unhcr_cw' //NEW criteria to implement
+        //data.services_section[0].service_implementing_agency_individual === 'unhcr_cw' //TODO: NEW criteria to implement
 
     );
 
