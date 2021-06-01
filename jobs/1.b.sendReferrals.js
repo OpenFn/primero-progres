@@ -35,7 +35,7 @@ getCases(
         ref.services_section.some(service => service.progres_interventionnumber)
       );
 
-    if (nonOpenedCases.length === 0) console.log('No decisions to send to DTP');
+    if (nonOpenedCases.length === 0) console.log('All cases have "open" status. No decisions to send to DTP');
 
     return each(nonOpenedCases, state => {
       // console.log(state.data);
