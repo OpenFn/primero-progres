@@ -2,7 +2,7 @@ getCases(
   {
     remote: true,
     assigned_user_names: ['unhcr_cw'],
-    //last_updated_at: new Date().toISOString(), //TODO: Set timestamp to 00:00
+    last_updated_at: new Date(new Date().toISOString().split('T')[0]).toISOString(),
   },
   state => {
     const cases = state.data.filter(
@@ -10,7 +10,6 @@ getCases(
         data.services_section && 
         data.services_section[0].service_implementing_agency === 'unhcr' //old criteria
         //data.services_section[0].service_implementing_agency_individual === 'unhcr_cw' //TODO: NEW criteria to implement
-
     );
 
     console.log(cases.length, 'referrals fetched.');
