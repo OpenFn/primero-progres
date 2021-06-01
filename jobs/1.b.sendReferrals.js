@@ -46,11 +46,11 @@ getCases(
         if (state.data.progres_interventionnumber) {
           const decision = {
             case_id: data.case_id,
-            primero_user: data.owned_by,
+            owned_by: data.owned_by,
             progres_interventionnumber: state.data.progres_interventionnumber,
             status: data.status,
             closure_reason: '', // advise on mapping
-            request_type: 'PrimeroIncomingReferralDecision"', //default hardcode
+            request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
           };
 
           console.log(
@@ -89,10 +89,10 @@ getCases(
 
 //==== Example decision output to post to DTP ===///
 // decision = {
-//   case_id: 'b30cba6b-8d97-4524-b77f-a8f50cfcc974',
-//   owned_by: 'unhcr_cw',
-//   progres_interventionnumber: 'NAI-20-PRTITV-0000006',
-//   status: 'rejected',
-//   closure_reason: 'primero reason for rejection',
-//   request_type: 'Primero Referral Decision'
-// };
+//         case_id: 'b30cba6b-8d97-4524-b77f-a8f50cfcc974',
+//         owned_by: 'unhcr_cw',
+//         progres_interventionnumber: 'NAI-20-PRTITV-0000006',
+//         status: 'rejected',
+//         closure_reason: 'primero reason for rejection',
+//         request_type: 'ReceiveDecisionOutgoingReferral'
+//       }; 
