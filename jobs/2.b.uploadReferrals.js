@@ -275,7 +275,7 @@ each(
             .substring(0, 10),
           sex:
             data.sex === 'unknown_4b34795'
-              ? 'unknow'
+              ? 'unknown'
               : data.sex === 'other_b25f252'
               ? 'other'
               : data.sex,
