@@ -1,6 +1,7 @@
 getCases(
   {
     remote: true,
+    last_updated_at: '2021-06-02T00:00:00.587Z..'
     //case_id: data.progres_primeroid || data['individuals.progres_id'], //wrong filter
     //TODO: get all cases where...
     /* query: state => {
@@ -13,7 +14,7 @@ getCases(
       if (day.length < 2) day = '0' + day;
       return `last_updated_at=${year}-${month}-${day}`;
     }, */
-    last_updated_at: new Date().toISOString(),
+    //last_updated_at: new Date().toISOString(),
     //1) data.last_updated_at = Last 24 hours AND data.status !== 'open'
     //2) data.services_section[...] contains service where progres_interventionnumber!==undefined
   },
