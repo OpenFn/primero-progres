@@ -238,7 +238,9 @@ each(
           service_type_other: service.service_type_other
             ? service.service_type_other
             : null,
-          service_referral_notes: service.service_referral_notes ? service.service_referral_notes : 'Primero referral',
+          service_referral_notes: service.service_referral_notes
+            ? service.service_referral_notes
+            : 'Primero referral',
           owned_by_agency_id: 'Terre des Hommes',
           //owned_by_agency_id: data.owned_by_agency_id, //FOR PROD
           primero_user: data.owned_by,
@@ -278,7 +280,7 @@ each(
               ? 'other'
               : data.sex,
           address_current: data.address_current,
-          telephone_current: data.telephone_current,
+          telephone_current: data.telephone_current.toString(),
           // protection_concerns: 'CR-AF', //Hardcoded sample
           protection_concerns: protection[0] ? protection : null,
           //=======TODO: Update maping per specs for progres_spneedcategory ================//
