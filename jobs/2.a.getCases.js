@@ -1,8 +1,8 @@
 getCases(
   {
     remote: true,
-    //assigned_user_names: ['unhcr_cw'],
-    last_updated_at: '2021-06-02'
+    assigned_user_names: ['unhcr_cw'],
+    //last_updated_at: '2021-06-02'
     // last_updated_at: new Date(
     //   new Date().toISOString().split('T')[0]
     // ).toISOString(),
