@@ -218,7 +218,7 @@ each(
     let lang = [];
     data.language
       ? data.language.forEach(l => lang.push(languageMap[l]))
-      : data.language.forEach(l => lang.push(languageMap['language6']));
+      : lang.push(languageMap['language6']);
 
     let protection = [];
     data.protection_concerns
