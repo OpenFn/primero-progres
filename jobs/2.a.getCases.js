@@ -9,17 +9,31 @@ alterState(state => {
       last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
     },
     state => {
-      const cases = state.data.filter(
-        data =>
-          data.services_section &&
-          data.services_section.some(
-            serv =>
-              serv.service_implementing_agency_individual === 'unhcr_cw' &&
-              new Date(serv.service_response_day_time) >=
-                new Date(state.lastRunDateTime)
-          )
-        // data.services_section[0].service_implementing_agency === 'unhcr' //old criteria
-      );
+      const cases = state.data
+        .filter(
+          data =>
+            data.services_section &&
+            data.services_section.some(
+              serv =>
+                serv.service_implementing_agency_individual === 'unhcr_cw' &&
+                new Date(serv.service_response_day_time) >=
+                  new Date(state.lastRunDateTime || manualCursor)
+            )
+          // data.services_section[0].service_implementing_agency === 'unhcr' //old criteria
+        )
+        .map(c => {
+          let obj = {};
+          obj = { ...c };
+          if (c.services_section) {
+            obj['services_section'] = [];
+            c.services_section.forEach(serv => {
+              if (serv.service_implementing_agency_individual === 'unhcr_cw') {
+                obj['services_section'].push(serv);
+              }
+            });
+          }
+          return obj;
+        });
 
       console.log(cases.length, 'referrals fetched.');
       console.log('Posting to Inbox...', JSON.stringify(cases, null, 2));
