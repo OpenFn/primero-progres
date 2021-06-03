@@ -13,7 +13,10 @@ alterState(state => {
         data =>
           data.services_section &&
           data.services_section.some(
-            serv => serv.service_implementing_agency_individual === 'unhcr_cw'
+            serv =>
+              serv.service_implementing_agency_individual === 'unhcr_cw' &&
+              new Date(serv.service_response_day_time) >=
+                new Date(state.lastRunDateTime)
           )
         // data.services_section[0].service_implementing_agency === 'unhcr' //old criteria
       );
