@@ -433,6 +433,7 @@ each(
               ? 'UNICEF'
               : 'UNICEF', //To confirm no more BUs to map
           service_response_type: 'service_provision',
+          service_referral: 'external_referral',
         },
       ],
       //closure_reason: data.progres_comments_nonrestrictedstore,
