@@ -1,7 +1,7 @@
 getCases(
   {
     remote: true,
-    last_updated_at: '2021-06-02T00:00:00.587Z..'
+    last_updated_at: '2021-06-03T00:00:00.587Z..'
     //last_updated_at: new Date().toISOString(),
     //NOTE
     //1) data.last_updated_at = Last fetch AND data.status !== 'open' (implemented below)
