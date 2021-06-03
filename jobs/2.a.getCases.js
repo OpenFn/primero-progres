@@ -12,7 +12,7 @@ getCases(
       data =>
         data.services_section &&
         data.services_section.some(
-          serv => serv.service_implementing_agency_individual === 'unhcr_cw'
+          serv => serv.service_implementing_agency_individual === 'unhcr_cw1'
         )
       // data.services_section[0].service_implementing_agency === 'unhcr' //old criteria
     );
