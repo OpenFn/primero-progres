@@ -1,7 +1,7 @@
 getCases(
   {
     remote: true,
-    assigned_user_names: ['unhcr_cw1'],
+    assigned_user_names: ['unhcr_cw1'], //OR unhcr_cw
     last_updated_at: '2021-06-02T20:00:00.587Z..'
     // last_updated_at: new Date(
     //   new Date().toISOString().split('T')[0]
