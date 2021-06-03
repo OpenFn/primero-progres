@@ -433,6 +433,7 @@ each(
               ? 'UNICEF'
               : 'UNICEF', //To confirm no more BUs to map
           service_response_type: 'service_provision',
+          service_referral: 'external_referral',
         },
       ],
       //closure_reason: data.progres_comments_nonrestrictedstore,
@@ -468,7 +469,8 @@ each(
     return getCases(
       {
         remote: true,
-        case_id: data.progres_primeroid || data['individuals.progres_id'],
+        unhcr_individual_no: data['individuals.progres_id'],
+        //case_id: data.progres_primeroid || data['individuals.progres_id'],
       },
       state => {
         // console.log(state.data);
