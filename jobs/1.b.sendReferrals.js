@@ -30,7 +30,7 @@ getCases(
       console.log('All cases have "open" status. No decisions to send to DTP');
 
     return each(nonOpenedCases, state => {
-      // console.log(state.data);
+      console.log(state.data);
       const { data } = state;
       const { services_section } = data;
 
