@@ -216,10 +216,10 @@ each(
     };
 
     let lang = [];
-    data.language.forEach(l => lang.push(languageMap[l]));
+    data.language ? data.language.forEach(l => lang.push(languageMap[l])) : data.language;
 
     let protection = [];
-    data.protection_concerns.forEach(pc => protection.push(protectionMap[pc]));
+    data.protection_concerns ? data.protection_concerns.forEach(pc => protection.push(protectionMap[pc])) : data.protection_concerns;
 
     //====================================================================================================//
     //==== UPDATE: We now map the Primero Ids for DTP to map to the Progres fields ======================//
