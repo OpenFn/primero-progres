@@ -469,7 +469,8 @@ each(
     return getCases(
       {
         remote: true,
-        case_id: data.progres_primeroid || data['individuals.progres_id'],
+        unhcr_individual_no: data['individuals.progres_id'],
+        //case_id: data.progres_primeroid || data['individuals.progres_id'],
       },
       state => {
         // console.log(state.data);
