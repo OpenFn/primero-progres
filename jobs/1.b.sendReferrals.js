@@ -14,6 +14,8 @@ getCases(
     const today = new Date();
     const yesterday = new Date(new Date().getTime());
     yesterday.setDate(yesterday.getDate() - 1);
+    
+    console.log(data);
 
     const nonOpenedCases = data
       .filter(
