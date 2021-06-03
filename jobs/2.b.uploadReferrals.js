@@ -216,122 +216,128 @@ each(
     };
 
     let lang = [];
-    data.language ? data.language.forEach(l => lang.push(languageMap[l])) : data.language.forEach(l => lang.push(languageMap['language6']));
+    data.language
+      ? data.language.forEach(l => lang.push(languageMap[l]))
+      : data.language.forEach(l => lang.push(languageMap['language6']));
 
     let protection = [];
-    data.protection_concerns ? data.protection_concerns.forEach(pc => protection.push(protectionMap[pc])) : protection.push(protectionMap['physical_abuse_violence']);
+    data.protection_concerns
+      ? data.protection_concerns.forEach(pc =>
+          protection.push(protectionMap[pc])
+        )
+      : protection.push(protectionMap['physical_abuse_violence']);
 
     //====================================================================================================//
     //==== UPDATE: We now map the Primero Ids for DTP to map to the Progres fields ======================//
     const referrals = [];
     return each(services_section, state => {
       const service = state.data;
-      if (service.service_implementing_agency_individual === 'unhcr_cw') {
-        const obj = {
-          request_type: 'ReceiveIncomingReferral',
-          service_implementing_agency: 'UNICEF', //data.created_organization, //TODO: confirm mapping, what if UNHCR?
-          service_response_day_time: service.service_response_day_time,
-          // service_type: 'Documentation', //Hardcoded sample
-          service_type: serviceMap[service.service_type], //Hardcoded sample
-          //=======TODO: Update maping per specs for Service Mapping ================//
-          //service_type: state.serviceMap[service.service_type], //GET THIS TO WORK; see L30
-          service_type_other: service.service_type_other
-            ? service.service_type_other
-            : null,
-          service_referral_notes: service.service_referral_notes
-            ? service.service_referral_notes
-            : 'Primero referral',
-          owned_by_agency_id: 'Terre des Hommes',
-          //owned_by_agency_id: data.owned_by_agency_id, //FOR PROD
-          primero_user: data.owned_by,
-          position: user
+      const obj = {
+        request_type: 'ReceiveIncomingReferral',
+        service_implementing_agency: 'UNICEF', //data.created_organization, //TODO: confirm mapping, what if UNHCR?
+        service_response_day_time: service.service_response_day_time,
+        // service_type: 'Documentation', //Hardcoded sample
+        service_type: serviceMap[service.service_type], //Hardcoded sample
+        //=======TODO: Update maping per specs for Service Mapping ================//
+        //service_type: state.serviceMap[service.service_type], //GET THIS TO WORK; see L30
+        service_type_other: service.service_type_other
+          ? service.service_type_other
+          : null,
+        service_referral_notes: service.service_referral_notes
+          ? service.service_referral_notes
+          : 'Primero referral',
+        owned_by_agency_id: 'Terre des Hommes',
+        //owned_by_agency_id: data.owned_by_agency_id, //FOR PROD
+        primero_user: data.owned_by,
+        position: user
+          ? user.position
             ? user.position
-              ? user.position
-              : 'Case Worker'
-            : data.owned_by_position, //Hardcoded defaults for testing
-          email: user
+            : 'Case Worker'
+          : data.owned_by_position, //Hardcoded defaults for testing
+        email: user
+          ? user.email
             ? user.email
-              ? user.email
-              : 'test@primero.org'
-            : data.owned_by_email,
-          phone: user
+            : 'test@primero.org'
+          : data.owned_by_email,
+        phone: user
+          ? user.phone
             ? user.phone
-              ? user.phone
-              : '0790970543'
-            : data.owned_by_phone,
-          full_name: user
+            : '0790970543'
+          : data.owned_by_phone,
+        full_name: user
+          ? user.full_name
             ? user.full_name
-              ? user.full_name
-              : 'Primero CP'
-            : data.owned_by_full_name,
-          unhcr_individual_no: data.unhcr_individual_no,
-          unhcr_id_no: data.unhcr_id_no,
-          name_first: data.name_first,
-          name_last: data.name_last,
-          name_middle: data.name_middle ? data.name_middle : null,
-          name_nickname: data.name_nickname ? data.name_nickname : null,
-          date_of_birth: new Date(data.date_of_birth)
-            .toISOString()
-            .substring(0, 10),
-          sex:
-            data.sex === 'unknown_4b34795'
-              ? 'unknown'
-              : data.sex === 'other_b25f252'
-              ? 'other'
-              : data.sex,
-          address_current: data.address_current,
-          telephone_current: data.telephone_current ? data.telephone_current.toString() : null,
-          // protection_concerns: 'CR-AF', //Hardcoded sample
-          protection_concerns: protection[0] ? protection : null,
-          //=======TODO: Update maping per specs for progres_spneedcategory ================//
-          //protection_concerns: state.protectionMap[data.protection_concerns], //GET THIS TO WORK; see L58
-          protection_concerns_other: data.protection_concerns_other
-            ? data.protection_concerns_other
-            : null, //TODO: Should we default null if no value
-          // language: 'English',
-          //=======TODO: Clean languages in array like '[english, somali]' => return as 'English, Somali' ================//
-          language: lang[0] ? lang.join(', ') : null, //SEE L66 for languageMap
-          id: data.case_id,
-          risk_level: 'Normal', //TBD: default to Normal if no other value provided?
-          //=======TODO: Update maping per specs for progres_priority after country selected ============//
-          // risk_level:
-          //   risk_level && risk_level!==undefined ?
-          //     (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) :
-          //     'High and Emergency',
-        };
-        const shortid = data.case_id_display;
-        //console.log('Mapping referral data to DTP');
-        console.log(
-          'Mapping referral data to DTP:',
-          JSON.stringify(obj, null, 2)
-        );
-        console.log('case_id_display:', shortid);
+            : 'Primero CP'
+          : data.owned_by_full_name,
+        unhcr_individual_no: data.unhcr_individual_no,
+        unhcr_id_no: data.unhcr_id_no,
+        name_first: data.name_first,
+        name_last: data.name_last,
+        name_middle: data.name_middle ? data.name_middle : null,
+        name_nickname: data.name_nickname ? data.name_nickname : null,
+        date_of_birth: new Date(data.date_of_birth)
+          .toISOString()
+          .substring(0, 10),
+        sex:
+          data.sex === 'unknown_4b34795'
+            ? 'unknown'
+            : data.sex === 'other_b25f252'
+            ? 'other'
+            : data.sex,
+        address_current: data.address_current,
+        telephone_current: data.telephone_current
+          ? data.telephone_current.toString()
+          : null,
+        // protection_concerns: 'CR-AF', //Hardcoded sample
+        protection_concerns: protection[0] ? protection : null,
+        //=======TODO: Update maping per specs for progres_spneedcategory ================//
+        //protection_concerns: state.protectionMap[data.protection_concerns], //GET THIS TO WORK; see L58
+        protection_concerns_other: data.protection_concerns_other
+          ? data.protection_concerns_other
+          : null, //TODO: Should we default null if no value
+        // language: 'English',
+        //=======TODO: Clean languages in array like '[english, somali]' => return as 'English, Somali' ================//
+        language: lang[0] ? lang.join(', ') : null, //SEE L66 for languageMap
+        id: data.case_id,
+        risk_level: 'Normal', //TBD: default to Normal if no other value provided?
+        //=======TODO: Update maping per specs for progres_priority after country selected ============//
+        // risk_level:
+        //   risk_level && risk_level!==undefined ?
+        //     (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) :
+        //     'High and Emergency',
+      };
+      const shortid = data.case_id_display;
+      //console.log('Mapping referral data to DTP');
+      console.log(
+        'Mapping referral data to DTP:',
+        JSON.stringify(obj, null, 2)
+      );
+      console.log('case_id_display:', shortid);
 
-        // referrals.push(obj);
-        return http
-          .post({
-            url: urlDTP,
-            data: obj, //referrals,
-            headers: {
-              'Ocp-Apim-Subscription-Key':
-                configuration['Ocp-Apim-Subscription-Key'],
-            },
-            agentOptions: {
-              key,
-              cert,
-            },
-          })(state)
-          .then(() => {
-            //console.log(JSON.stringify(state.data, null, 2));
-            console.log('Response uploaded to DTP/Progres.');
-            return state;
-          })
-          .catch(error => {
-            let newError = error;
-            newError.config = 'REDACTED';
-            throw newError;
-          });
-      }
+      // referrals.push(obj);
+      return http
+        .post({
+          url: urlDTP,
+          data: obj, //referrals,
+          headers: {
+            'Ocp-Apim-Subscription-Key':
+              configuration['Ocp-Apim-Subscription-Key'],
+          },
+          agentOptions: {
+            key,
+            cert,
+          },
+        })(state)
+        .then(() => {
+          //console.log(JSON.stringify(state.data, null, 2));
+          console.log('Response uploaded to DTP/Progres.');
+          return state;
+        })
+        .catch(error => {
+          let newError = error;
+          newError.config = 'REDACTED';
+          throw newError;
+        });
       return state;
     })(state);
   })
