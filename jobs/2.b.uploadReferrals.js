@@ -280,7 +280,7 @@ each(
               ? 'other'
               : data.sex,
           address_current: data.address_current,
-          telephone_current: data.telephone_current.toString(),
+          telephone_current: data ? data.telephone_current.toString() : null,
           // protection_concerns: 'CR-AF', //Hardcoded sample
           protection_concerns: protection[0] ? protection : null,
           //=======TODO: Update maping per specs for progres_spneedcategory ================//
