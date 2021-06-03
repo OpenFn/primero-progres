@@ -20,9 +20,9 @@ getCases(
     const nonOpenedCases = data
       .filter(
         ref =>
-          ref.status !== 'open' &&
-          new Date(ref.last_updated_at) > yesterday &&
-          new Date(ref.last_updated_at) < today
+          ref.status !== 'open' //&&
+          // new Date(ref.last_updated_at) > yesterday &&
+          // new Date(ref.last_updated_at) < today
       )
       .filter(ref =>
         ref.services_section.some(service => service.progres_interventionnumber)
