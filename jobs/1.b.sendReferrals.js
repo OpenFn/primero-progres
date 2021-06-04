@@ -5,8 +5,9 @@ alterState(state => {
   return getCases(
     {
       remote: true,
-      last_updated_at: manualCursor //TO ADD DYNAMIC BELOW
-      //last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
+      last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
+      //last_updated_at: manualCursor //TO ADD DYNAMIC BELOW
+      //
       //NOTE
       //1) data.last_updated_at = Last fetch AND data.status !== 'open' (implemented below)
       //2) data.services_section[...] contains service where progres_interventionnumber!==undefined
