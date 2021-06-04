@@ -5,7 +5,8 @@ alterState(state => {
   return getCases(
     {
       remote: true,
-      last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
+      last_updated_at: manualCursor //TO ADD DYNAMIC BELOW
+      //last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
       //NOTE
       //1) data.last_updated_at = Last fetch AND data.status !== 'open' (implemented below)
       //2) data.services_section[...] contains service where progres_interventionnumber!==undefined
@@ -21,9 +22,10 @@ alterState(state => {
       const nonOpenedCases = data
         .filter(
           ref =>
-            ref.status !== 'open' &&
-            new Date(ref.last_updated_at) > yesterday &&
-            new Date(ref.last_updated_at) < today
+            ref.status !== 'open' 
+            // && //DO WE NEED BECAUSE WE ARE FILTERIGN DATE ABOVE? 
+            // new Date(ref.last_updated_at) > yesterday &&
+            // new Date(ref.last_updated_at) < today
         )
         .filter(ref =>
           ref.services_section.some(
