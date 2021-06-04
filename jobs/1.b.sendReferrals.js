@@ -15,7 +15,7 @@ alterState(state => {
     state => {
       const { data, configuration } = state;
       const { urlDTP, key, cert } = configuration;
-
+      console.log(data); 
       const today = new Date();
       const yesterday = new Date(new Date().getTime());
       yesterday.setDate(yesterday.getDate() - 1);
