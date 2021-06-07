@@ -511,14 +511,13 @@ each(
             }
           )(state);
         } else if (state.data.length === 1) {
-          return updateCase({
-            externalIds: ['case_id'],
+          return updateCase(state.data[0].id, {
             data: state => body,
           })(state);
         } else {
+          console.log('Upserting first matching case.');
           body.case_id = state.data[0].case_id;
-          return updateCase({
-            externalIds: ['case_id'],
+          return updateCase(state.data[0].id, {
             data: state => body,
           })(state);
         }
