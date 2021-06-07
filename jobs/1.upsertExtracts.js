@@ -399,15 +399,38 @@ each(
             'if_other_language__please_specify_335944b'
         : undefined
     );
-    
-    const address1 = data['individuals.progres_coalocationlevel1'] ? data['individuals.progres_coalocationlevel1'].Name : ''; 
-    const address2 = data['individuals.progres_coalocationlevel2'] ? data['individuals.progres_coalocationlevel2'].Name : ''; 
-    const address3 = data['individuals.progres_coalocationlevel3'] ? data['individuals.progres_coalocationlevel3'].Name : ''; 
-    const address4 = data['individuals.progres_coalocationlevel4'] ? data['individuals.progres_coalocationlevel4'].Name : ''; 
-    const address5 = data['individuals.progres_coalocationlevel5'] ? data['individuals.progres_coalocationlevel5'].Name : ''; 
-    const address6 = data['individuals.progres_coalocationlevel6'] ? data['individuals.progres_coalocationlevel6'] : ''; 
 
-    const address_current = address1 + ' ' + address2 + ' ' + address3 + ' ' + address4 + ' ' + address5 + ' ' + address6; 
+    const address1 = data['individuals.progres_coalocationlevel1']
+      ? data['individuals.progres_coalocationlevel1'].Name
+      : '';
+    const address2 = data['individuals.progres_coalocationlevel2']
+      ? data['individuals.progres_coalocationlevel2'].Name
+      : '';
+    const address3 = data['individuals.progres_coalocationlevel3']
+      ? data['individuals.progres_coalocationlevel3'].Name
+      : '';
+    const address4 = data['individuals.progres_coalocationlevel4']
+      ? data['individuals.progres_coalocationlevel4'].Name
+      : '';
+    const address5 = data['individuals.progres_coalocationlevel5']
+      ? data['individuals.progres_coalocationlevel5'].Name
+      : '';
+    const address6 = data['individuals.progres_coalocationlevel6']
+      ? data['individuals.progres_coalocationlevel6']
+      : '';
+
+    const address_current =
+      address1 +
+      ' ' +
+      address2 +
+      ' ' +
+      address3 +
+      ' ' +
+      address4 +
+      ' ' +
+      address5 +
+      ' ' +
+      address6;
 
     const progres_description = data['interventiontype.progres_description'];
     const progres_sex = data['individuals.progres_sex'];
@@ -488,6 +511,11 @@ each(
             }
           )(state);
         } else if (state.data.length === 1) {
+          return updateCase({
+            data: state => body,
+          })(state);
+        } else {
+          body.case_id = state.data[0].case_id;
           return updateCase({
             data: state => body,
           })(state);
