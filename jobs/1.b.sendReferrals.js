@@ -15,18 +15,17 @@ alterState(state => {
     state => {
       const { data, configuration } = state;
       const { urlDTP, key, cert } = configuration;
-      console.log(data); 
+      console.log(JSON.stringify(data, null, 2));
       const today = new Date();
       const yesterday = new Date(new Date().getTime());
       yesterday.setDate(yesterday.getDate() - 1);
 
       const nonOpenedCases = data
         .filter(
-          ref =>
-            ref.status !== 'open' 
-            // && //DO WE NEED BECAUSE WE ARE FILTERIGN DATE ABOVE? 
-            // new Date(ref.last_updated_at) > yesterday &&
-            // new Date(ref.last_updated_at) < today
+          ref => ref.status !== 'open'
+          // && //DO WE NEED BECAUSE WE ARE FILTERIGN DATE ABOVE?
+          // new Date(ref.last_updated_at) > yesterday &&
+          // new Date(ref.last_updated_at) < today
         )
         .filter(ref =>
           ref.services_section.some(
@@ -38,11 +37,10 @@ alterState(state => {
 
       if (nonOpenedCases.length === 0) {
         console.log(
-          'All cases have "open" status. No decisions to send to DTP'
+          'All cases have "open" status or don\'t hold progres_interventionnumber. No decisions to send to DTP'
         );
         return state;
       }
-
       return each(nonOpenedCases, state => {
         const { data } = state;
         const { services_section } = data;
