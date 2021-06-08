@@ -27,7 +27,7 @@ alterState(state => {
           if (c.services_section) {
             obj['services_section'] = [];
             c.services_section.forEach(serv => {
-              if (serv.service_implementing_agency_individual === 'unhcr_cw1') {
+              if (serv.service_implementing_agency_individual === 'unhcr_cw') {
                 obj['services_section'].push(serv);
               }
             });
