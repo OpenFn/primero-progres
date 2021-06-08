@@ -15,7 +15,7 @@ alterState(state => {
             data.services_section &&
             data.services_section.some(
               serv =>
-                serv.service_implementing_agency_individual === 'unhcr_cw1' &&
+                serv.service_implementing_agency_individual === 'unhcr_cw' &&
                 new Date(serv.service_response_day_time) >=
                 new Date(state.lastRunDateTime || manualCursor)
             )
