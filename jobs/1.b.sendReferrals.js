@@ -22,14 +22,12 @@ alterState(state => {
 
       const nonOpenedCases = data
         .filter(
-          ref => ref.status !== 'open'
-          // && //DO WE NEED BECAUSE WE ARE FILTERIGN DATE ABOVE?
-          // new Date(ref.last_updated_at) > yesterday &&
-          // new Date(ref.last_updated_at) < today
+          ref => ref.status !== 'open' &&
+            ref.unhcr_individual_no !== null
         )
         .filter(ref =>
           ref.services_section.some(
-            service => service.progres_interventionnumber
+            service => service.service_implementing_agency_individual === 'unhcr_cw1'
           )
         );
 

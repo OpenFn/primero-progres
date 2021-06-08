@@ -15,9 +15,9 @@ alterState(state => {
             data.services_section &&
             data.services_section.some(
               serv =>
-                serv.service_implementing_agency_individual === 'unhcr_cw' &&
+                serv.service_implementing_agency_individual === 'unhcr_cw1' &&
                 new Date(serv.service_response_day_time) >=
-                  new Date(state.lastRunDateTime || manualCursor)
+                new Date(state.lastRunDateTime || manualCursor)
             )
           // data.services_section[0].service_implementing_agency === 'unhcr' //old criteria
         )
@@ -27,7 +27,7 @@ alterState(state => {
           if (c.services_section) {
             obj['services_section'] = [];
             c.services_section.forEach(serv => {
-              if (serv.service_implementing_agency_individual === 'unhcr_cw') {
+              if (serv.service_implementing_agency_individual === 'unhcr_cw1') {
                 obj['services_section'].push(serv);
               }
             });
