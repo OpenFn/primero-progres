@@ -21,13 +21,13 @@ alterState(state => {
       yesterday.setDate(yesterday.getDate() - 1);
 
       const nonOpenedCases = data
-        .filter(
+        .filter( //only check for decisions if case is not still 'open'...
           ref => ref.status !== 'open' &&
             ref.unhcr_individual_no !== null
         )
-        .filter(ref =>
+        .filter(ref => //...and if the service was a referral from unhcr
           ref.services_section.some(
-            service => service.service_implementing_agency_individual === 'unhcr_cw1'
+            service => service.service_referral === 'external_referral'
           )
         );
 
