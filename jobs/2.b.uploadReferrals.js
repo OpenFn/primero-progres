@@ -88,7 +88,7 @@ each(
       rape: 'DS-V',
       emotional_or_psychological: 'DS-H',
       neglect: 'DS-C',
-      abandonment: 'DS- EB',
+      abandonment: 'DS-EB',
       child_labour: 'DS-RC',
       hazardous_work: 'DS-SC',
       sexual_exploitation: 'CR',
