@@ -3,5 +3,6 @@
     "primero_user": "unhcr_cw",
     "progres_interventionnumber": "NAI-20-PRTITV-0000006",
     "status": "Pending Acknowledgement",
-    "request_type": "Feedback"
+    "request_type": "Feedback",
+    "reason": "Missing fields required for sending to Primero."
 }
