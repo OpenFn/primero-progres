@@ -44,7 +44,7 @@ alterState(state => {
         const { services_section } = data;
 
         return each(services_section, state => {
-          if (state.data.progres_interventionnumber) {
+          if (state.data.service_referral === 'external_referral') {
             const decision = {
               case_id: data.case_id,
               owned_by: data.owned_by,
