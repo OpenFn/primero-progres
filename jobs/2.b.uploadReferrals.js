@@ -249,26 +249,18 @@ each(
         owned_by_agency_id: 'Terre des Hommes',
         //owned_by_agency_id: data.owned_by_agency_id, //FOR PROD
         primero_user: data.owned_by,
-        position: user
+        position: user.position
           ? user.position
-            ? user.position
-            : 'Case Worker'
-          : data.owned_by_position, //Hardcoded defaults for testing
-        email: user
+            : 'Case Worker', //Hardcoded defaults for testing
+        email: user.email
           ? user.email
-            ? user.email
-            : 'test@primero.org'
-          : data.owned_by_email,
-        phone: user
+            : 'test@primero.org',
+        phone: user.phone
           ? user.phone
-            ? user.phone
-            : '0790970543'
-          : data.owned_by_phone,
+            : '0790970543',
         full_name: user
           ? user.full_name
-            ? user.full_name
-            : 'Primero CP'
-          : data.owned_by_full_name,
+            : 'Primero CP',
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
         name_first: data.name_first,
