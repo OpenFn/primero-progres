@@ -13,18 +13,19 @@ alterState(state => {
         .filter(
           data =>
             data.services_section &&
+            data.services_section.length > 0 &&
             data.services_section.some(
               serv =>
                 serv.service_implementing_agency_individual === 'unhcr_cw' &&
                 new Date(serv.service_response_day_time) >=
-                new Date(state.lastRunDateTime || manualCursor)
+                  new Date(state.lastRunDateTime || manualCursor)
             )
           // data.services_section[0].service_implementing_agency === 'unhcr' //old criteria
         )
         .map(c => {
           let obj = {};
           obj = { ...c };
-          if (c.services_section) {
+          if (c.services_section && c.services_section.length > 0) {
             obj['services_section'] = [];
             c.services_section.forEach(serv => {
               if (serv.service_implementing_agency_individual === 'unhcr_cw') {
@@ -45,21 +46,29 @@ alterState(state => {
         const data = {
           _json: [state.data],
         };
-        return http
-          .post({
-            url: openfnInboxUrl,
-            data,
-            headers: { 'x-api-key': xApiKey },
-          })(state)
-          .then(() => {
-            console.log('Case posted to openfn inbox.');
-            return state;
-          })
-          .catch(error => {
-            let newError = error;
-            newError.config = 'REDACTED';
-            throw newError;
-          });
+        if (
+          state.data.services_section &&
+          state.data.services_section.length > 0
+        ) {
+          return http
+            .post({
+              url: openfnInboxUrl,
+              data,
+              headers: { 'x-api-key': xApiKey },
+            })(state)
+            .then(() => {
+              console.log('Case posted to openfn inbox.');
+              return state;
+            })
+            .catch(error => {
+              let newError = error;
+              newError.config = 'REDACTED';
+              throw newError;
+            });
+        } else {
+          console.log('No referral services found to send to DTP.');
+          return state;
+        }
       })(state);
     }
   )(state);
