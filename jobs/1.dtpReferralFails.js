@@ -11,8 +11,11 @@ alterState(state => {
         }
 
     const data = {
-        interventionNumber: state.data.interventions[0].progres_interventionnumber,
-        reason: 'Intervention referral is missing fields required for sending to Primero. Please include missing fields and re-send the request.'
+        status: 'Delivery Fail',
+        primero_user: state.data.interventions[0].owned_by,
+        case_id: state.data.interventions[0].case_id,
+        progres_interventionnumber: state.data.interventions[0].progres_interventionnumber,
+        closure_reason: 'Intervention referral is missing fields required for sending to Primero. Please include missing fields and re-send the request.'
     };
 
     console.log('Sending error message to DTP...', JSON.stringify(data, null, 2));
@@ -31,7 +34,7 @@ alterState(state => {
         })(state)
         .then(() => {
             //console.log(JSON.stringify(state.data, null, 2));
-            console.log('Response uploaded to DTP/Progres.');
+            console.log('Error sent to DTP/Progres.');
             return state;
         })
         .catch(error => {
