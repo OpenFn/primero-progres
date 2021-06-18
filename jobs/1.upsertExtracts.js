@@ -143,11 +143,13 @@ each(
       Torture: 'tr__torture_b92f06b',
     };
 
-    const spneed = data['specificneeds.progres_spnsubcategory2']
-      ? data['specificneeds.progres_spnsubcategory2'].Name
-      : data['specificneeds.progres_spncategory2']
-      ? data['specificneeds.progres_spncategory2'].Name
-      : undefined;
+    // const spneed = data['specificneeds.progres_spnsubcategory2']
+    //   ? data['specificneeds.progres_spnsubcategory2'].Name
+    //   : data['specificneeds.progres_spncategory2']
+    //   ? data['specificneeds.progres_spncategory2'].Name
+    //   : undefined;
+
+    const spneed = data['specificneeds.progres_spnsubcategory2'].Name;
 
     let protection = [];
     protection.push(protectionMap[spneed]);
@@ -516,7 +518,9 @@ each(
           })(state);
         } else {
           body.case_id = state.data[0].case_id;
-          console.log(`Upserting first matching case with case id ${body.case_id}`);
+          console.log(
+            `Upserting first matching case with case id ${body.case_id}`
+          );
           return updateCase(state.data[0].id, {
             data: state => body,
           })(state);
