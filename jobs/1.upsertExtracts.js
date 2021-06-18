@@ -434,6 +434,17 @@ each(
 
     const progres_description = data['interventiontype.progres_description'];
     const progres_sex = data['individuals.progres_sex'];
+    const provided =
+      (progres_description &&
+        data['individuals.progres_id'] &&
+        data['individuals.progres_registrationgroupid'] &&
+        data['individuals.progres_givenname'] &&
+        data['individuals.progres_familyname']) !== undefined;
+    if (!provided) {
+      throw new Error(
+        'Intervention referral is missing fields required for sending to Primero. Please include missing fields and re-send the request'
+      );
+    }
 
     const body = {
       progres_interventionnumber: data.progres_interventionnumber,
