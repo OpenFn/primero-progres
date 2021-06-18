@@ -1,6 +1,6 @@
 alterState(state => {
   const { configuration } = state;
-  //   console.log(state.error);
+  console.log(state.error);
   const error = state.error || '';
   const { urlDTP, key, cert } = state.configuration;
 
