@@ -143,13 +143,11 @@ each(
       Torture: 'tr__torture_b92f06b',
     };
 
-    // const spneed = data['specificneeds.progres_spnsubcategory2']
-    //   ? data['specificneeds.progres_spnsubcategory2'].Name
-    //   : data['specificneeds.progres_spncategory2']
-    //   ? data['specificneeds.progres_spncategory2'].Name
-    //   : undefined;
-
-    const spneed = data['specificneeds.progres_spnsubcategory2'].Name;
+    const spneed = data['specificneeds.progres_spnsubcategory2']
+      ? data['specificneeds.progres_spnsubcategory2'].Name
+      : data['specificneeds.progres_spncategory2']
+      ? data['specificneeds.progres_spncategory2'].Name
+      : undefined;
 
     let protection = [];
     protection.push(protectionMap[spneed]);
