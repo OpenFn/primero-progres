@@ -4,10 +4,9 @@ alterState(state => {
 
   const data = {
     status: 'Pending Acknowledgement',
-    primero_user: state.data.interventions[0].owned_by,
-    case_id: state.data.interventions[0].case_id,
-    progres_interventionnumber:
-      state.data.interventions[0].progres_interventionnumber,
+    primero_user: state.references[1][0].owned_by,
+    case_id: state.references[1][0].case_id,
+    progres_interventionnumber: state.references[0].progres_interventionnumber,
   };
 
   console.log(
