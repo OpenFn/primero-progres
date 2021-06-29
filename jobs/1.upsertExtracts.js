@@ -440,9 +440,26 @@ each(
         data['individuals.progres_registrationgroupid'] &&
         data['individuals.progres_givenname'] &&
         data['individuals.progres_familyname']) !== undefined;
+
+    const missingFields = [];
+    // CHECK MISSING FIELDS ==================================
+    if (!progres_description)
+      missingFields.push('interventiontype.progres_description');
+    if (!data['individuals.progres_id'])
+      missingFields.push('individuals.progres_id');
+    if (!data['individuals.progres_registrationgroupid'])
+      missingFields.push('individuals.progres_registrationgroupid');
+    if (!data['individuals.progres_givenname'])
+      missingFields.push('individuals.progres_givenname');
+    if (!data['individuals.progres_familyname'])
+      missingFields.push('individuals.progres_familyname');
+    // =======================================================
+
     if (!provided) {
       throw new Error(
-        'Intervention referral is missing fields required for sending to Primero. Please include missing fields and re-send the request'
+        `Intervention referral is missing fields required for sending to Primero: ${missingFields.join(
+          ','
+        )}. Please include missing fields and re-send the request`
       );
     }
 
