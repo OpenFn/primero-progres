@@ -20,27 +20,28 @@ _Primero_
 
 _Progres_
 - [ ] Progres API developed? DTP docs: _____
-- [ ] Access to system dev/test environments? 
-- [ ] API authentication tested? 
+- [x] Access to system dev/test environments? 
+- [x] API authentication tested? 
 - [ ] APIs tested? 
 DTP API Endpoints: 
 https://antirrio.azure-api.net/primero-uat/ReceiveIncomingReferral
 https://antirrio.azure-api.net/primero-uat/ReceiveDecisionOutgoingReferral
 
 ### (3) Data Flows
-- [ ] System Data Flow diagrams finalized? [See Diagrams - ADD LINK]()
-- [ ] Mapping specs v2 (with transformation rules, technical specs) finalized? Link: ________
+- [x] **System Data Flow diagrams finalized?** [See Diagrams](https://docs.google.com/presentation/d/1S_BuMzJ2MzcvJCoHUPWxkfwYkFP-V-ValIWH4EP3Cj8/edit)
+- [x] **Technical specifications finalized?** [See links](https://docs.google.com/document/d/1my6LFr6Fq98wG3dDcURcl9THBrWG7hHLurchJC59Zos/edit?usp=sharing)
+- [ ] Finalize Mapping specs v2 (with transformation rules, technical specs) finalized? [Draft link](https://docs.google.com/spreadsheets/d/1ieoiGsdGuOA1E3jbw0lWkW-H-V9RzrtxYUdrRsHpOF4/edit#gid=1824703789)
 - [ ] Assumptions documented? (re: human workflows, data entry, consent, other criteria)
 - [ ] Testing plan drafted 
 
 ### (4) Flow Triggers
-- [ ] OpenFn job triggers confirmed?
-Proges--> Primero: `message filter` trigger (event-based)
-Primero --> Progres: `timer (cron)` trigger 
+- [x] OpenFn job triggers confirmed?
+Proges--> Primero: `message filter` trigger (event-based): DTP to send notifications to OpenFn Inbox. 
+Primero --> Progres: `timer (cron)` trigger: Every X hours, OpenFn to send GET HTTP request to Primero to check for new data. 
 
 ### (5) Sharing & Security
 - [ ] Dating sharing agreement finalized? Link: ______
-- [ ] Logging specs sign-off (what information can we log in OpenFn?)
+- [ ] Security configuration & logging specs sign-off (what information can we log in OpenFn?)
 
 ### (6) Administration
 #### Provisioning, Hosting, & Maintenance
@@ -52,3 +53,10 @@ Primero --> Progres: `timer (cron)` trigger
 - [ ] OpenFn administrator users & access levels confirmed? 
 - [ ] Support POCs identified for Primero? 
 - [ ] Support POCs identified for Progres? 
+
+
+## Outstanding Items/ Questions
+1. `Service` mappings for the country to be piloted
+2. How to "accept"/ "reject" referral decisions in Primero? (This will affect filtering criteria for how we get decision updates to send back to DTP.)
+3. Manual process for scenarios where child revokes consent --> how is the other system notified? 
+4. Documentation on how to localize mappings for every country implementation for: `services`, `protection concerns`, `languages`, Primero focal point `username`, Progres `business units` 
