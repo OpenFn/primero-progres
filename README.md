@@ -38,6 +38,7 @@ https://antirrio.azure-api.net/primero-uat/ReceiveDecisionOutgoingReferral
 - [x] OpenFn job triggers confirmed?
 
 Proges--> Primero: `message filter` trigger (event-based): DTP to send notifications to OpenFn Inbox. 
+
 Primero --> Progres: `timer (cron)` trigger: Every X hours, OpenFn to send GET HTTP request to Primero to check for new data. 
 
 ### (5) Sharing & Security
