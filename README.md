@@ -14,7 +14,7 @@ OpenFn jobs for interoperability inter-agency solution in Sudan.
 
 ### (2) System APIs
 _Primero_
-- [x] Primero API confirmed? [Primero API v2 docs](https://github.com/primeroIMS/primero/blob/development_v2/README.md) & [language-primero](https://github.com/OpenFn/language-primero)
+- [x] Primero API confirmed? [Primero API v2 docs](https://github.com/primeroIMS/primero/tree/development_v2/app/controllers/api) & [language-primero](https://github.com/OpenFn/language-primero)
 - [x] Access to system dev/test environments? `Primero Demo Dadaab` site
 - [x] API authentication tested? 
 
