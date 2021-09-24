@@ -6,7 +6,6 @@ alterState(state => {
     {
       remote: true,
       associated_user_names: ['unhcr_cw'],
-      //assigned_user_names: ['unhcr_cw'],
       last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
     },
     state => {
