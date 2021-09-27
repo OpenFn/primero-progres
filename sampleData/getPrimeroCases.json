@@ -1,47 +1,152 @@
 {
   "__query_params": {},
-  "_json": [
+  "data": [
     {
-      "date_of_birth": "2008-01-25",
-      "owned_by": "primero_cp",
-      "owned_by_position": "Case Worker",
-      "owned_by_email": "test@primero.org",
-      "owned_by_phone": "0928828282",
-      "owned_by_full_name": "Primero CP",
-      "protection_status": "living_with_biological_parent_or_primary_caregiver",
-      "telephone_current": "+3349195154",
-      "unhcr_individual_no": "CDO4756435098435",
-      "name_nickname": "Saffa",
-      "was_the_child_subjected_to_sgbv__766f460": false,
-      "case_id": "9c506517-96c8-48e7-8fad-bb9711707174",
-      "created_organization": "UNICEF",
-      "name_first": "Safia",
-      "name_middle": null,
-      "name_last": "Mara",
-      "age": 13,
-      "services_section": [
-        {
-          "service_referral_notes": "Testing for interoperability",
-          "service_response_day_time": "2021-04-28T19:34:43.000Z",
-          "service_response_type": "service_provision",
-          "service_type": "documentation",
-          "service_type_other": "And PSS",
-          "unique_id": "f5a15466-e827-4d53-bdfe-285081f98e26"
-        }
-      ],
-      "sex": "female",
-      "risk_level": "medium",
-      "address_current": "Camp A",
-      "language": [
-        "English"
-      ],
-      "owned_by_agency_id": "UNICEF",
-      "unhcr_id_no": "CDO4756435098435-A",
-      "protection_concerns": [
-        "sexual_exploitation",
-        "difficulty_with_self_care"
-      ],
-      "protection_concerns_other": null
+        "id": "406b539a-e662-425e-810b-47e4fa7da496",
+        "enabled": true,
+        "age": 13,
+        "sex": "female",
+        "name": "Aicha Diallo",
+        "status": "open",
+        "case_id": "f59e880e-d58f-4b68-ba6e-e0616a49aefd",
+        "language": [
+            "language3"
+        ],
+        "owned_by": "openfn_testing",
+        "religion": [
+            "religion2"
+        ],
+        "short_id": "a49aefd",
+        "workflow": "service_provision",
+        "estimated": true,
+        "ethnicity": [
+            "ethnicity3"
+        ],
+        "module_id": "primeromodule-cp",
+        "name_last": "Diallo",
+        "created_at": "2021-09-24T10:18:27.902Z",
+        "created_by": "openfn_testing",
+        "name_first": "Aicha",
+        "risk_level": "medium",
+        "nationality": [
+            "ethiopia"
+        ],
+        "unhcr_id_no": "911-14H0271",
+        "bia_approved": false,
+        "camp_d13377e": "kule_11094",
+        "record_state": true,
+        "zone_2e82fdb": "zone_b_707406",
+        "block_83d04c3": 1,
+        "date_of_birth": "2008-01-01",
+        "notes_section": [],
+        "reopened_logs": [],
+        "region_90a5b9b": "gambella_95177",
+        "case_id_display": "a49aefd",
+        "last_updated_at": "2021-09-27T12:54:49.951Z",
+        "maritial_status": "married_cohabitating",
+        "owned_by_groups": [
+            "usergroup-primero-cp"
+        ],
+        "closure_approved": false,
+        "legitimate_basis": [
+            "consent"
+        ],
+        "services_section": [
+            {
+                "unique_id": "5efbc52f-0606-4436-8f3d-c748867d913b",
+                "service_type": "security_e_g_safe_shelter",
+                "service_referral": "internal_referral",
+                "service_implemented": "not_implemented",
+                "service_response_type": "service_provision",
+                "service_referral_notes": "testing",
+                "referral_follow_up_medium": [],
+                "service_delivery_location": "ET127",
+                "service_response_day_time": "2021-09-24T10:25:38.000Z",
+                "service_implementing_agency": "DRC"
+            },
+            {
+                "unique_id": "d2dd24d0-cc50-496d-a791-edb10344b36d",
+                "service_type": "alternative_care",
+                "service_referral": "external_referral",
+                "service_implemented": "not_implemented",
+                "service_response_type": "service_provision",
+                "referral_follow_up_medium": [],
+                "service_delivery_location": "ET124",
+                "service_response_day_time": "2021-09-27T12:02:02.000Z"
+            },
+            {
+                "unique_id": "5c2d4f6c-7a78-43b5-ac40-eb097be51d89",
+                "service_type": "food",
+                "service_referral": "internal_referral",
+                "service_implemented": "not_implemented",
+                "service_response_type": "service_provision",
+                "service_referral_notes": "sample reason",
+                "service_status_referred": true,
+                "referral_follow_up_medium": [],
+                "service_response_day_time": "2021-09-27T12:22:55.000Z",
+                "service_implementing_agency": "DRC",
+                "service_implementing_agency_individual": "tabide"
+            }
+        ],
+        "community_2b714b4": 2,
+        "consent_reporting": "true",
+        "interview_subject": "child",
+        "protection_status": "separated",
+        "registration_date": "2021-09-24",
+        "case_plan_approved": false,
+        "owned_by_agency_id": "UNICEF",
+        "assessment_due_date": "2021-09-25",
+        "assigned_user_names": [
+            "adessalegn",
+            "unhcr_cw",
+            "tabide"
+        ],
+        "consent_for_tracing": "true",
+        "identification_date": "2021-09-24",
+        "protection_concerns": [
+            "sexual_exploitation",
+            "arrested_detained",
+            "caafag"
+        ],
+        "unhcr_export_opt_in": true,
+        "unhcr_individual_no": "911-9739H297",
+        "case_status_reopened": false,
+        "consent_for_services": true,
+        "created_organization": "UNICEF",
+        "associated_user_names": [
+            "openfn_testing",
+            "adessalegn",
+            "unhcr_cw",
+            "tabide"
+        ],
+        "disclosure_other_orgs": true,
+        "place_of_birth_3b7d999": "Conakry",
+        "urgent_protection_concern": "true",
+        "consent_for_data_collection": "true",
+        "displacement_status_2a9107a": "refugee_616472",
+        "information_shared_services": [
+            "alternative_care",
+            "cash_assistance",
+            "education_formal",
+            "family_tracing_and_reunification",
+            "food",
+            "gbv_survivor_support",
+            "legal_support",
+            "services_for_children_with_disabilities",
+            "other",
+            "psychosocial_support"
+        ],
+        "source_identification_referral": "child_family_member",
+        "protection_concerns_described_at_point_of_identification_7a41814": "",
+        "has_the_child_previously_been_registered_or_interviewed_by_the_agency__92c51da": "false",
+        "record_in_scope": true,
+        "flag_count": 0,
+        "alert_count": 0,
+        "photo": null,
+        "photos": [],
+        "current_photo_key": [],
+        "recorded_audio": [],
+        "upload_other_document": []
     }
   ]
 }
