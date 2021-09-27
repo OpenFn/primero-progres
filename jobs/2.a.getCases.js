@@ -1,5 +1,5 @@
 alterState(state => {
-  console.log('Current cursor value:', state.lastRunDateTime);
+  console.log('Last sync end date:', state.lastRunDateTime);
   const manualCursor = '2021-07-12T00:00:00.587Z';
 
   return getCases(
@@ -15,13 +15,13 @@ alterState(state => {
             data.services_section &&
             data.services_section.length > 0 &&
             data.services_section.some(
-              serv =>
-                (serv.service_implementing_agency_individual === 'unhcr_cw' ||
-                serv.service_implementing_agency_individual === 'unhcr_cw1') &&
+              serv => //Only get 'UNHCR' services && those created since last sync
+                serv.service_implementing_agency === 'UNHCR' && //ADDED: to replace below filtering
+                // (serv.service_implementing_agency_individual === 'unhcr_cw' ||
+                // serv.service_implementing_agency_individual === 'unhcr_cw1') &&
                 new Date(serv.service_response_day_time) >=
-                  new Date(state.lastRunDateTime || manualCursor)
+                new Date(state.lastRunDateTime || manualCursor)
             )
-          // data.services_section[0].service_implementing_agency === 'unhcr' //old criteria
         )
         .map(c => {
           let obj = {};
@@ -29,7 +29,8 @@ alterState(state => {
           if (c.services_section && c.services_section.length > 0) {
             obj['services_section'] = [];
             c.services_section.forEach(serv => {
-              if (serv.service_implementing_agency_individual === 'unhcr_cw' || serv.service_implementing_agency_individual === 'unhcr_cw1') {
+              if (serv.service_implementing_agency === 'UNHCR' && new Date(serv.service_response_day_time) >=
+                new Date(state.lastRunDateTime || manualCursor)) {
                 obj['services_section'].push(serv);
               }
             });
@@ -38,7 +39,7 @@ alterState(state => {
         });
 
       console.log(cases.length, 'referrals fetched.');
-      console.log('Posting to Inbox...', JSON.stringify(cases, null, 2));
+      console.log('Posting to Inbox to later send to DTP...', JSON.stringify(cases, null, 2));
 
       state.cases = cases;
 
@@ -85,6 +86,6 @@ alterState(state => {
       ? lastRunDateTime
       : new Date().toISOString();
 
-  console.log('New cursor value:', lastRunDateTime);
+  console.log('Next sync start date:', lastRunDateTime);
   return { ...state, data: {}, references: [], lastRunDateTime };
 });
