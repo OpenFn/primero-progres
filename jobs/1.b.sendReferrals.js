@@ -28,6 +28,7 @@ alterState(state => {
         .filter(ref => //...and if the service was a referral from unhcr
           ref.services_section.some(
             service => service.service_referral === 'external_referral'
+            && serv.unhcr_referral_status = 'accepted'
           )
         );
 
