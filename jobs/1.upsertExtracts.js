@@ -52,7 +52,7 @@ each(
       'DS-LBM': 'physical_abuse_violence',
       'DS-UBM': 'sexual_abuse_violence',
       //==TODO: Reformat mappings ==========================
-      // DS-V: 'rape',
+      'DS-V': 'rape',
       // DS-H: 'emotional_or_psychological',
       // DS-C: 'neglect',
       // DS- EB: 'abandonment',
