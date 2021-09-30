@@ -169,8 +169,8 @@ each(
     let protection = [];
     data.protection_concerns
       ? data.protection_concerns.forEach(pc =>
-          protection.push(protectionMap[pc])
-        )
+        protection.push(protectionMap[pc])
+      )
       : protection.push(protectionMap['physical_abuse_violence']);
 
     //====================================================================================================//
@@ -220,8 +220,8 @@ each(
           data.sex === 'unknown_4b34795'
             ? 'unknown'
             : data.sex === 'other_b25f252'
-            ? 'other'
-            : data.sex,
+              ? 'other'
+              : data.sex,
         address_current: data.address_current,
         telephone_current: data.telephone_current
           ? data.telephone_current.toString()
@@ -236,7 +236,7 @@ each(
         // language: 'English',
         //=======TODO: Clean languages in array like '[english, somali]' => return as 'English, Somali' ================//
         language: lang[0] ? lang.join(', ') : null, //SEE L66 for languageMap
-        id: data.case_id,
+        id: `${data.case_id}#${service.unique_id}`,
         risk_level: 'Normal', //TBD: default to Normal if no other value provided?
         //=======TODO: Update maping per specs for progres_priority after country selected ============//
         // risk_level:
