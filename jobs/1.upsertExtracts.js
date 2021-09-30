@@ -464,7 +464,7 @@ each(
       module_id: 'primeromodule-cp', //hardcode default - to confirm
       //remote: 'true', //hardcode default
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
-      assigned_user_names: '[unhcr_cw]',
+      associated_user_names: 'unhcr_cw',
       owned_by: 'unhcr_cw',
       //created_by: 'openfn_testing', //To be set automatically?
       //created_by_source: '', // advise on mapping
