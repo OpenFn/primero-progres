@@ -17,8 +17,8 @@ alterState(state => {
 
       const nonOpenedCases = data
         .filter( //only check for decisions if case is not still 'open'...
-          ref => ref.status !== 'open' &&
-            ref.unhcr_individual_no !== null
+          ref => ref.status !== 'open' 
+          //&& ref.unhcr_individual_no !== null //needed? 
         )
         .filter(ref => //...and if the service was a referral from unhcr
           ref.services_section.some(
