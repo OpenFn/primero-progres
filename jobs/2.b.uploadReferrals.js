@@ -1,19 +1,18 @@
-// alterState(state => {
-//   console.log('Primero referral to send to DTP...');
-//   const { host, token } = state.configuration;
-//   //console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
-//   // return http
-//   //   .get({
-//   //     url: `${host}/api/v2/users`,
-//   //     headers: {
-//   //       Authorization: `Basic ${token}`,
-//   //     },
-//   //   })(state)
-//   //   .then(({ data }) => {
-//   //     const users = data.data;
-//   //     return { ...state, users };
-//   //   });
-// });
+alterState(state => {
+  const { host, token } = state.configuration;
+  console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
+  return http
+    .get({
+      url: `${host}/api/v2/users`,
+      headers: {
+        Authorization: `Basic ${token}`,
+      },
+    })(state)
+    .then(({ data }) => {
+      const users = data.data;
+      return { ...state, users };
+    });
+});
 
 each(
   dataPath('._json[*]'),
@@ -23,7 +22,7 @@ each(
     const { urlDTP, key, cert } = configuration;
     const { services_section } = data;
 
-    //const user = users.find(user => user.user_name === data.owned_by);
+    const user = users.find(user => user.user_name === data.owned_by);
     //console.log('user', user);
 
     //TODO: Not sure this map is implemented correctly, but here are the mappings...
@@ -196,18 +195,18 @@ each(
         owned_by_agency_id: 'Terre des Hommes',
         //owned_by_agency_id: data.owned_by_agency_id, //FOR PROD
         primero_user: data.owned_by,
-        // position: user && user.position
-        //   ? user.position
-        //     : 'Case Worker', //Hardcoded defaults for testing
-        // email: user && user.email
-        //   ? user.email
-        //     : 'test@primero.org',
-        // phone: user && user.phone
-        //   ? user.phone
-        //     : '0790970543',
-        // full_name: user && user.full_name
-        //   ? user.full_name
-        //     : 'Primero CP',
+        position: user && user.position
+          ? user.position
+            : 'Case Worker', //Hardcoded defaults for testing
+        email: user && user.email
+          ? user.email
+            : 'test@primero.org',
+        phone: user && user.phone
+          ? user.phone
+            : '0790970543',
+        full_name: user && user.full_name
+          ? user.full_name
+            : 'Primero CP',
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
         name_first: data.name_first,
