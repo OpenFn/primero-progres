@@ -441,6 +441,7 @@ each(
           service_response_type: 'service_provision',
           service_referral: 'external_referral',
           unhcr_referral_status: 'pending',
+          progres_interventionnumber: data.progres_interventionnumber,
         },
       ],
       unhcr_individual_no: data['individuals.progres_id'],
