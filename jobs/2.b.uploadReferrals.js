@@ -214,9 +214,9 @@ each(
         name_last: data.name_last,
         name_middle: data.name_middle ? data.name_middle : null,
         name_nickname: data.name_nickname ? data.name_nickname : null,
-        date_of_birth: new Date(data.date_of_birth)
-          .toISOString()
-          .substring(0, 10),
+        date_of_birth: data.date_of_birth
+          ? new Date(data.date_of_birth).toISOString().split('T')[0]
+          : undefined,
         sex:
           data.sex === 'unknown_4b34795'
             ? 'unknown'
