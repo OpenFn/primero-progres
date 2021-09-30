@@ -428,12 +428,11 @@ each(
         {
           service_response_day_time: data.progres_interventionstartdate,
           service_request_external: true, //Confirm primero mapping
-          service_referral_notes: data.progres_comments_nonrestrictedstore, //confirm mapping
           service_request_title: data['user.title'],
           service_request_agency: data['user.progres_partner.Name'],
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
-          service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
+          service_referral_notes: `${data.progres_reasonforreferral}, ${data.progres_interventionbyother}, ${data.progres_comments_nonrestrictedstore}`, // Reason for referral ?
           service_type: serviceMap[progres_description], //Replaces: progres_interventiontype2
           service_implementing_agency:
             data.progres_businessunit === 'd69e8ec1-e80b-e611-80d3-001dd8b71f12'
@@ -444,7 +443,6 @@ each(
           unhcr_referral_status: 'pending',
         },
       ],
-      //closure_reason: data.progres_comments_nonrestrictedstore,
       unhcr_individual_no: data['individuals.progres_id'],
       unhcr_id_no: data['individuals.progres_registrationgroupid'].Name,
       name_first: data['individuals.progres_givenname'],
@@ -456,18 +454,18 @@ each(
         ? calculateAge(new Date(data['individuals.progres_dateofbirth']))
         : undefined,
       sex: data['individuals.progres_sex'] ? sexMap[progres_sex] : undefined,
-      address_current, //TODO; Contactenate locationlevel1, 2, ...6 (comma separated)
       telephone_current: data['individuals.progres_primaryphonenumber'],
+      address_current, //TODO; Contactenate locationlevel1, 2, ...6 (comma separated)
       protection_concerns: protection[0] ? protection : null, //TODO; Confirm protecton mapping works
       language: lang[0] ? lang : null, //TODO; Confirm language mapping works
       status: 'open',
-      module_id: 'primeromodule-cp', //hardcode default - to confirm
-      //remote: 'true', //hardcode default
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
       associated_user_names: '[unhcr_cw]',
       owned_by: 'unhcr_cw',
-      //created_by: 'openfn_testing', //To be set automatically?
-      //created_by_source: '', // advise on mapping
+      module_id: 'primeromodule-cp', //hardcode default - to confirm
+      //remote: 'true', //NEEDED? 
+      //created_by: 'openfn_testing', //NEEDED? Set automatically?
+      //created_by_source: '', //NEEDED?
     };
     // console.log('Mapping referral data to Primero');
 
