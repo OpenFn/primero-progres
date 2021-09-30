@@ -430,7 +430,7 @@ each(
           service_request_external: true, //Confirm primero mapping
           service_referral_notes: data.progres_comments_nonrestrictedstore, //confirm mapping
           service_request_title: data['user.title'],
-          service_request_agency: data['user.progres_partner'],
+          service_request_agency: data['user.progres_partner.Name'],
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
@@ -462,9 +462,9 @@ each(
       language: lang[0] ? lang : null, //TODO; Confirm language mapping works
       status: 'open',
       module_id: 'primeromodule-cp', //hardcode default - to confirm
-      remote: 'true', //hardcode default
+      //remote: 'true', //hardcode default
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
-      assigned_user_names: 'unhcr_cw',
+      assigned_user_names: '[unhcr_cw]',
       owned_by: 'unhcr_cw',
       //created_by: 'openfn_testing', //To be set automatically?
       //created_by_source: '', // advise on mapping
