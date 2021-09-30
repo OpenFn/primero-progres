@@ -1,6 +1,6 @@
 alterState(state => {
   console.log('Current cursor value:', state.lastRunDateTime);
-  const manualCursor = '2021-06-02T20:00:00.587Z';
+  const manualCursor = '2021-09-28T20:00:00.587Z';
 
   return getCases(
     {
@@ -28,7 +28,7 @@ alterState(state => {
         .filter(ref => //...and if the service was a referral from unhcr
           ref.services_section.some(
             service => service.service_referral === 'external_referral'
-            && (serv.unhcr_referral_status = 'Accepted' || serv.unhcr_referral_status = 'Rejected')
+            && (serv.unhcr_referral_status = 'accepted' || serv.unhcr_referral_status = 'rejected')
           )
         );
 
