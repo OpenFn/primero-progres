@@ -419,10 +419,11 @@ each(
         )}. Please include missing fields and re-send the request`
       );
     }
+    
+    const service_type = data['interventiontype.progres_description']
 
     const body = {
       // progres_interventionnumber: data.progres_interventionnumber, //NOT FOUND IN PRIMERO?
-      // service_type: data.progres_interventiontype2,
       services_section: [
         {
           service_response_day_time: data.progres_interventionstartdate,
@@ -432,7 +433,7 @@ each(
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: `${data.progres_reasonforreferral || ''}, ${data.progres_interventionbyother || ''}, ${data.progres_comments_nonrestrictedstore || ''}`, // Reason for referral ?
-          service_type: serviceMap[progres_description], //Replaces: progres_interventiontype2
+          service_type: serviceMap[service_type], //REPLACES: data.progres_interventiontype2,
           service_implementing_agency:
             data.progres_businessunit === 'd69e8ec1-e80b-e611-80d3-001dd8b71f12'
               ? 'UNICEF'
