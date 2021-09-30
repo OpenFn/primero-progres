@@ -54,28 +54,28 @@ alterState(state => {
               'Decision to send to DTP: ',
               JSON.stringify(decision, null, 2)
             );
-          //   return http
-          //     .post({
-          //       url: urlDTP,
-          //       data: decision,
-          //       headers: {
-          //         'Ocp-Apim-Subscription-Key':
-          //           state.configuration['Ocp-Apim-Subscription-Key'],
-          //       },
-          //       agentOptions: {
-          //         key,
-          //         cert,
-          //       },
-          //     })(state)
-          //     .then(() => {
-          //       console.log('Decision has been sent.');
-          //       return state;
-          //     })
-          //     .catch(error => {
-          //       let newError = error;
-          //       newError.config = 'REDACTED';
-          //       throw newError;
-          //     });
+            return http
+              .post({
+                url: urlDTP,
+                data: decision,
+                headers: {
+                  'Ocp-Apim-Subscription-Key':
+                    state.configuration['Ocp-Apim-Subscription-Key'],
+                },
+                agentOptions: {
+                  key,
+                  cert,
+                },
+              })(state)
+              .then(() => {
+                console.log('Decision has been sent.');
+                return state;
+              })
+              .catch(error => {
+                let newError = error;
+                newError.config = 'REDACTED';
+                throw newError;
+              });
           }
           return state;
         })(state);
