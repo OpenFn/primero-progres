@@ -459,9 +459,9 @@ each(
       language: lang[0] ? lang : null, //TODO; Confirm language mapping works
       status: 'open',
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
-      associated_user_names: '[unhcr_cw]',
       owned_by: 'unhcr_cw',
       module_id: 'primeromodule-cp', //hardcode default - to confirm
+      //associated_user_names: '[unhcr_cw]', //NEEDED?
       //remote: 'true', //NEEDED? 
       //created_by: 'openfn_testing', //NEEDED? Set automatically?
       //created_by_source: '', //NEEDED?
