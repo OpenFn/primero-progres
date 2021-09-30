@@ -1,5 +1,4 @@
 alterState(state => {
-  console.log('Primero referral to send to DTP...');
   const { host, token } = state.configuration;
   console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
   return http
@@ -11,6 +10,7 @@ alterState(state => {
     })(state)
     .then(({ data }) => {
       const users = data.data;
+      console.log(users);
       return { ...state, users };
     });
 });
