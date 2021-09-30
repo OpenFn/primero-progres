@@ -6,11 +6,6 @@ alterState(state => {
     {
       remote: true,
       last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
-      //last_updated_at: manualCursor //TO ADD DYNAMIC BELOW
-      //
-      //NOTE
-      //1) data.last_updated_at = Last fetch AND data.status !== 'open' (implemented below)
-      //2) data.services_section[...] contains service where progres_interventionnumber!==undefined
     },
     state => {
       const { data, configuration } = state;
@@ -59,28 +54,28 @@ alterState(state => {
               'Decision to send to DTP: ',
               JSON.stringify(decision, null, 2)
             );
-            return http
-              .post({
-                url: urlDTP,
-                data: decision,
-                headers: {
-                  'Ocp-Apim-Subscription-Key':
-                    state.configuration['Ocp-Apim-Subscription-Key'],
-                },
-                agentOptions: {
-                  key,
-                  cert,
-                },
-              })(state)
-              .then(() => {
-                console.log('Decision has been sent.');
-                return state;
-              })
-              .catch(error => {
-                let newError = error;
-                newError.config = 'REDACTED';
-                throw newError;
-              });
+          //   return http
+          //     .post({
+          //       url: urlDTP,
+          //       data: decision,
+          //       headers: {
+          //         'Ocp-Apim-Subscription-Key':
+          //           state.configuration['Ocp-Apim-Subscription-Key'],
+          //       },
+          //       agentOptions: {
+          //         key,
+          //         cert,
+          //       },
+          //     })(state)
+          //     .then(() => {
+          //       console.log('Decision has been sent.');
+          //       return state;
+          //     })
+          //     .catch(error => {
+          //       let newError = error;
+          //       newError.config = 'REDACTED';
+          //       throw newError;
+          //     });
           }
           return state;
         })(state);
