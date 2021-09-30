@@ -487,7 +487,8 @@ each(
             {
               data: state => ({
                 ...body,
-                registration_date: new Date().toISOString(), // set on creation
+                registration_date: '2021-09-30'
+                //registration_date: new Date().toISOString(), //TODO: UPdate format! 
               }),
             },
             state => {
