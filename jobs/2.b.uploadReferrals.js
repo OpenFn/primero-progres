@@ -1,19 +1,19 @@
-alterState(state => {
-  console.log('Primero referral to send to DTP...');
-  const { host, token } = state.configuration;
-  //console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
-  // return http
-  //   .get({
-  //     url: `${host}/api/v2/users`,
-  //     headers: {
-  //       Authorization: `Basic ${token}`,
-  //     },
-  //   })(state)
-  //   .then(({ data }) => {
-  //     const users = data.data;
-  //     return { ...state, users };
-  //   });
-});
+// alterState(state => {
+//   console.log('Primero referral to send to DTP...');
+//   const { host, token } = state.configuration;
+//   //console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
+//   // return http
+//   //   .get({
+//   //     url: `${host}/api/v2/users`,
+//   //     headers: {
+//   //       Authorization: `Basic ${token}`,
+//   //     },
+//   //   })(state)
+//   //   .then(({ data }) => {
+//   //     const users = data.data;
+//   //     return { ...state, users };
+//   //   });
+// });
 
 each(
   dataPath('._json[*]'),
