@@ -428,7 +428,7 @@ each(
           service_response_day_time: data.progres_interventionstartdate,
           service_request_external: true, //Confirm primero mapping
           service_request_title: data['user.title'],
-          service_request_agency: data['user.progres_partner.Name'],
+          service_request_agency: data['user.progres_partner'].Name,
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: `${data.progres_reasonforreferral || ''}, ${data.progres_interventionbyother || ''}, ${data.progres_comments_nonrestrictedstore || ''}`, // Reason for referral ?
