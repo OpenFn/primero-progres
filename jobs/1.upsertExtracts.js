@@ -10,7 +10,7 @@ each(
       return Math.abs(age_dt.getUTCFullYear() - 1970);
     };
 
-    //TODO: Evaluate subtype AND type for service mappings
+    //QUESTION: Evaluate subtype AND type for service mappings
     const serviceMap = {
       'Alternative Care': 'alternative_care',
       'Child Protection Service': 'focuses_non_specialized_mhpss_care',
@@ -21,6 +21,7 @@ each(
     const protectionMap = {
         'DS-LBM': 'physical_abuse_violence',
         'DS-UBM': 'sexual_abuse_violence',
+        //==TODO: Reformat mappings ==========================
         // DS-V: 'rape',
         // DS-H: 'emotional_or_psychological',
         // DS-C: 'neglect',
@@ -185,7 +186,6 @@ each(
       Luo: '_luo',
       Makonde: '_makonde',
       Mashi: '_mashi',
-      Mashi: '_mashi',
       Moro: '_moro',
       Murle: '_murle',
       'Oromo, Borana-arsi-guji': '_oromo',
@@ -325,7 +325,6 @@ each(
       'Dinka, Southeastern;': 'language2',
       'Dinka, Southwestern; Rek': 'language2',
       Nuer: 'language3',
-      Bari: 'language4',
       Bari: 'language4',
       Zande: 'language5',
       'Bahamas Creole English': 'language6',
