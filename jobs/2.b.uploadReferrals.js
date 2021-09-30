@@ -105,7 +105,8 @@ each(
       lp_cr__criminal_record_5a18ced: 'LP-CR',
       lp_st__security_threat_to_unhcr_partner_staff_or_others_28d5c9c: 'LP-ST',
       lp_af__formerly_associated_with_armed_forces_or_groups_ac746df: 'LP-AF',
-      tr_pi__psychological_and_or_physical_impairment_due_to_torture_be29dff: 'TR-PI',
+      tr_pi__psychological_and_or_physical_impairment_due_to_torture_be29dff:
+        'TR-PI',
       tr_ho__forced_to_egregious_acts_ff05b1c: 'TR-HO',
       tr_wv__witness_of_violence_to_other_74e79f8: 'TR-WV',
       sv_va__victim__survivor_of__sgbv_in_country_of_asylum_5422ac9: 'SV-VA',
@@ -169,8 +170,8 @@ each(
     let protection = [];
     data.protection_concerns
       ? data.protection_concerns.forEach(pc =>
-        protection.push(protectionMap[pc])
-      )
+          protection.push(protectionMap[pc])
+        )
       : protection.push(protectionMap['physical_abuse_violence']);
 
     //====================================================================================================//
@@ -220,8 +221,8 @@ each(
           data.sex === 'unknown_4b34795'
             ? 'unknown'
             : data.sex === 'other_b25f252'
-              ? 'other'
-              : data.sex,
+            ? 'other'
+            : data.sex,
         address_current: data.address_current,
         telephone_current: data.telephone_current
           ? data.telephone_current.toString()
@@ -236,7 +237,7 @@ each(
         // language: 'English',
         //=======TODO: Clean languages in array like '[english, somali]' => return as 'English, Somali' ================//
         language: lang[0] ? lang.join(', ') : null, //SEE L66 for languageMap
-        id: `${data.case_id}#${service.unique_id}`,
+        id: `${data.case_id}#${service.unique_id.substr(-12)}`,
         risk_level: 'Normal', //TBD: default to Normal if no other value provided?
         //=======TODO: Update maping per specs for progres_priority after country selected ============//
         // risk_level:
