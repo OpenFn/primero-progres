@@ -422,7 +422,7 @@ each(
     }
 
     const body = {
-      progres_interventionnumber: data.progres_interventionnumber,
+      // progres_interventionnumber: data.progres_interventionnumber, //NOT FOUND IN PRIMERO?
       // service_type: data.progres_interventiontype2,
       services_section: [
         {
@@ -430,9 +430,7 @@ each(
           service_request_external: true, //Confirm primero mapping
           service_referral_notes: data.progres_comments_nonrestrictedstore, //confirm mapping
           service_request_title: data['user.title'],
-          service_request_agency: data['user.progres_partner']
-            ? data['user.progres_partner']
-            : 'UNICEF',
+          service_request_agency: data['user.progres_partner'],
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: data.progres_interventionbyother, // Reason for referral ?
@@ -464,11 +462,11 @@ each(
       language: lang[0] ? lang : null, //TODO; Confirm language mapping works
       status: 'open',
       module_id: 'primeromodule-cp', //hardcode default - to confirm
-      remote: true, //hardcode default
+      remote: 'true', //hardcode default
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
-      assigned_user_names: ['unhcr_cw'],
+      assigned_user_names: 'unhcr_cw',
       owned_by: 'unhcr_cw',
-      created_by: 'open_function', //Confirm if we set this on update?
+      //created_by: 'openfn_testing', //To be set automatically?
       //created_by_source: '', // advise on mapping
     };
     // console.log('Mapping referral data to Primero');
