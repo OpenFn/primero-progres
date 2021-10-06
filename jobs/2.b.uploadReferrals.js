@@ -169,8 +169,8 @@ each(
     let protection = [];
     data.protection_concerns
       ? data.protection_concerns.forEach(pc =>
-          protection.push(protectionMap[pc])
-        )
+        protection.push(protectionMap[pc])
+      )
       : protection.push(protectionMap['physical_abuse_violence']);
 
     //====================================================================================================//
@@ -179,34 +179,34 @@ each(
     return each(services_section, state => {
       const service = state.data;
       const obj = {
+        //== Fields pulled from Primero user - defined in case.owned_by =======//
+        primero_user: data.owned_by,
+        position: user && user.position
+          ? user.position
+          : 'Case Worker', //Hardcoded defaults for testing
+        email: user && user.email
+          ? user.email
+          : 'test@primero.org',
+        phone: user && user.phone
+          ? user.phone
+          : '0790970543',
+        full_name: user && user.full_name
+          ? user.full_name
+          : 'Primero CP',
+        //=================================================================//
         request_type: 'ReceiveIncomingReferral',
-        service_implementing_agency: 'UNICEF', //data.created_organization, //TODO: confirm mapping, what if UNHCR?
+        service_implementing_agency: service.service_implementing_agency,
         service_response_day_time: service.service_response_day_time,
-        // service_type: 'Documentation', //Hardcoded sample
-        service_type: serviceMap[service.service_type], //Hardcoded sample
-        //=======TODO: Update maping per specs for Service Mapping ================//
-        //service_type: state.serviceMap[service.service_type], //GET THIS TO WORK; see L30
+        // service_type: 'Alternative Care', //Hardcoded sample
+        service_type: serviceMap[service.service_type],
         service_type_other: service.service_type_other
           ? service.service_type_other
           : null,
         service_referral_notes: service.service_referral_notes
           ? service.service_referral_notes
           : 'Primero referral',
-        owned_by_agency_id: 'Terre des Hommes',
-        //owned_by_agency_id: data.owned_by_agency_id, //FOR PROD
-        primero_user: data.owned_by,
-        position: user && user.position
-          ? user.position
-            : 'Case Worker', //Hardcoded defaults for testing
-        email: user && user.email
-          ? user.email
-            : 'test@primero.org',
-        phone: user && user.phone
-          ? user.phone
-            : '0790970543',
-        full_name: user && user.full_name
-          ? user.full_name
-            : 'Primero CP',
+        //owned_by_agency_id: 'Terre des Hommes', //Old Dadaab testing value
+        owned_by_agency_id: data.owned_by_agency_id,
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
         name_first: data.name_first,
@@ -220,8 +220,8 @@ each(
           data.sex === 'unknown_4b34795'
             ? 'unknown'
             : data.sex === 'other_b25f252'
-            ? 'other'
-            : data.sex,
+              ? 'other'
+              : data.sex,
         address_current: data.address_current,
         telephone_current: data.telephone_current
           ? data.telephone_current.toString()
@@ -237,12 +237,6 @@ each(
         //=======TODO: Clean languages in array like '[english, somali]' => return as 'English, Somali' ================//
         language: lang[0] ? lang.join(', ') : null, //SEE L66 for languageMap
         id: `${data.case_id}#${service.unique_id.substr(-12)}`,
-        risk_level: 'Normal', //TBD: default to Normal if no other value provided?
-        //=======TODO: Update maping per specs for progres_priority after country selected ============//
-        // risk_level:
-        //   risk_level && risk_level!==undefined ?
-        //     (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) :
-        //     'High and Emergency',
       };
       const shortid = data.case_id_display;
       //console.log('Mapping referral data to DTP');
