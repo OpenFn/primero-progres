@@ -1,6 +1,6 @@
 alterState(state => {
   console.log('Current cursor value:', state.lastRunDateTime);
-  const manualCursor = '2021-09-28T20:00:00.587Z';
+  const manualCursor = '2021-10-06T20:00:00.587Z';
 
   return getCases(
     {
