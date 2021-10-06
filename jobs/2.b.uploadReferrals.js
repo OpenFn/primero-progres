@@ -1,6 +1,9 @@
 alterState(state => {
   const { host, token } = state.configuration;
+  //== Logging Primero referral before we map to DTP Interoperability form
   console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
+
+  //== Fetching Primero user data to complete referral mappings below
   return http
     .get({
       url: `${host}/api/v2/users`,
@@ -23,9 +26,8 @@ each(
     const { services_section } = data;
 
     const user = users.find(user => user.user_name === data.owned_by);
-    //console.log('user', user);
 
-    //TODO: Not sure this map is implemented correctly, but here are the mappings...
+    //TODO: Confirm mappings
     const serviceMap = {
       alternative_care: 'Alternative Care',
       focuses_non_specialized_mhpss_care: 'Child Protection Service',
@@ -33,7 +35,7 @@ each(
     };
     state.serviceMap = serviceMap;
 
-    //TODO: Not sure this map is implemented correctly, but here are the mappings...
+    //TODO: Confirm mappings
     const protectionMap = {
       physical_abuse_violence: 'DS-LBM',
       sexual_abuse_violence: 'DS-UBM',
@@ -118,7 +120,7 @@ each(
       sv_ss__survival_sex__0a5cc10: 'SV-SS',
     };
 
-    //TODO: Not sure this map is implemented correctly, but here are the mappings...
+    //TODO: Confirm mappings
     const languageMap = {
       _amharic: 'Amharic',
       _arabic: 'Arabic',
@@ -173,17 +175,20 @@ each(
       )
       : protection.push(protectionMap['physical_abuse_violence']);
 
-    //====================================================================================================//
-    //==== UPDATE: We now map the Primero Ids for DTP to map to the Progres fields ======================//
     const referrals = [];
+
+    //== For every 1 Primero service, send 1 DTP referral =======//
     return each(services_section, state => {
       const service = state.data;
-      const obj = {
+
+      //===============================================================================//
+      //=== Mappings for Primero referral --> Progres v4 ==============================//
+      const referralMapping = {
         //== Fields pulled from Primero user - defined in case.owned_by =======//
         primero_user: data.owned_by,
         position: user && user.position
           ? user.position
-          : 'Case Worker', //Hardcoded defaults for testing
+          : 'Case Worker', //Hardcoded defaults for testing if user profile not filled
         email: user && user.email
           ? user.email
           : 'test@primero.org',
@@ -195,18 +200,16 @@ each(
           : 'Primero CP',
         //=================================================================//
         request_type: 'ReceiveIncomingReferral',
-        service_implementing_agency: service.service_implementing_agency,
+        service_implementing_agency: service.service_implementing_agency === 'UNHCR' ? 'UNICEF' : service.service_implementing_agency, //TODO: Discuss Primero config w/ Robert
         service_response_day_time: service.service_response_day_time,
-        // service_type: 'Alternative Care', //Hardcoded sample
-        service_type: serviceMap[service.service_type],
+        service_type: serviceMap[service.service_type], //Alternative Care
         service_type_other: service.service_type_other
           ? service.service_type_other
           : null,
         service_referral_notes: service.service_referral_notes
           ? service.service_referral_notes
           : 'Primero referral',
-        //owned_by_agency_id: 'Terre des Hommes', //Old Dadaab testing value
-        owned_by_agency_id: data.owned_by_agency_id,
+        owned_by_agency_id: data.owned_by_agency_id, //E.g., : UNICEF, Save the Children International
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
         name_first: data.name_first,
@@ -226,31 +229,27 @@ each(
         telephone_current: data.telephone_current
           ? data.telephone_current.toString()
           : null,
-        // protection_concerns: 'CR-AF', //Hardcoded sample
-        protection_concerns: protection[0] ? protection : null,
-        //=======TODO: Update maping per specs for progres_spneedcategory ================//
-        //protection_concerns: state.protectionMap[data.protection_concerns], //GET THIS TO WORK; see L58
+        protection_concerns: protection[0] ? protection : null, //e.g., 'CR-AF'
         protection_concerns_other: data.protection_concerns_other
           ? data.protection_concerns_other
-          : null, //TODO: Should we default null if no value
-        // language: 'English',
-        //=======TODO: Clean languages in array like '[english, somali]' => return as 'English, Somali' ================//
-        language: lang[0] ? lang.join(', ') : null, //SEE L66 for languageMap
+          : null,
+        language: lang[0] ? lang.join(', ') : null, //language1,language2
         id: `${data.case_id}#${service.unique_id.substr(-12)}`,
       };
+      //===== End of referral mapping ================================================//
+
       const shortid = data.case_id_display;
-      //console.log('Mapping referral data to DTP');
       console.log(
         'Mapping referral data to DTP:',
-        JSON.stringify(obj, null, 2)
+        JSON.stringify(referralMapping, null, 2)
       );
       console.log('case_id_display:', shortid);
 
-      // referrals.push(obj);
+      //=== Here we send the referrals to DTP ======///
       return http
         .post({
           url: urlDTP,
-          data: obj, //referrals,
+          data: referralMapping, //mapped referral obj,
           headers: {
             'Ocp-Apim-Subscription-Key':
               configuration['Ocp-Apim-Subscription-Key'],
@@ -261,7 +260,6 @@ each(
           },
         })(state)
         .then(() => {
-          //console.log(JSON.stringify(state.data, null, 2));
           console.log('Response uploaded to DTP/Progres.');
           return state;
         })
