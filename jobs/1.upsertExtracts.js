@@ -7,7 +7,7 @@ each(
       const diff = Date.now() - dob.getTime();
       const age_dt = new Date(diff);
 
-      return Math.abs(age_dt.getUTCFullYear() - 1970);
+      return Math.abs(age_dt.getUTCFullYear() - 1970).toString();
     };
 
     const formatDate = (date, format) => {
@@ -143,8 +143,8 @@ each(
     //data.interventions.forEach(pc => protection.push(protectionMap[pc.specificneeds.progres_spncategory2.Id]));
 
     const sexMap = {
-      125080000: 'Female',
-      125080001: 'Male',
+      125080000: 'female',
+      125080001: 'male',
       125080002: 'other_b25f252',
       125080003: 'unknown_4b34795',
     };
