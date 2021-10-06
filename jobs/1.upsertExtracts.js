@@ -135,16 +135,16 @@ each(
     const spneed = data['specificneeds.progres_spnsubcategory2']
       ? data['specificneeds.progres_spnsubcategory2'].Name
       : data['specificneeds.progres_spncategory2']
-      ? data['specificneeds.progres_spncategory2'].Name
-      : undefined;
+        ? data['specificneeds.progres_spncategory2'].Name
+        : undefined;
 
     let protection = [];
     protection.push(protectionMap[spneed]);
     //data.interventions.forEach(pc => protection.push(protectionMap[pc.specificneeds.progres_spncategory2.Id]));
 
     const sexMap = {
-      125080000: 'female',
-      125080001: 'male',
+      125080000: 'Female',
+      125080001: 'Male',
       125080002: 'other_b25f252',
       125080003: 'unknown_4b34795',
     };
@@ -383,7 +383,7 @@ each(
     lang.push(
       data['languages.progres_languagecodeid']
         ? languageMap[data['languages.progres_languagecodeid'].Name] ||
-            'if_other_language__please_specify_335944b'
+        'if_other_language__please_specify_335944b'
         : undefined
     );
 
@@ -462,9 +462,8 @@ each(
           service_request_agency: data['user.progres_partner'].Name,
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
-          service_referral_notes: `${data.progres_reasonforreferral || ''}, ${
-            data.progres_interventionbyother || ''
-          }, ${data.progres_comments_nonrestrictedstore || ''}`, // Reason for referral ?
+          service_referral_notes: `${data.progres_reasonforreferral || ''}, ${data.progres_interventionbyother || ''
+            }, ${data.progres_comments_nonrestrictedstore || ''}`, // Reason for referral ?
           service_type:
             serviceMap[service_type] || 'focuses_non_specialized_mhpss_care', //REPLACES: data.progres_interventiontype2,
           service_implementing_agency:
@@ -496,6 +495,10 @@ each(
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
       owned_by: 'unhcr_cw',
       module_id: 'primeromodule-cp', //hardcode default - to confirm
+      registration_date: formatDate(
+        new Date().toISOString(),
+        'YYYY-MM-DD'
+      ),
       //associated_user_names: '[unhcr_cw]', //NEEDED?
       //remote: 'true', //NEEDED?
       //created_by: 'openfn_testing', //NEEDED? Set automatically?
@@ -518,12 +521,7 @@ each(
           return createCase(
             {
               data: state => ({
-                ...body,
-                // registration_date: '2021-09-30'
-                registration_date: formatDate(
-                  new Date().toISOString(),
-                  'YYYY-MM-DD'
-                ),
+                ...body
               }),
             },
             state => {
