@@ -1,54 +1,37 @@
 {
     "data": {
-        "id": "a43b1254-f4db-4f8b-a42a-2dac1dc527bd",
-        "enabled": true,
-        "record_state": true,
-        "status": "open",
-        "registration_date": "2021-05-21",
-        "reopened_logs": [],
-        "services_section": [
-            {
-                "service_response_day_time": "2021-05-28T00:00:00.000Z",
-                "service_request_external": true,
-                "service_request_title": "UNHCR Case Worker",
-                "service_request_agency": "UNICEF",
-                "service_request_phone": 123456789,
-                "service_request_email": "mohan.verma@unhcr.local",
-                "service_type": "services_for_children_with_disabilities",
-                "service_implementing_agency": "UNICEF",
-                "service_response_type": "service_provision",
-                "unique_id": "741a501e-231f-4b93-8183-93116b94bd2a",
-                "service_implemented": "not_implemented"
-            }
-        ],
-        "unhcr_individual_no": "DAD-00005771",
-        "name_first": "Prim 63",
-        "name_last": "Unhcr",
-        "date_of_birth": "2007-01-01",
-        "age": 14,
-        "sex": "male",
-        "protection_concerns": [],
-        "language": null,
-        "module_id": "primeromodule-cp",
-        "assigned_user_names": [
-            "unhcr_cw"
-        ],
-        "owned_by": "unhcr_cw",
-        "created_by": "open_function",
-        "created_organization": "UNICEF",
-        "created_at": "2021-05-21T16:08:41.290Z",
-        "associated_user_names": [
-            "unhcr_cw"
-        ],
-        "owned_by_agency_id": "unhcr",
-        "owned_by_groups": [
-            "usergroup-primero-cp"
-        ],
-        "name": "Prim 63 Unhcr",
-        "short_id": "9dda5dc",
-        "case_id": "51d2850b-2352-4bb0-95e0-838619dda5dc",
-        "case_id_display": "9dda5dc",
-        "workflow": "new",
-        "last_updated_at": "2021-05-21T16:08:41.292Z"
+      "services_section": [
+        {
+          "service_response_day_time": "2021-10-01T00:00:00Z",
+          "service_request_external": true,
+          "service_request_title": "Mr",
+          "service_request_agency": "DAD-17-PNR-00011",
+          "service_request_phone": "9999999999",
+          "service_request_email": "test@test.com",
+          "service_referral_notes": ", , ",
+          "service_type": "focuses_non_specialized_mhpss_care",
+          "service_implementing_agency": "UNICEF",
+          "service_response_type": "service_provision",
+          "service_referral": "external_referral",
+          "unhcr_referral_status": "pending",
+          "progres_interventionnumber": "DAD-21-PRTITV-0000199"
+        }
+      ],
+      "unhcr_individual_no": "DAD-00008991",
+      "unhcr_id_no": "NUR-15-05300",
+      "name_first": "Harry",
+      "name_middle": "James",
+      "name_last": "Potter",
+      "date_of_birth": "2002-12-16",
+      "age": "18",
+      "sex": "male",
+      "telephone_current": "+84963567890",
+      "address_current": "Central Macedonia Katerini Katerini Apartments 16is Oktovriou 44, Katerini 601 00, Greece location level 6",
+      "protection_concerns": null,
+      "language": [ "_french" ],
+      "status": "open",
+      "owned_by": "unhcr_cw",
+      "module_id": "primeromodule-cp",
+      "registration_date": "2021-10-06"
     }
 }
