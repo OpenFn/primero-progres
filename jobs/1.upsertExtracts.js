@@ -58,7 +58,7 @@ each(
       'DS- EB': 'abandonment',
       'DS-RC': 'child_labour',
       'DS-SC': 'hazardous_work',
-      'CR': 'sexual_exploitation',
+      CR: 'sexual_exploitation',
       'CR-CP': 'slavery_sale_abduction',
       'CR-CS': 'in_conflict_with_the_law',
       'CR-CC': 'associated_with_armed',
@@ -117,9 +117,11 @@ each(
       'LP-LS': 'lp_ls__lack_of_durable_solutions_prospects_f9e8a11',
       'LP-AP': 'lp_ap__alleged_perpetrator_db9e2f5',
       'LP-CR': 'lp_cr__criminal_record_5a18ced',
-      'LP-ST': 'lp_st__security_threat_to_unhcr_partner_staff_or_others_28d5c9c',
+      'LP-ST':
+        'lp_st__security_threat_to_unhcr_partner_staff_or_others_28d5c9c',
       'LP-AF': 'lp_af__formerly_associated_with_armed_forces_or_groups_ac746df',
-      'TR-PI': 'tr_pi__psychological_and_or_physical_impairment_due_to_torture_be29dff',
+      'TR-PI':
+        'tr_pi__psychological_and_or_physical_impairment_due_to_torture_be29dff',
       'TR-HO': 'tr_ho__forced_to_egregious_acts_ff05b1c',
       'TR-WV': 'tr_wv__witness_of_violence_to_other_74e79f8',
       'SV-VA': 'sv_va__victim__survivor_of__sgbv_in_country_of_asylum_5422ac9',
@@ -135,8 +137,8 @@ each(
     const spneed = data['specificneeds.progres_spnsubcategory2']
       ? data['specificneeds.progres_spnsubcategory2'].Name
       : data['specificneeds.progres_spncategory2']
-        ? data['specificneeds.progres_spncategory2'].Name
-        : undefined;
+      ? data['specificneeds.progres_spncategory2'].Name
+      : undefined;
 
     let protection = [];
     protection.push(protectionMap[spneed]);
@@ -383,7 +385,7 @@ each(
     lang.push(
       data['languages.progres_languagecodeid']
         ? languageMap[data['languages.progres_languagecodeid'].Name] ||
-        'if_other_language__please_specify_335944b'
+            'if_other_language__please_specify_335944b'
         : undefined
     );
 
@@ -451,11 +453,8 @@ each(
     }
 
     const service_type = data['interventiontype.progres_description'];
-    
-    const today = formatDate(
-        new Date().toISOString(),
-        'YYYY-MM-DD'
-      );
+
+    const today = formatDate(new Date().toISOString(), 'YYYY-MM-DD');
 
     const body = {
       // progres_interventionnumber: data.progres_interventionnumber, //NOT FOUND IN PRIMERO?
@@ -467,8 +466,13 @@ each(
           service_request_agency: data['user.progres_partner'].Name,
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
-          service_referral_notes: `${data.progres_reasonforreferral || ''}, ${data.progres_interventionbyother || ''
-            }, ${data.progres_comments_nonrestrictedstore || ''}`, // Reason for referral ?
+          service_referral_notes: [
+            data.progres_reasonforreferral,
+            data.progres_interventionbyother,
+            data.progres_comments_nonrestrictedstore,
+          ]
+            .filter(Boolean)
+            .join(','), // Reason for referral ?
           service_type:
             serviceMap[service_type] || 'focuses_non_specialized_mhpss_care', //REPLACES: data.progres_interventiontype2,
           service_implementing_agency:
@@ -523,7 +527,7 @@ each(
           return createCase(
             {
               data: state => ({
-                ...body
+                ...body,
               }),
             },
             state => {
