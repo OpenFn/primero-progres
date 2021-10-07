@@ -7,7 +7,7 @@ each(
       const diff = Date.now() - dob.getTime();
       const age_dt = new Date(diff);
 
-      return Math.abs(age_dt.getUTCFullYear() - 1970).toString();
+      return Math.abs(age_dt.getUTCFullYear() - 1970); //.toString();
     };
 
     const formatDate = (date, format) => {
