@@ -1,0 +1,11 @@
+{ 
+  "data": {
+    "status": "rejected",
+    "id": "8e72817c-74e6-4df2-b96d-d4bcde47f292",
+    "type": "Referral",
+    "record_id": "406b539a-e662-425e-810b-47e4fa7da496",
+    "record_type": "case",
+    "responded_at": "2021-10-07T14:46:28.586Z",
+    "rejected_reason": "no resources available"
+  }
+}
