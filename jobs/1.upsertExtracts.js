@@ -451,6 +451,11 @@ each(
     }
 
     const service_type = data['interventiontype.progres_description'];
+    
+    const today = formatDate(
+        new Date().toISOString(),
+        'YYYY-MM-DD'
+      );
 
     const body = {
       // progres_interventionnumber: data.progres_interventionnumber, //NOT FOUND IN PRIMERO?
@@ -495,10 +500,7 @@ each(
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
       owned_by: 'unhcr_cw',
       module_id: 'primeromodule-cp', //hardcode default - to confirm
-      registration_date: formatDate(
-        new Date().toISOString(),
-        'YYYY-MM-DD'
-      ),
+      registration_date: `${today}`,
       //associated_user_names: '[unhcr_cw]', //NEEDED?
       //remote: 'true', //NEEDED?
       //created_by: 'openfn_testing', //NEEDED? Set automatically?
