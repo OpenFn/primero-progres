@@ -44,7 +44,7 @@ alterState(state => {
           if (state.data.service_referral === 'external_referral') {
             const decision = {
               case_id: data.case_id,
-              owned_by: data.owned_by,
+              primero_user: data.owned_by,
               progres_interventionnumber: state.data.progres_interventionnumber,
               status: data.status,
               closure_reason: data.closure_reason,
