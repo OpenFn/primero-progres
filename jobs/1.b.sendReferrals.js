@@ -15,7 +15,7 @@ alterState(state => {
       const yesterday = new Date(new Date().getTime());
       yesterday.setDate(yesterday.getDate() - 1);
 
-      const nonOpenedCases = data
+      const referralsToSend = data
         .filter( //only check for decisions if case is not still 'open'...
           ref => ref.status !== 'open' 
           //&& ref.unhcr_individual_no !== null //needed? 
@@ -28,15 +28,15 @@ alterState(state => {
           )
         );
 
-      state.nonOpenedCases = nonOpenedCases;
+      state.referralsToSend = referralsToSend;
 
-      if (nonOpenedCases.length === 0) {
+      if (referralsToSend.length === 0) {
         console.log(
           'All cases have "open" status or don\'t have a change in UNHCR Referral Status. No decisions to send to DTP'
         );
         return state;
       }
-      return each(nonOpenedCases, state => {
+      return each(referralsToSend, state => {
         const { data } = state;
         const { services_section } = data;
 
@@ -86,7 +86,7 @@ alterState(state => {
 });
 
 alterState(state => {
-  let lastRunDateTime = state.nonOpenedCases
+  let lastRunDateTime = state.referralsToSend
     .map(c => c.last_updated_at)
     .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
 
