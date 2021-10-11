@@ -47,7 +47,7 @@ alterState(state => {
               primero_user: data.owned_by,
               progres_interventionnumber: state.data.progres_interventionnumber,
               status: data.status,
-              closure_reason: data.closure_reason,
+              closure_reason: data.closure_reason || 'No reason specified.',
               request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
             };
 
