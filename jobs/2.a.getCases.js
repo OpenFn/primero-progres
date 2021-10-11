@@ -31,8 +31,10 @@ alterState(state => {
           if (c.services_section && c.services_section.length > 0) {
             obj['services_section'] = [];
             c.services_section.forEach(serv => {
-              if (serv.service_implementing_agency === 'UNHCR' && new Date(serv.service_response_day_time) >=
-                new Date(state.lastRunDateTime || manualCursor)) {
+              if (serv.service_implementing_agency === 'UNHCR' 
+              //TODO: Discuss with UNHCR
+              /*&& new Date(serv.service_response_day_time) >=
+                new Date(state.lastRunDateTime || manualCursor) */) {
                 obj['services_section'].push(serv);
               }
             });
