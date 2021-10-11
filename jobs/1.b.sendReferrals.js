@@ -32,7 +32,7 @@ alterState(state => {
 
       if (nonOpenedCases.length === 0) {
         console.log(
-          'All cases have "open" status or don\'t hold progres_interventionnumber. No decisions to send to DTP'
+          'All cases have "open" status or don\'t have a 'UNHCR Referral Status' change. No decisions to send to DTP'
         );
         return state;
       }
