@@ -45,8 +45,8 @@ alterState(state => {
             const decision = {
               case_id: data.case_id,
               primero_user: data.owned_by,
-              progres_interventionnumber: state.data.progres_interventionnumber,
-              status: data.status,
+              progres_interventionnumber: state.data.progres_interventionnumber, //TODO: map from services_section.progres_interventionnumber
+              status: data.status, //TODO: map from services_section.unhcr_referral_status
               closure_reason: data.closure_reason || 'No reason specified.',
               request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
             };
