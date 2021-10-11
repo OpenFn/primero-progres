@@ -1,11 +1,11 @@
 alterState(state => {
   console.log('Last sync end date:', state.lastRunDateTime);
-  const manualCursor = '2021-10-11T15:00:00.587Z';
+  const manualCursor = '2021-10-11T15:10:00.587Z';
 
   return getCases(
     {
       remote: true,
-      associated_user_names: ['unhcr_cw1'],
+      associated_user_names: ['unhcr_cw'],
       last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
     },
     state => {
