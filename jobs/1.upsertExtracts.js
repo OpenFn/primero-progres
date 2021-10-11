@@ -504,6 +504,7 @@ each(
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
       owned_by: 'unhcr_cw',
       module_id: 'primeromodule-cp', //hardcode default - to confirm
+      source_identification_referral: 'Humanitarian agencies' //hardcode default - to confirm
       //registration_date: `${today}T00:00:00Z`,
       //associated_user_names: '[unhcr_cw]', //NEEDED?
       //remote: 'true', //NEEDED?
