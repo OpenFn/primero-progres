@@ -5,7 +5,7 @@ alterState(state => {
   return getCases(
     {
       remote: true,
-      associated_user_names: ['unhcr_cw'],
+      associated_user_names: ['unhcr_cw1'],
       last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
     },
     state => {
