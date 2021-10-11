@@ -1,11 +1,11 @@
 alterState(state => {
   console.log('Last sync end date:', state.lastRunDateTime);
-  const manualCursor = '2021-10-11T00:00:00.587Z';
+  const manualCursor = '2021-10-11T15:00:00.587Z';
 
   return getCases(
     {
       remote: true,
-      associated_user_names: ['unhcr_cw'],
+      associated_user_names: ['unhcr_cw1'],
       last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
     },
     state => {
@@ -16,11 +16,13 @@ alterState(state => {
             data.services_section.length > 0 &&
             data.services_section.some(
               serv => //Only get 'UNHCR' services && those created since last sync
-                serv.service_implementing_agency === 'UNHCR' && //ADDED: to replace below filtering
+                serv.service_implementing_agency === 'UNHCR' //&& //ADDED: to replace below filtering
                 // (serv.service_implementing_agency_individual === 'unhcr_cw' ||
                 // serv.service_implementing_agency_individual === 'unhcr_cw1') &&
-                new Date(serv.service_response_day_time) >=
-                new Date(state.lastRunDateTime || manualCursor)
+                
+                //TO DISCUSS With JACK:
+                //new Date(serv.service_response_day_time) >=
+                //new Date(state.lastRunDateTime || manualCursor)
             )
         )
         .map(c => {
