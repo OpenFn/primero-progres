@@ -24,8 +24,7 @@ alterState(state => {
           ref.services_section && 
           ref.services_section.some(
             service => service.service_referral === 'external_referral' &&
-            service.unhcr_referral_status === 'rejected'
-            //(service.unhcr_referral_status === 'accepted' || service.unhcr_referral_status === 'rejected')
+            (service.unhcr_referral_status === 'accepted' || service.unhcr_referral_status === 'rejected')
           )
         );
 
