@@ -40,13 +40,23 @@ each(
       }
     };
 
+    const progres_description = data['interventiontype.progres_description'];
+
     const serviceMap = {
-      'Accomodation': 'alternative_care',
-      'BID': 'focuses_non_specialized_mhpss_care',
-      'BIA': 'focuses_non_specialized_mhpss_care',
-      'Protection': 'food',
+      Accomodation: 'alternative_care',
+      BID: 'focuses_non_specialized_mhpss_care',
+      BIA: 'focuses_non_specialized_mhpss_care',
+      Protection: 'food',
     };
     state.serviceMap = serviceMap;
+
+    const serviceMapArray = [];
+    for (service in serviceMap) serviceMapArray.push(service);
+    if (!serviceMapArray.includes(progres_description)) {
+      throw new Error(
+        `Service value shared is not an accepted UNICEF service type. Please see the mapping specifications.`
+      );
+    }
 
     const protectionMap = {
       'DS-LBM': 'physical_abuse_violence',
@@ -133,11 +143,11 @@ each(
       'SV-FM': 'sv_fm__forced__early_marriage__b1a8ba0',
       'SV-SS': 'sv_ss__survival_sex__0a5cc10',
     };
-    
-    const spneed = data['spnsubcategory2code'] 
-    ? data['spnsubcategory2code']
-    : undefined; 
-    
+
+    const spneed = data['spnsubcategory2code']
+      ? data['spnsubcategory2code']
+      : undefined;
+
     //OLD MAPPINGS FROM DADAAB
     // const spneed = data['specificneeds.progres_spnsubcategory2']
     //   ? data['specificneeds.progres_spnsubcategory2'].Name
@@ -426,7 +436,6 @@ each(
       ' ' +
       address6;
 
-    const progres_description = data['interventiontype.progres_description'];
     const progres_sex = data['individuals.progres_sex'];
     const provided =
       (progres_description &&
@@ -509,7 +518,7 @@ each(
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
       owned_by: 'unhcr_cw',
       module_id: 'primeromodule-cp', //hardcode default - to confirm
-      source_identification_referral: 'Humanitarian agencies' //hardcode default - to confirm
+      source_identification_referral: 'Humanitarian agencies', //hardcode default - to confirm
       //registration_date: `${today}T00:00:00Z`,
       //associated_user_names: '[unhcr_cw]', //NEEDED?
       //remote: 'true', //NEEDED?
