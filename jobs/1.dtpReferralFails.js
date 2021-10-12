@@ -18,7 +18,7 @@ alterState(state => {
     }
     if (String(elt).includes('Service value shared')) {
       isError = true;
-      closure_reason = `Intervention type value shared is not one of the 4 accepted UNICEF service types. Please see the mapping specifications.`;
+      closure_reason = `Intervention type value shared is not one of the 4 accepted interagency referral service types. Please see the mapping specifications.`;
     }
   }
 
