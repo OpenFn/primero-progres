@@ -133,12 +133,17 @@ each(
       'SV-FM': 'sv_fm__forced__early_marriage__b1a8ba0',
       'SV-SS': 'sv_ss__survival_sex__0a5cc10',
     };
-
-    const spneed = data['specificneeds.progres_spnsubcategory2']
-      ? data['specificneeds.progres_spnsubcategory2'].Name
-      : data['specificneeds.progres_spncategory2']
-      ? data['specificneeds.progres_spncategory2'].Name
-      : undefined;
+    
+    const spneed = data['spnsubcategory2code'] 
+    ? data['spnsubcategory2code']
+    : undefined; 
+    
+    //OLD MAPPINGS FROM DADAAB
+    // const spneed = data['specificneeds.progres_spnsubcategory2']
+    //   ? data['specificneeds.progres_spnsubcategory2'].Name
+    //   : data['specificneeds.progres_spncategory2']
+    //   ? data['specificneeds.progres_spncategory2'].Name
+    //   : undefined;
 
     let protection = [];
     protection.push(protectionMap[spneed]);
