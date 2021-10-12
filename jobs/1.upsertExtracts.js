@@ -43,10 +43,10 @@ each(
     const progres_description = data['interventiontype.progres_description'];
 
     const serviceMap = {
-      Accomodation: 'alternative_care',
+      'Alternative Care': 'alternative_care',
       BID: 'focuses_non_specialized_mhpss_care',
       BIA: 'focuses_non_specialized_mhpss_care',
-      Protection: 'food',
+      'Family Tracing and Reunification': 'food',
     };
     state.serviceMap = serviceMap;
 
