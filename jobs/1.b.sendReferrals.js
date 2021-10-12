@@ -10,26 +10,32 @@ alterState(state => {
     state => {
       const { data, configuration } = state;
       const { urlDTP, key, cert } = configuration;
-      console.log(JSON.stringify(data, null, 2));
+      console.log('cases fetched', JSON.stringify(data, null, 2));
       const today = new Date();
       const yesterday = new Date(new Date().getTime());
       yesterday.setDate(yesterday.getDate() - 1);
 
       const referralsToSend = data
-        .filter( //only check for decisions if case is not still 'open'...
-          ref => ref.status !== 'open' 
-          //&& ref.unhcr_individual_no !== null //needed? 
-        )
-        .filter(ref => //...and if the service was a referral from unhcr
-          ref.services_section && 
-          ref.services_section.some(
-            service => service.service_referral === 'external_referral' &&
-            (service.unhcr_referral_status === 'accepted' || service.unhcr_referral_status === 'rejected')
-          )
+        // .filter( //only check for decisions if case is not still 'open'...
+        //   ref => ref.status !== 'open'
+        //   //&& ref.unhcr_individual_no !== null //needed?
+        // )
+        .filter(
+          (
+            ref //...and if the service was a referral from unhcr
+          ) =>
+            ref.services_section &&
+            ref.services_section.some(
+              service =>
+                service.service_referral === 'external_referral' &&
+                (service.unhcr_referral_status === 'accepted' ||
+                  service.unhcr_referral_status === 'rejected')
+            )
         );
 
       state.referralsToSend = referralsToSend;
 
+      console.log('Number of matching referrals: ', referralsToSend.length);
       if (referralsToSend.length === 0) {
         console.log(
           'All cases have "open" status or don\'t have a change in UNHCR Referral Status. No decisions to send to DTP'
@@ -46,7 +52,7 @@ alterState(state => {
               case_id: data.case_id,
               primero_user: data.owned_by,
               progres_interventionnumber: state.data.progres_interventionnumber, //TODO: map from services_section.progres_interventionnumber
-              status: data.status, //TODO: map from services_section.unhcr_referral_status
+              status: state.data.unhcr_referral_status, //TODO: map from services_section.unhcr_referral_status
               closure_reason: data.closure_reason || 'No reason specified.',
               request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
             };
