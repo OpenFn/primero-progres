@@ -49,7 +49,7 @@ alterState(state => {
         return each(services_section, state => {
           if (state.data.service_referral === 'external_referral') {
             const decision = {
-              case_id: data.case_id,
+              case_id: `${data.case_id}#${state.data.unique_id.substr(-12)}`,
               primero_user: data.owned_by,
               progres_interventionnumber: state.data.progres_interventionnumber, //TODO: map from services_section.progres_interventionnumber
               status: state.data.unhcr_referral_status, //TODO: map from services_section.unhcr_referral_status
