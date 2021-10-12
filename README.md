@@ -65,3 +65,10 @@ Primero --> Progres: `timer (cron)` trigger: Every X hours, OpenFn to send GET H
 5. Complete testing in UAT environment
 6. Configure new project & testing setup in production environment --> Confirm with UNHCR no mappings affected by switch to production environment
 7. ... 
+
+
+## Assumptions
+1. UNICEF Primero updates on services will not be shared with UNHCR/Progres in this first phase, only the original referral request. 
+2. If UNICEF Primero user revokes consent for a case, then a manual SOP will be determined for communicating that with UNHCR. The interoperability solution will not communicate this change in case. 
+3. The exchange of only 4 service types (a.k.a. "intervention types") will be supported between agencies. [See mapping here.](https://docs.google.com/spreadsheets/d/1ieoiGsdGuOA1E3jbw0lWkW-H-V9RzrtxYUdrRsHpOF4/edit#gid=284761480) Primero and Progres users must be trained to NOT send other service types in interagency referral requests. 
+4. ... 
