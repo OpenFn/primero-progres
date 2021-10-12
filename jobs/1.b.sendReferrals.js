@@ -52,8 +52,8 @@ alterState(state => {
               case_id: data.case_id,
               primero_user: data.owned_by,
               progres_interventionnumber: state.data.progres_interventionnumber, //TODO: map from services_section.progres_interventionnumber
-              status: state.data.unhcr_referral_status, //TODO: map from services_section.unhcr_referral_status
-              closure_reason: data.closure_reason || 'No reason specified.',
+              status: state.data.unhcr_referral_status, 
+              closure_reason: data.unhcr_referral_rejection_reason || 'No reason specified.',
               request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
             };
 
