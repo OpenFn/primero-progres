@@ -42,7 +42,8 @@ each(
 
     const serviceMap = {
       'Accomodation': 'alternative_care',
-      'BID / BIA conducted': 'focuses_non_specialized_mhpss_care',
+      'BID': 'focuses_non_specialized_mhpss_care',
+      'BIA': 'focuses_non_specialized_mhpss_care',
       'Protection': 'food',
     };
     state.serviceMap = serviceMap;
