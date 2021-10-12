@@ -16,9 +16,9 @@ alterState(state => {
       closure_reason =
         'Intervention referral is missing fields required for sending to Primero. Please include missing fields and re-send the request.';
     }
-    if (String(elt).includes('Service value sharedl')) {
+    if (String(elt).includes('Service value shared')) {
       isError = true;
-      closure_reason = `Service value shared is not an accepted UNICEF service type. Please see the mapping specifications.`;
+      closure_reason = `Intervention type value shared is not one of the 4 accepted UNICEF service types. Please see the mapping specifications.`;
     }
   }
 
