@@ -40,11 +40,10 @@ each(
       }
     };
 
-    //QUESTION: Evaluate subtype AND type for service mappings
     const serviceMap = {
-      'Alternative Care': 'alternative_care',
-      'Child Protection Service': 'focuses_non_specialized_mhpss_care',
-      'Family Reunification Service': 'food',
+      'Accomodation': 'alternative_care',
+      'BID / BIA conducted': 'focuses_non_specialized_mhpss_care',
+      'Protection': 'food',
     };
     state.serviceMap = serviceMap;
 
