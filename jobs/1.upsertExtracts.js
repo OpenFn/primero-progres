@@ -456,6 +456,15 @@ each(
       missingFields.push('individuals.progres_givenname');
     if (!data['individuals.progres_familyname'])
       missingFields.push('individuals.progres_familyname');
+    if (!data['individuals.progres_dateofbirth'])
+      missingFields.push('individuals.progres_dateofbirth');
+    if (!data['individuals.progres_sex'])
+      missingFields.push('individuals.progres_sex');
+    //QUESTION: Should these be required also? 
+//     if (!data['user.user.progres_partner'])
+//       missingFields.push('user.user.progres_partner');
+//     if (!data['individuals.progres_coalocationlevel1'])
+//       missingFields.push('individuals.progres_coalocationlevel1');
     // =======================================================
 
     if (!provided) {
