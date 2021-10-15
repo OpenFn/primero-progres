@@ -1,6 +1,6 @@
 alterState(state => {
   console.log('Current cursor value:', state.lastRunDateTime);
-  const manualCursor = '2021-10-11T00:00:00.587Z';
+  const manualCursor = '2021-10-14T00:00:00.587Z';
 
   return getCases(
     {
@@ -34,14 +34,13 @@ alterState(state => {
         );
 
       state.referralsToSend = referralsToSend;
-
-      console.log('Number of matching referrals: ', referralsToSend.length);
       if (referralsToSend.length === 0) {
         console.log(
           'All cases have "open" status or don\'t have a change in UNHCR Referral Status. No decisions to send to DTP'
         );
         return state;
       }
+      console.log('Number of matching referrals: ', referralsToSend.length);
       return each(referralsToSend, state => {
         const { data } = state;
         const { services_section } = data;
