@@ -30,7 +30,7 @@ https://antirrio.azure-api.net/primero-uat/ReceiveDecisionOutgoingReferral
 ### (3) Data Flows
 - [x] **System Data Flow diagrams finalized?** [See Diagrams](https://docs.google.com/presentation/d/1S_BuMzJ2MzcvJCoHUPWxkfwYkFP-V-ValIWH4EP3Cj8/edit)
 - [x] **Technical specifications finalized?** [See links](https://docs.google.com/document/d/1my6LFr6Fq98wG3dDcURcl9THBrWG7hHLurchJC59Zos/edit?usp=sharing)
-- [ ] Finalize Mapping specs v2 (with transformation rules, technical specs) finalized? [Draft link](https://docs.google.com/spreadsheets/d/1ieoiGsdGuOA1E3jbw0lWkW-H-V9RzrtxYUdrRsHpOF4/edit#gid=1824703789)
+- [ ] Finalize Mapping specs v2 (with transformation rules, technical specs) finalized? [Draft link](https://docs.google.com/spreadsheets/d/1ieoiGsdGuOA1E3jbw0lWkW-H-V9RzrtxYUdrRsHpOF4/edit#gid=1470043016)
 - [ ] Assumptions documented? (re: human workflows, data entry, consent, other criteria)
 - [ ] Testing plan drafted 
 
@@ -59,12 +59,13 @@ Primero --> Progres: `timer (cron)` trigger: Every X hours, OpenFn to send GET H
 
 ## Outstanding Items/ Questions
 1. `Service` mappings for the country to be piloted; other localization changes? 
-2. How to "accept"/ "reject" referral decisions in Primero? (This will affect filtering criteria for how we get decision updates to send back to DTP.)
+2. How are UNHCR cases eventually closed if related referrals are rejected. Do we keep these cases open over time? 
 3. Manual process for scenarios where child revokes consent --> how is the other system notified? 
 4. Documentation on how to localize mappings for every country implementation for: `services`, `protection concerns`, `languages`, Primero focal point `username`, Progres `business units` 
 5. Complete testing in UAT environment
 6. Configure new project & testing setup in production environment --> Confirm with UNHCR no mappings affected by switch to production environment
-7. ... 
+7. How can OpenFn detect when there is a new service to send to UNHCR? Do we have to send multiple HTTP requests to different endpoints to compare recently updated cases with referrals & then extract the relevant service information? 
+
 
 
 ## Assumptions
