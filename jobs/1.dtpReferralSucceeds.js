@@ -2,9 +2,10 @@ alterState(state => {
   const { configuration } = state;
   const { urlDTP, key, cert } = configuration;
 
+  const primero_user = state.data.owned_by || state.references[1][0].owned_by;
   const data = {
     status: 'Pending Acknowledgement',
-    primero_user: state.references[1][0].owned_by,
+    primero_user,
     case_id: state.references[1][0].case_id,
     progres_interventionnumber: state.references[0].progres_interventionnumber,
   };
