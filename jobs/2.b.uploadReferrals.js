@@ -1,4 +1,4 @@
-alterState(state => {
+fn(state => {
   const { host, token } = state.configuration;
   //== Logging Primero referral before we map to DTP Interoperability form
   console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
@@ -19,7 +19,7 @@ alterState(state => {
 
 each(
   dataPath('._json[*]'),
-  alterState(state => {
+  fn(state => {
     console.log('Creating referral for each unhcr service...');
     const { data, configuration, users } = state;
     const { urlDTP, key, cert } = configuration;
