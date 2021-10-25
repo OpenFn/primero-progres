@@ -36,21 +36,22 @@ getCases(
 );
 
 // Get referral details for each UNCHR case which have been created since the last run
-beta.each(
+each(
   '$.cases[*]',
-  getReferrals({ externalId: 'case_id', id: dataValue('case_id') }, state => {
+  getReferrals({ externalId: 'record_id', id: dataValue('id') }, state => {
     // STEP 3: filter referrals where 'created_at_date' >= lastRUnDateTime || manualCursor
     state.data
       .filter(r => new Date(r.created_at) >= state.cursor)
       .map(r => {
         state.referralIds.push(r.service_record_id);
       });
+    return state;
   })
 );
 
 fn(state => ({
   ...state,
-  cases: cases.map(c => ({
+  cases: state.cases.map(c => ({
     ...c,
     service_section: c.services_section
       .filter(s => state.referralsId.includes(s.unique_id))
@@ -62,7 +63,7 @@ fn(state => ({
 fn(state => {
   const { openfnInboxUrl, xApiKey } = state.configuration;
 
-  return each(cases, state => {
+  return each(state.cases, state => {
     return http
       .post({
         url: openfnInboxUrl,
