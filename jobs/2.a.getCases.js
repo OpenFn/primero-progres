@@ -54,7 +54,7 @@ fn(state => ({
   cases: state.cases.map(c => ({
     ...c,
     service_section: c.services_section
-      .filter(s => state.referralsId.includes(s.unique_id))
+      .filter(s => state.referralsIds.includes(s.unique_id))
       .filter(s => s.service_implementing_agency === 'UNHCR'),
   })),
 }));
