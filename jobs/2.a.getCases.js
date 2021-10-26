@@ -17,7 +17,7 @@ fn(state => {
 getCases(
   {
     remote: true,
-    //associated_user_names: ['unhcr_cw'],
+    //QUESTION: TO REMOVE? Or update if this user option changes? 
     'associated_user_names[0]': 'unhcr_cw',
     'associated_user_names[1]': 'unhcr_cw1',
     last_updated_at: state => `${state.cursor}..`,
