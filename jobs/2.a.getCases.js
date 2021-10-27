@@ -47,7 +47,7 @@ each(
   getReferrals({ externalId: 'record_id', id: dataValue('id') }, state => {
     // STEP 3: filter referrals where 'created_at_date' >= lastRUnDateTime || manualCursor
     state.data
-      .filter(r => new Date(r.created_at) >= state.cursor)
+      .filter(r => new Date(r.created_at) >= new Date(state.cursor))
       .map(r => {
         state.referralIds.push(r.service_record_id);
       });
@@ -59,7 +59,7 @@ fn(state => ({
   ...state,
   cases: state.cases.map(c => ({
     ...c,
-    service_section: c.services_section
+    services_section: c.services_section
       .filter(s => state.referralIds.includes(s.unique_id))
       .filter(s => s.service_implementing_agency === 'UNHCR'),
   })),
