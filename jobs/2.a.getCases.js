@@ -14,28 +14,32 @@ fn(state => {
 });
 
 // Get cases with UNHCR referrals
-getCases(
-  {
-    remote: true,
-    //QUESTION: TO REMOVE? Or update if this user option changes? 
-    'associated_user_names[0]': 'unhcr_cw',
-    'associated_user_names[1]': 'unhcr_cw1',
-    last_updated_at: state => `${state.cursor}..`,
-  },
-  state => ({
-    ...state,
-    cases: state.data.filter(
-      c =>
-        c.services_section &&
-        c.services_section.length > 0 &&
-        c.services_section.some(s => s.service_implementing_agency === 'UNHCR')
-      // ADDED: to replace below filtering
-      // Only get 'UNHCR' services && those created since last sync
-      // (service.service_implementing_agency_individual === 'unhcr_cw' ||
-      // service.service_implementing_agency_individual === 'unhcr_cw1') &&
-    ),
-  })
-);
+fn(state => {
+  return getCases(
+    {
+      remote: true,
+      //QUESTION: TO REMOVE? Or update if this user option changes?
+      'associated_user_names[0]': 'unhcr_cw',
+      'associated_user_names[1]': 'unhcr_cw1',
+      last_updated_at: `${state.cursor}..`,
+    },
+    state => ({
+      ...state,
+      cases: state.data.filter(
+        c =>
+          c.services_section &&
+          c.services_section.length > 0 &&
+          c.services_section.some(
+            s => s.service_implementing_agency === 'UNHCR'
+          )
+        // ADDED: to replace below filtering
+        // Only get 'UNHCR' services && those created since last sync
+        // (service.service_implementing_agency_individual === 'unhcr_cw' ||
+        // service.service_implementing_agency_individual === 'unhcr_cw1') &&
+      ),
+    })
+  )(state);
+});
 
 // Get referral details for each UNCHR case which have been created since the last run
 each(
