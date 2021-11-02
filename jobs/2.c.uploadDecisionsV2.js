@@ -1,6 +1,9 @@
 each(state.data.interventions, state => {
   const { data } = state;
-  console.log('Decision received for progres intervention id: ', data.progres_orgreferralid);
+  console.log(
+    'Decision received for progres intervention id: ',
+    data.progres_orgreferralid
+  );
   const case_id = data.progres_orgreferralid.split('#')[0];
   const service_id = data.progres_orgreferralid.split('#')[1];
 
@@ -57,5 +60,7 @@ each(state.data.interventions, state => {
         return state;
       }
     )(state);
-  })(state);
+  })(state).catch(() => {
+    throw new Error('No case found. Referral decision cannot be synced.');
+  });
 });
