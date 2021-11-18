@@ -7,7 +7,7 @@ each(
       const diff = Date.now() - dob.getTime();
       const age_dt = new Date(diff);
 
-      return Math.abs(age_dt.getUTCFullYear() - 1970); //.toString();
+      return Math.abs(age_dt.getUTCFullYear() - 1970);
     };
 
     const formatDate = (date, format) => {
@@ -42,14 +42,18 @@ each(
 
     const progres_description = data['interventiontype.progres_description'];
 
+    //=== INTEVENTION_TYPE: SERVICE_TYPE MAPPINGS =========================//
+    //NOTE: Gambella-specific, to be localized
     const serviceMap = {
       'Alternative Care': 'alternative_care',
       BID: 'focuses_non_specialized_mhpss_care',
       BIA: 'focuses_non_specialized_mhpss_care',
       'Family Tracing and Reunification': 'food',
     };
+    //=== END SERVICE MAPPINGS =========================//
     state.serviceMap = serviceMap;
 
+    //ERROR: Sent to Progres if non-authorized service received
     const serviceMapArray = [];
     for (service in serviceMap) serviceMapArray.push(service);
     if (!serviceMapArray.includes(progres_description)) {
@@ -58,10 +62,11 @@ each(
       );
     }
 
+    //=== SPNEEDS: PROTECTION CONCERNS MAPPINGS =========================//
+    //NOTE: Gambella-specific, to be localized
     const protectionMap = {
       'DS-LBM': 'physical_abuse_violence',
       'DS-UBM': 'sexual_abuse_violence',
-      //==TODO: Reformat mappings ==========================
       'DS-V': 'rape',
       'DS-H': 'emotional_or_psychological',
       'DS-C': 'neglect',
@@ -143,34 +148,27 @@ each(
       'SV-FM': 'sv_fm__forced__early_marriage__b1a8ba0',
       'SV-SS': 'sv_ss__survival_sex__0a5cc10',
     };
+    //=== END PROTECTION MAPPINGS =========================//
 
     const spneed = data['spnsubcategory2code']
       ? data['spnsubcategory2code']
       : undefined;
 
-    //OLD MAPPINGS FROM DADAAB
-    // const spneed = data['specificneeds.progres_spnsubcategory2']
-    //   ? data['specificneeds.progres_spnsubcategory2'].Name
-    //   : data['specificneeds.progres_spncategory2']
-    //   ? data['specificneeds.progres_spncategory2'].Name
-    //   : undefined;
-
     let protection = [];
     protection.push(protectionMap[spneed]);
-    //data.interventions.forEach(pc => protection.push(protectionMap[pc.specificneeds.progres_spncategory2.Id]));
 
+    //=== SEX MAPPINGS ============//
     const sexMap = {
       125080000: 'female',
       125080001: 'male',
       125080002: 'other_b25f252',
       125080003: 'unknown_4b34795',
     };
+    //=== END SEX MAPPINGS ============//
 
+    //=== LANGUAGE MAPPINGS =========================//
+    //NOTE: Gambella-specific, to be localized
     const languageMap = {
-      //'English': 'language1', //old tests
-      //'English': '_english',
-      //'French': '_french',
-      //'Somali': 'language6',
       Amharic: '_amharic',
       'Arabic, Algerian Saharan Spoken': '_arabic',
       'Arabic, Algerian Spoken': '_arabic',
@@ -395,6 +393,7 @@ each(
       Bembe: 'language7',
       Somali: 'language8',
     };
+    //==== END LANGUAGE MAPPINGS ==================//
 
     let lang = [];
     lang.push(
@@ -404,6 +403,7 @@ each(
         : undefined
     );
 
+    // ADDRESS MAPPINGS
     const address1 = data['individuals.progres_coalocationlevel1']
       ? data['individuals.progres_coalocationlevel1'].Name
       : '';
@@ -423,6 +423,7 @@ each(
       ? data['individuals.progres_coalocationlevel6']
       : '';
 
+    //CONCATENATE to map address_current
     const address_current =
       address1 +
       ' ' +
@@ -445,7 +446,7 @@ each(
         data['individuals.progres_familyname']) !== undefined;
 
     const missingFields = [];
-    // CHECK MISSING FIELDS ==================================
+    // CHECKING MISSING FIELDS TO NOTIFY PROGRES ================================
     if (!progres_description)
       missingFields.push('interventiontype.progres_description');
     if (!data['individuals.progres_id'])
@@ -460,13 +461,14 @@ each(
       missingFields.push('individuals.progres_dateofbirth');
     if (!data['individuals.progres_sex'])
       missingFields.push('individuals.progres_sex');
-    //QUESTION: Should these be required also? 
-//     if (!data['user.user.progres_partner'])
-//       missingFields.push('user.user.progres_partner');
-//     if (!data['individuals.progres_coalocationlevel1'])
-//       missingFields.push('individuals.progres_coalocationlevel1');
+    //TO CONSIDER: Should these be required also?
+    //     if (!data['user.user.progres_partner'])
+    //       missingFields.push('user.user.progres_partner');
+    //     if (!data['individuals.progres_coalocationlevel1'])
+    //       missingFields.push('individuals.progres_coalocationlevel1');
     // =======================================================
 
+    //ERROR: Thrown if required field is missing from Progres referral sent to Primero
     if (!provided) {
       throw new Error(
         `Intervention referral is missing fields required for sending to Primero: ${missingFields.join(
@@ -479,14 +481,16 @@ each(
 
     const today = formatDate(new Date().toISOString(), 'YYYY-MM-DD');
 
+    //MAPPING to Primero case &  service forms
     const body = {
-      // progres_interventionnumber: data.progres_interventionnumber, //NOT FOUND IN PRIMERO?
       services_section: [
         {
           service_response_day_time: data.progres_interventionstartdate,
-          service_request_external: true, //Confirm primero mapping
+          service_request_external: true,
           service_request_title: data['user.title'],
-          service_request_agency: data['user.progres_partner'] ? data['user.progres_partner'].Name : undefined,
+          service_request_agency: data['user.progres_partner']
+            ? data['user.progres_partner'].Name
+            : undefined,
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: [
@@ -495,13 +499,12 @@ each(
             data.progres_comments_nonrestrictedstore,
           ]
             .filter(Boolean)
-            .join(','), // Reason for referral ?
-          service_type:
-            serviceMap[service_type] || 'focuses_non_specialized_mhpss_care', //REPLACES: data.progres_interventiontype2,
+            .join(','),
+          service_type: serviceMap[service_type],
           service_implementing_agency:
             data.progres_businessunit === 'd69e8ec1-e80b-e611-80d3-001dd8b71f12'
               ? 'UNICEF'
-              : 'UNICEF', //To confirm no more BUs to map
+              : 'UNICEF', //NOTE:
           service_response_type: 'service_provision',
           service_referral: 'external_referral',
           unhcr_referral_status: 'pending',
@@ -520,23 +523,25 @@ each(
         : undefined,
       sex: data['individuals.progres_sex'] ? sexMap[progres_sex] : undefined,
       telephone_current: data['individuals.progres_primaryphonenumber'],
-      address_current, //TODO; Contactenate locationlevel1, 2, ...6 (comma separated)
-      protection_concerns: protection[0] ? protection : null, //TODO; Confirm protecton mapping works
-      language: lang[0] ? lang : null, //TODO; Confirm language mapping works
+      address_current,
+      protection_concerns: protection[0] ? protection : null,
+      language: lang[0] ? lang : null,
       status: 'open',
-      case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
-      owned_by: 'progresv4_primero_intake',//'unhcr_cw',
-      module_id: 'primeromodule-cp', //hardcode default - to confirm
-      source_identification_referral: 'Humanitarian agencies', //hardcode default - to confirm
-      //registration_date: `${today}T00:00:00Z`,
-      //associated_user_names: '[unhcr_cw]', //NEEDED?
-      //remote: 'true', //NEEDED?
-      //created_by: 'openfn_testing', //NEEDED? Set automatically?
-      //created_by_source: '', //NEEDED?
+      case_id: data.progres_primeroid ? data.progres_primeroid : undefined,
+      owned_by: 'progresv4_primero_intake', //NOTE: Gambella-specific
+      module_id: 'primeromodule-cp',
+      source_identification_referral: 'Humanitarian agencies', //NOTE:  Gambella-specific?
     };
-    // console.log('Mapping referral data to Primero');
-
-    console.log('data to send to Primero:', body);
+    console.log('Mapping referral data from Progres to Primero...');
+    console.log(
+      'Primero unhcr_individual_no (or "progres_id"):',
+      body.unhcr_individual_no
+    );
+    console.log(
+      'Primero unhcr_individual_no (or "progres_registrationgroupid"):',
+      body.unhcr_id_no
+    );
+    console.log('Primero existing case_id:', body.case_id);
 
     // return state;
     return getCases(
