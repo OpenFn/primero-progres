@@ -494,6 +494,7 @@ each(
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: [
+            data.progres_interventiondescription,
             data.progres_reasonforreferral,
             data.progres_interventionbyother,
             data.progres_comments_nonrestrictedstore,
