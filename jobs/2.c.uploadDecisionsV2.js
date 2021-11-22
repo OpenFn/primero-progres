@@ -13,6 +13,14 @@ each(state.data.interventions, state => {
     );
     return referral;
   };
+  
+  const reason = ata.progres_reviewdecision === '125080000'
+        ? 'Individual Not Found'
+        : data.progres_reviewdecision === '125080001'
+        ? 'Individual Not Match UNHCR ID'
+        : data.progres_reviewdecision === '125080002'
+        ? 'Not applicable'
+        : data.progres_reviewdecision; 
 
   const decision = {
     status:
@@ -24,7 +32,7 @@ each(state.data.interventions, state => {
     type: 'Referral', //hardcoded
     // record_id: { record_id }, //different case uuid; not the same as case_id
     record_type: 'case', //hardcoded
-    rejected_reason: data.progres_interoperabilityreferralrejectionomment
+    rejected_reason: `${reason}: ${data.progres_interoperabilityreferralrejectionomment}`
   };
 
   console.log('Decision to send back to Primero:', decision);
