@@ -14,7 +14,7 @@ each(state.data.interventions, state => {
     return referral;
   };
   
-  const reason = ata.progres_reviewdecision === '125080000'
+  const reason = data.progres_reviewdecision === '125080000'
         ? 'Individual Not Found'
         : data.progres_reviewdecision === '125080001'
         ? 'Individual Not Match UNHCR ID'
