@@ -21,6 +21,8 @@ each(state.data.interventions, state => {
         : data.progres_reviewdecision === '125080002'
         ? 'Not applicable'
         : data.progres_reviewdecision; 
+        
+  const rejection = `${reason}: ${data.progres_interoperabilityreferralrejectionomment}`;
 
   const decision = {
     status:
@@ -32,7 +34,7 @@ each(state.data.interventions, state => {
     type: 'Referral', //hardcoded
     // record_id: { record_id }, //different case uuid; not the same as case_id
     record_type: 'case', //hardcoded
-    rejected_reason: `${reason}: ${data.progres_interoperabilityreferralrejectionomment}`
+    rejected_reason: reason ? rejection : reason
   };
 
   console.log('Decision to send back to Primero:', decision);
