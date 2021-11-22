@@ -24,7 +24,7 @@ each(state.data.interventions, state => {
     type: 'Referral', //hardcoded
     // record_id: { record_id }, //different case uuid; not the same as case_id
     record_type: 'case', //hardcoded
-    reason_rejected: data.progres_interoperabilityreferralrejectionomment
+    rejected_reason: data.progres_interoperabilityreferralrejectionomment
   };
 
   console.log('Decision to send back to Primero:', decision);
