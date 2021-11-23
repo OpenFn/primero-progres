@@ -497,6 +497,7 @@ each(
            ]
             .filter(Boolean)
             .join(',')
+            .replace(/<\/p>/g, ' ')
             .replace(/<p>/g, ' '), // Reason for referral ?
           service_type:
             serviceMap[service_type] || 'focuses_non_specialized_mhpss_care', //REPLACES: data.progres_interventiontype2,
