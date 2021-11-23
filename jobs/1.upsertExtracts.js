@@ -492,11 +492,12 @@ each(
           service_referral_notes: [
             data.progres_interventiondescription,
             data.progres_reasonforreferral,
-            data.progres_interventionbyother,
-            data.progres_comments_nonrestrictedstore,
-          ]
+          //   data.progres_interventionbyother,
+          //   data.progres_comments_nonrestrictedstore,
+           ]
             .filter(Boolean)
-            .join(','), // Reason for referral ?
+            .join(',')
+            .replace(/<p>/g, ' '), // Reason for referral ?
           service_type:
             serviceMap[service_type] || 'focuses_non_specialized_mhpss_care', //REPLACES: data.progres_interventiontype2,
           service_implementing_agency:
