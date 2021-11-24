@@ -1,4 +1,4 @@
-alterState(state => {
+fn(state => {
   console.log('Current cursor value:', state.lastRunDateTime);
   const manualCursor = '2021-11-21T00:00:00.000Z';
 
@@ -29,7 +29,9 @@ alterState(state => {
               service =>
                 service.service_referral === 'external_referral' &&
                 (service.unhcr_referral_status === 'accepted' ||
-                  service.unhcr_referral_status === 'rejected')
+                  service.unhcr_referral_status === 'rejected') &&
+                new Date(serv.service_response_day_time) >=
+                  new Date(state.lastRunDateTime || manualCursor)
             )
         );
 
@@ -96,7 +98,7 @@ alterState(state => {
   )(state);
 });
 
-alterState(state => {
+fn(state => {
   let lastRunDateTime = state.referralsToSend
     .map(c => c.last_updated_at)
     .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
