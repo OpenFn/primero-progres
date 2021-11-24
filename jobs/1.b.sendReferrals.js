@@ -30,7 +30,7 @@ fn(state => {
                 service.service_referral === 'external_referral' &&
                 (service.unhcr_referral_status === 'accepted' ||
                   service.unhcr_referral_status === 'rejected') &&
-                new Date(serv.service_response_day_time) >=
+                new Date(service.service_response_day_time) >=
                   new Date(state.lastRunDateTime || manualCursor)
             )
         );
