@@ -167,6 +167,12 @@ each(
     };
 
     const languageMap = {
+      Anyuak: 'language1',
+      Nuer: 'language2',
+      Dinka: 'language3',
+      Shuluk: 'language4',
+      Murle: 'murle_fce1c91',
+      Other: 'if_other_language__please_specify_335944b',
       //'English': 'language1', //old tests
       //'English': '_english',
       //'French': '_french',
@@ -460,11 +466,11 @@ each(
       missingFields.push('individuals.progres_dateofbirth');
     if (!data['individuals.progres_sex'])
       missingFields.push('individuals.progres_sex');
-    //QUESTION: Should these be required also? 
-//     if (!data['user.user.progres_partner'])
-//       missingFields.push('user.user.progres_partner');
-//     if (!data['individuals.progres_coalocationlevel1'])
-//       missingFields.push('individuals.progres_coalocationlevel1');
+    //QUESTION: Should these be required also?
+    //     if (!data['user.user.progres_partner'])
+    //       missingFields.push('user.user.progres_partner');
+    //     if (!data['individuals.progres_coalocationlevel1'])
+    //       missingFields.push('individuals.progres_coalocationlevel1');
     // =======================================================
 
     if (!provided) {
@@ -486,15 +492,17 @@ each(
           service_response_day_time: data.progres_interventionstartdate,
           service_request_external: true, //Confirm primero mapping
           service_request_title: data['user.title'],
-          service_request_agency: data['user.progres_partner'] ? data['user.progres_partner'].Name : undefined,
+          service_request_agency: data['user.progres_partner']
+            ? data['user.progres_partner'].Name
+            : undefined,
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: [
             data.progres_interventiondescription,
             data.progres_reasonforreferral,
-          //   data.progres_interventionbyother,
-          //   data.progres_comments_nonrestrictedstore,
-           ]
+            //   data.progres_interventionbyother,
+            //   data.progres_comments_nonrestrictedstore,
+          ]
             .filter(Boolean)
             .join(',')
             .replace(/<\/p>/g, ' ')
@@ -528,7 +536,7 @@ each(
       language: lang[0] ? lang : null, //TODO; Confirm language mapping works
       status: 'open',
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
-      owned_by: 'progresv4_primero_intake',//'unhcr_cw',
+      owned_by: 'progresv4_primero_intake', //'unhcr_cw',
       module_id: 'primeromodule-cp', //hardcode default - to confirm
       source_identification_referral: 'Humanitarian agencies', //hardcode default - to confirm
       //registration_date: `${today}T00:00:00Z`,

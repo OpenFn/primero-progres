@@ -1,7 +1,10 @@
 fn(state => {
   const { host, token } = state.configuration;
   //== Logging Primero referral before we map to DTP Interoperability form
-  console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
+  console.log(
+    'Primero referral to send to DTP...',
+    JSON.stringify(state.data, null, 2)
+  );
 
   //== Fetching Primero user data to complete referral mappings below
   return http
@@ -122,10 +125,17 @@ each(
 
     //TODO: Confirm mappings
     const languageMap = {
+      language1: 'Anyuak',
+      language2: 'Nuer',
+      language3: 'Dinka',
+      language4: 'Shuluk',
+      murle_fce1c91: 'Murle',
+      if_other_language__please_specify_335944b: 'Other',
       _amharic: 'Amharic',
       _arabic: 'Arabic',
       _boma: 'Boma',
       _didinga: 'Didinga',
+      _english: 'English',
       _french: 'French',
       _karamojong: 'Karamojong',
       _kifulero: 'Fuliiru, Kifulero',
@@ -146,21 +156,6 @@ each(
       _tira: 'Tira',
       _toposa: 'Toposa',
       _toro: 'Toro',
-      language1: 'Swahili',
-      language10: 'Acholi',
-      language2: 'Dinka',
-      language3: 'Nuer',
-      language4: 'Bari',
-      language5: 'Zande',
-      language6: 'English',
-      language7: 'Bembe',
-      language8: 'Somali',
-      if_other_language__please_specify_335944b: 'Other',
-      // _english: 'English',
-      // _french: 'French',
-      // language6: 'Somali',
-      // language1: 'English',
-      // language8: 'English'
     };
 
     let lang = [];
@@ -171,8 +166,8 @@ each(
     let protection = [];
     data.protection_concerns
       ? data.protection_concerns.forEach(pc =>
-        protection.push(protectionMap[pc])
-      )
+          protection.push(protectionMap[pc])
+        )
       : protection.push(protectionMap['physical_abuse_violence']);
 
     const referrals = [];
@@ -186,21 +181,16 @@ each(
       const referralMapping = {
         //== Fields pulled from Primero user - defined in case.owned_by =======//
         primero_user: data.owned_by,
-        position: user && user.position
-          ? user.position
-          : 'Case Worker', //Hardcoded defaults for testing if user profile not filled
-        email: user && user.email
-          ? user.email
-          : 'test@primero.org',
-        phone: user && user.phone
-          ? user.phone
-          : '0790970543',
-        full_name: user && user.full_name
-          ? user.full_name
-          : 'Primero CP',
+        position: user && user.position ? user.position : 'Case Worker', //Hardcoded defaults for testing if user profile not filled
+        email: user && user.email ? user.email : 'test@primero.org',
+        phone: user && user.phone ? user.phone : '0790970543',
+        full_name: user && user.full_name ? user.full_name : 'Primero CP',
         //=================================================================//
         request_type: 'ReceiveIncomingReferral',
-        service_implementing_agency: service.service_implementing_agency === 'UNHCR' ? 'UNICEF' : service.service_implementing_agency, //TODO: Discuss Primero config w/ Robert
+        service_implementing_agency:
+          service.service_implementing_agency === 'UNHCR'
+            ? 'UNICEF'
+            : service.service_implementing_agency, //TODO: Discuss Primero config w/ Robert
         service_response_day_time: service.service_response_day_time,
         service_type: serviceMap[service.service_type], //Alternative Care
         service_type_other: service.service_type_other
@@ -209,7 +199,7 @@ each(
         service_referral_notes: service.service_referral_notes
           ? service.service_referral_notes
           : 'Primero referral',
-        owned_by_agency_id: 'UNICEF',//data.owned_by_agency_id, //E.g., : UNICEF, Save the Children International
+        owned_by_agency_id: 'UNICEF', //data.owned_by_agency_id, //E.g., : UNICEF, Save the Children International
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
         name_first: data.name_first,
@@ -223,8 +213,8 @@ each(
           data.sex === 'unknown_4b34795'
             ? 'unknown'
             : data.sex === 'other_b25f252'
-              ? 'other'
-              : data.sex,
+            ? 'other'
+            : data.sex,
         address_current: data.address_current,
         telephone_current: data.telephone_current
           ? data.telephone_current.toString()
