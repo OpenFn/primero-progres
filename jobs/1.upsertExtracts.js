@@ -524,7 +524,7 @@ each(
       name_first: data['individuals.progres_givenname'],
       name_middle: data['individuals.progres_middlename'],
       name_last: data['individuals.progres_familyname'],
-      name_nickname: data['individuals.progres_id_commonyusedname'],
+      name_nickname: data['individuals.progres_commonyusedname'],
       date_of_birth: data['individuals.progres_dateofbirth'].split('T')[0],
       age: data['individuals.progres_dateofbirth']
         ? calculateAge(new Date(data['individuals.progres_dateofbirth']))
