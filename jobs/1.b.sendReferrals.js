@@ -30,8 +30,8 @@ fn(state => {
                 service.service_referral === 'external_referral' &&
                 (service.unhcr_referral_status === 'accepted' ||
                   service.unhcr_referral_status === 'rejected')
-                //&& new Date(service.service_response_day_time) >=
-                //   new Date(state.lastRunDateTime || manualCursor)
+              //&& new Date(service.service_response_day_time) >=
+              //   new Date(state.lastRunDateTime || manualCursor)
             )
         );
 
@@ -54,10 +54,14 @@ fn(state => {
             allowedStatus.includes(state.data.unhcr_referral_status)
           ) {
             const decision = {
-              case_id: `${data.case_id}#${state.data.unique_id.substr(-12)}`,
+              // case_id: `${data.case_id}#${state.data.unique_id.substr(-12)}`,
+              case_id: data.case_id,
               primero_user: data.owned_by,
               progres_interventionnumber: state.data.progres_interventionnumber, //TODO: map from services_section.progres_interventionnumber
-              status: state.data.unhcr_referral_status==='accepted' ? 'acknowledged' : state.data.unhcr_referral_status,
+              status:
+                state.data.unhcr_referral_status === 'accepted'
+                  ? 'acknowledged'
+                  : state.data.unhcr_referral_status,
               closure_reason:
                 state.data.unhcr_referral_rejection_reason ||
                 'No reason specified.',
