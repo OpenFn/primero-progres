@@ -60,8 +60,10 @@ fn(state => {
               progres_interventionnumber: state.data.progres_interventionnumber,
               status:
                 state.data.unhcr_referral_status === 'accepted'
-                  ? 'acknowledged'
-                  : state.data.unhcr_referral_status,
+                  ? 'Acknowledged'
+                  : state.data.unhcr_referral_status === 'rejected'
+                  ? 'Rejected'
+                  : 'Pending Acknowledgement',
               //CHANGED FROM: closure_reason
               unhcr_referral_rejection_reason:
                 state.data.unhcr_referral_rejection_reason ||
