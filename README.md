@@ -28,6 +28,7 @@ https://antirrio.azure-api.net/primero-uat/ReceiveIncomingReferral
 https://antirrio.azure-api.net/primero-uat/ReceiveDecisionOutgoingReferral
 
 ### (3) Data Flows
+- [x] **Primero UX documentated?** [See Slides on UX & Data Entry Steps](https://docs.google.com/presentation/d/1H9ncQvGcWrT6nVn--wAYKxjNIzKoMt7IkbFiEc1_F6s/edit?usp=sharing)
 - [x] **System Data Flow diagrams finalized?** [See Diagrams](https://docs.google.com/presentation/d/1S_BuMzJ2MzcvJCoHUPWxkfwYkFP-V-ValIWH4EP3Cj8/edit)
 - [x] **Technical specifications finalized?** [See links](https://docs.google.com/document/d/1my6LFr6Fq98wG3dDcURcl9THBrWG7hHLurchJC59Zos/edit?usp=sharing)
 - [x] Finalize Mapping specs v2 (with transformation rules, technical specs) finalized? [See Gambella mapping specs](https://docs.google.com/spreadsheets/d/1j5bVbg1-c3Pwyx3DiALxaOD4ulGTEdEGJCrgu2DVT38/edit#gid=1470043016).
