@@ -57,12 +57,13 @@ fn(state => {
               // case_id: `${data.case_id}#${state.data.unique_id.substr(-12)}`,
               case_id: data.case_id,
               primero_user: data.owned_by,
-              progres_interventionnumber: state.data.progres_interventionnumber, //TODO: map from services_section.progres_interventionnumber
+              progres_interventionnumber: state.data.progres_interventionnumber,
               status:
                 state.data.unhcr_referral_status === 'accepted'
                   ? 'acknowledged'
                   : state.data.unhcr_referral_status,
-              closure_reason:
+              //CHANGED FROM: closure_reason
+              unhcr_referral_rejection_reason:
                 state.data.unhcr_referral_rejection_reason ||
                 'No reason specified.',
               request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
