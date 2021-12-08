@@ -19,7 +19,7 @@ _Primero_
 - [x] API authentication tested? 
 
 _Progres_
-- [x] Progres API developed? DTP docs: _____
+- [x] Progres API developed? 
 - [x] Access to system dev/test environments? 
 - [x] API authentication tested? 
 - [x] APIs tested? 
@@ -36,7 +36,7 @@ https://antirrio.azure-api.net/primero-uat/ReceiveDecisionOutgoingReferral
 
 ### (4) Flow Triggers
 - [x] OpenFn job triggers confirmed?
-- [ ] 
+
 Proges--> Primero: `message filter` trigger (event-based): DTP to send notifications to OpenFn Inbox. 
 
 Primero --> Progres: `timer (cron)` trigger: Every X hours, OpenFn to send GET HTTP request to Primero to check for new data. 
