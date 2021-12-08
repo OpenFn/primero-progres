@@ -14,13 +14,13 @@ each(state.data.interventions, state => {
     return referral;
   };
   
-  const reason = data.progres_reviewdecision === '125080000'
+  const reason = data.progres_interoperabiltyreferralrejectionreason === '125080000'
         ? 'Individual Not Found'
-        : data.progres_reviewdecision === '125080001'
+        : data.progres_interoperabiltyreferralrejectionreason === '125080001'
         ? 'Individual Not Match UNHCR ID'
-        : data.progres_reviewdecision === '125080002'
+        : data.progres_interoperabiltyreferralrejectionreason === '125080002'
         ? 'Not applicable'
-        : data.progres_reviewdecision; 
+        : data.progres_interoperabiltyreferralrejectionreason; 
         
   const rejection = `${reason}: ${data.progres_interoperabilityreferralrejectionomment}`;
 
