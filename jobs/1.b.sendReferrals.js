@@ -62,8 +62,8 @@ fn(state => {
                   : state.data.unhcr_referral_status === 'rejected'
                   ? 'Rejected'
                   : 'Pending Acknowledgement',
-              //CHANGED FROM: closure_reason
-              unhcr_referral_rejection_reason:
+              closure_reason:
+              //unhcr_referral_rejection_reason:
                 state.data.unhcr_referral_rejection_reason ||
                 'No reason specified.',
               request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
