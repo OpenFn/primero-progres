@@ -1,6 +1,6 @@
 fn(state => {
   console.log('Current cursor value:', state.lastRunDateTime);
-  const manualCursor = '2021-11-24T00:00:00.000Z';
+  const manualCursor = '2021-12-09T02:00:00.000Z';
 
   return getCases(
     {
@@ -30,8 +30,8 @@ fn(state => {
                 service.service_referral === 'external_referral' &&
                 (service.unhcr_referral_status === 'accepted' ||
                   service.unhcr_referral_status === 'rejected')
-              //&& new Date(service.service_response_day_time) >=
-              //   new Date(state.lastRunDateTime || manualCursor)
+              && new Date(service.service_response_day_time) >=
+                new Date(state.lastRunDateTime || manualCursor)
             )
         );
 
