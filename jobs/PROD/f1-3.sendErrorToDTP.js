@@ -51,7 +51,6 @@ alterState(state => {
         },
       })(state)
       .then(() => {
-        //console.log(JSON.stringify(state.data, null, 2));
         console.log('Error sent to DTP/Progres.');
         return state;
       })

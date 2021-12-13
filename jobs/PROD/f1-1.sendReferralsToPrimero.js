@@ -7,7 +7,7 @@ each(
       const diff = Date.now() - dob.getTime();
       const age_dt = new Date(diff);
 
-      return Math.abs(age_dt.getUTCFullYear() - 1970); //.toString();
+      return Math.abs(age_dt.getUTCFullYear() - 1970);
     };
 
     const formatDate = (date, format) => {
@@ -61,7 +61,6 @@ each(
     const protectionMap = {
       'DS-LBM': 'physical_abuse_violence',
       'DS-UBM': 'sexual_abuse_violence',
-      //==TODO: Reformat mappings ==========================
       'DS-V': 'rape',
       'DS-H': 'emotional_or_psychological',
       'DS-C': 'neglect',
@@ -250,11 +249,6 @@ each(
       missingFields.push('individuals.progres_dateofbirth');
     if (!data['individuals.progres_sex'])
       missingFields.push('individuals.progres_sex');
-    //QUESTION: Should these be required also?
-    //     if (!data['user.user.progres_partner'])
-    //       missingFields.push('user.user.progres_partner');
-    //     if (!data['individuals.progres_coalocationlevel1'])
-    //       missingFields.push('individuals.progres_coalocationlevel1');
     // =======================================================
 
     if (!provided) {
@@ -270,11 +264,10 @@ each(
     const today = formatDate(new Date().toISOString(), 'YYYY-MM-DD');
 
     const body = {
-      // progres_interventionnumber: data.progres_interventionnumber, //NOT FOUND IN PRIMERO?
       services_section: [
         {
           service_response_day_time: data.progres_interventionstartdate,
-          service_request_external: true, //Confirm primero mapping
+          service_request_external: true,
           service_request_title: data['user.title'],
           service_request_agency: data['user.progres_partner']
             ? data['user.progres_partner'].Name
@@ -284,19 +277,17 @@ each(
           service_referral_notes: [
             data.progres_interventiondescription,
             data.progres_reasonforreferral,
-            //   data.progres_interventionbyother,
-            //   data.progres_comments_nonrestrictedstore,
           ]
             .filter(Boolean)
             .join(',')
             .replace(/<\/p>/g, ' ')
-            .replace(/<p>/g, ' '), // Reason for referral ?
+            .replace(/<p>/g, ' '),
           service_type:
-            serviceMap[service_type] || 'focuses_non_specialized_mhpss_care', //REPLACES: data.progres_interventiontype2,
+            serviceMap[service_type] || 'focuses_non_specialized_mhpss_care',
           service_implementing_agency:
             data.progres_businessunit === 'd69e8ec1-e80b-e611-80d3-001dd8b71f12'
               ? 'UNICEF'
-              : 'UNICEF', //To confirm no more BUs to map
+              : 'UNICEF',
           service_response_type: 'service_provision',
           service_referral: 'external_referral',
           unhcr_referral_status: 'pending',
@@ -315,33 +306,23 @@ each(
         : undefined,
       sex: data['individuals.progres_sex'] ? sexMap[progres_sex] : undefined,
       telephone_current: data['individuals.progres_primaryphonenumber'],
-      address_current, //TODO; Contactenate locationlevel1, 2, ...6 (comma separated)
-      protection_concerns: protection[0] ? protection : null, //TODO; Confirm protecton mapping works
-      language: lang[0] ? lang : null, //TODO; Confirm language mapping works
+      address_current,
+      protection_concerns: protection[0] ? protection : null,
+      language: lang[0] ? lang : null,
       status: 'open',
-      case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
-      owned_by: 'progresv4_primero_intake', //'unhcr_cw',
-      module_id: 'primeromodule-cp', //hardcode default - to confirm
-      //source_identification_referral: 'Humanitarian agencies', //Removed from config
-      //registration_date: `${today}T00:00:00Z`,
-      //associated_user_names: '[unhcr_cw]', //NEEDED?
-      //remote: 'true', //NEEDED?
-      //created_by: 'openfn_testing', //NEEDED? Set automatically?
-      //created_by_source: '', //NEEDED?
+      case_id: data.progres_primeroid ? data.progres_primeroid : undefined,
+      owned_by: 'progresv4_primero_intake', //default focal point user
+      module_id: 'primeromodule-cp',
     };
-    // console.log('Mapping referral data to Primero');
 
-    console.log('data to send to Primero:', body);
+    console.log('Mapping referral data to Primero: ', body.unhcr_individual_no);
 
-    // return state;
     return getCases(
       {
         remote: true,
         unhcr_individual_no: data['individuals.progres_id'],
-        //case_id: data.progres_primeroid || data['individuals.progres_id'],
       },
       state => {
-        // console.log(state.data);
         if (state.data.length === 0) {
           return createCase(
             {
@@ -350,7 +331,9 @@ each(
               }),
             },
             state => {
-              console.log(`New case created for case id:${state.data.case_id}`);
+              console.log(
+                `New case created for case id: ${state.data.case_id}`
+              );
               return state;
             }
           )(state);

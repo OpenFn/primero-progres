@@ -10,28 +10,23 @@ fn(state => {
     state => {
       const { data, configuration } = state;
       const { urlDTP, key, cert } = configuration;
-      console.log('cases fetched', JSON.stringify(data, null, 2));
+      console.log('Primero cases fetched for: ', data.case_id);
       const today = new Date();
       const yesterday = new Date(new Date().getTime());
       yesterday.setDate(yesterday.getDate() - 1);
 
-      const referralsToSend = data
-        // .filter( //only check for decisions if case is not still 'open'...
-        //   ref => ref.status !== 'open'
-        //   //&& ref.unhcr_individual_no !== null //needed?
-        // )
-        .filter(
-          (
-            ref //...and if the service was a referral from unhcr
-          ) =>
-            ref.services_section &&
-            ref.services_section.some(
-              service =>
-                service.service_referral === 'external_referral' &&
-                (service.unhcr_referral_status === 'accepted' ||
-                  service.unhcr_referral_status === 'rejected')
-            )
-        );
+      const referralsToSend = data.filter(
+        (
+          ref //check if the service was an external referral & the decision changed
+        ) =>
+          ref.services_section &&
+          ref.services_section.some(
+            service =>
+              service.service_referral === 'external_referral' &&
+              (service.unhcr_referral_status === 'accepted' ||
+                service.unhcr_referral_status === 'rejected')
+          )
+      );
 
       state.referralsToSend = referralsToSend;
       if (referralsToSend.length === 0) {
@@ -52,7 +47,6 @@ fn(state => {
             allowedStatus.includes(state.data.unhcr_referral_status)
           ) {
             const decision = {
-              // case_id: `${data.case_id}#${state.data.unique_id.substr(-12)}`,
               case_id: data.case_id,
               primero_user: data.owned_by,
               progres_interventionnumber: state.data.progres_interventionnumber,
@@ -115,13 +109,3 @@ fn(state => {
   console.log('New cursor value:', lastRunDateTime);
   return { ...state, data: {}, references: [], lastRunDateTime };
 });
-
-//==== Example decision output to post to DTP ===///
-// decision = {
-//         case_id: 'b30cba6b-8d97-4524-b77f-a8f50cfcc974',
-//         owned_by: 'unhcr_cw',
-//         progres_interventionnumber: 'NAI-20-PRTITV-0000006',
-//         status: 'rejected',
-//         closure_reason: 'primero reason for rejection',
-//         request_type: 'ReceiveDecisionOutgoingReferral'
-//       };
