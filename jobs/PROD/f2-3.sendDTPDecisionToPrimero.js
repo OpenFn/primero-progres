@@ -51,11 +51,7 @@ each(state.data.interventions, state => {
     decision['id'] = referral.id;
     decision['record_id'] = referral.record_id;
     console.log(
-      `Referral to update: ${JSON.stringify(
-        referral,
-        null,
-        2
-      )} with decision ${JSON.stringify(decision, null, 2)} `
+      `Found case to update with decision ${JSON.stringify(decision, null, 2)} `
     );
     return updateReferrals(
       {
@@ -65,9 +61,7 @@ each(state.data.interventions, state => {
         data: decision,
       },
       state => {
-        console.log(
-          `Upload succcessful ${JSON.stringify(state.data, null, 2)}`
-        );
+        console.log(`Upload succcessful for case: ${case_id}`);
         return state;
       }
     )(state);
