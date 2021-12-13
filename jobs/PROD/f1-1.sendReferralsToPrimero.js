@@ -7,7 +7,7 @@ each(
       const diff = Date.now() - dob.getTime();
       const age_dt = new Date(diff);
 
-      return Math.abs(age_dt.getUTCFullYear() - 1970);
+      return Math.abs(age_dt.getUTCFullYear() - 1970); //.toString();
     };
 
     const formatDate = (date, format) => {
@@ -42,18 +42,14 @@ each(
 
     const progres_description = data['interventiontype.progres_description'];
 
-    //=== INTEVENTION_TYPE: SERVICE_TYPE MAPPINGS =========================//
-    //NOTE: Gambella-specific, to be localized
     const serviceMap = {
       'Alternative Care': 'alternative_care',
       BID: 'focuses_non_specialized_mhpss_care',
       BIA: 'focuses_non_specialized_mhpss_care',
       'Family Tracing and Reunification': 'food',
     };
-    //=== END SERVICE MAPPINGS =========================//
     state.serviceMap = serviceMap;
 
-    //ERROR: Sent to Progres if non-authorized service received
     const serviceMapArray = [];
     for (service in serviceMap) serviceMapArray.push(service);
     if (!serviceMapArray.includes(progres_description)) {
@@ -62,11 +58,10 @@ each(
       );
     }
 
-    //=== SPNEEDS: PROTECTION CONCERNS MAPPINGS =========================//
-    //NOTE: Gambella-specific, to be localized
     const protectionMap = {
       'DS-LBM': 'physical_abuse_violence',
       'DS-UBM': 'sexual_abuse_violence',
+      //==TODO: Reformat mappings ==========================
       'DS-V': 'rape',
       'DS-H': 'emotional_or_psychological',
       'DS-C': 'neglect',
@@ -148,262 +143,57 @@ each(
       'SV-FM': 'sv_fm__forced__early_marriage__b1a8ba0',
       'SV-SS': 'sv_ss__survival_sex__0a5cc10',
     };
-    //=== END PROTECTION MAPPINGS =========================//
 
     const spneed = data['spnsubcategory2code']
       ? data['spnsubcategory2code']
       : undefined;
 
+    //OLD MAPPINGS FROM DADAAB
+    // const spneed = data['specificneeds.progres_spnsubcategory2']
+    //   ? data['specificneeds.progres_spnsubcategory2'].Name
+    //   : data['specificneeds.progres_spncategory2']
+    //   ? data['specificneeds.progres_spncategory2'].Name
+    //   : undefined;
+
     let protection = [];
     protection.push(protectionMap[spneed]);
+    //data.interventions.forEach(pc => protection.push(protectionMap[pc.specificneeds.progres_spncategory2.Id]));
 
-    //=== SEX MAPPINGS ============//
     const sexMap = {
       125080000: 'female',
       125080001: 'male',
       125080002: 'other_b25f252',
       125080003: 'unknown_4b34795',
     };
-    //=== END SEX MAPPINGS ============//
 
-    //=== LANGUAGE MAPPINGS =========================//
-    //NOTE: Gambella-specific, to be localized
     const languageMap = {
-      Amharic: '_amharic',
-      'Arabic, Algerian Saharan Spoken': '_arabic',
-      'Arabic, Algerian Spoken': '_arabic',
-      'Arabic, Babalia Creole': '_arabic',
-      'Arabic, Baharna Spoken': '_arabic',
-      'Arabic, Chadian Spoken': '_arabic',
-      'Arabic, Cypriot Spoken': '_arabic',
-      'Arabic, Dhofari Spoken': '_arabic',
-      'Arabic, Eastern Egyptian Bedawi Spoken': '_arabic',
-      'Arabic, Egyptian Spoken': '_arabic',
-      'Arabic, Gulf Spoken': '_arabic',
-      'Arabic, Hadrami Spoken': '_arabic',
-      'Arabic, Hijazi Spoken': '_arabic',
-      'Arabic, Judeo-iraqi': '_arabic',
-      'Arabic, Judeo-moroccan': '_arabic',
-      'Arabic, Judeo-tripolitanian': '_arabic',
-      'Arabic, Judeo-tunisian': '_arabic',
-      'Arabic, Judeo-yemeni': '_arabic',
-      'Arabic, Libyan Spoken': '_arabic',
-      'Arabic, Mesopotamian Spoken': '_arabic',
-      'Arabic, Moroccan Spoken': '_arabic',
-      'Arabic, Najdi Spoken': '_arabic',
-      'Arabic, North Levantine Spoken': '_arabic',
-      'Arabic, North Mesopotamian Spoken': '_arabic',
-      'Arabic, Omani Spoken': '_arabic',
-      'Arabic, Sa<idi Spoken': '_arabic',
-      'Arabic, Sanaani Spoken': '_arabic',
-      'Arabic, Shihhi Spoken': '_arabic',
-      'Arabic, South Levantine Spoken': '_arabic',
-      'Arabic, Standard': '_arabic',
-      'Arabic, Sudanese Creole': '_arabic',
-      'Arabic, Sudanese Spoken': '_arabic',
-      "Arabic, Ta'izzi-adeni Spoken": '_arabic',
-      'Arabic, Tajiki Spoken': '_arabic',
-      'Arabic, Tunisian Spoken': '_arabic',
-      'Arabic, Uzbeki Spoken': '_arabic',
-      Boma: '_boma',
-      Didinga: '_didinga',
-      French: '_french',
-      'French, Cajun': '_french',
-      'Guadeloupean Creole French': '_french',
-      'Guianese Creole French': '_french',
-      'Haitian Creole French': '_french',
-      'Karipúna Creole French': '_french',
-      'Louisiana Creole French': '_french',
-      'Réunion Creole French': '_french',
-      'San Miguel Creole French': '_french',
-      'Seselwa Creole French': '_french',
-      'St. Lucian Creole French': '_french',
-      Karamojong: '_karamojong',
-      'Fuliiru, Kifulero': '_kifulero',
-      'Kituba, Kikongo': '_kikongo',
-      'Kongo, Kikongo, Congo': '_kikongo',
-      Kinyabwisha: '_kinyabiyisha',
-      'Rwanda, Kinyarwanda': '_kinyarwanda',
-      'Rundi, Kirundi': '_kirundi',
-      Lingala: '_lingala',
-      Lokoya: '_lokoya',
-      Lopit: '_lopit',
-      Luo: '_luo',
-      Makonde: '_makonde',
-      Mashi: '_mashi',
-      Moro: '_moro',
-      Murle: '_murle',
-      'Oromo, Borana-arsi-guji': '_oromo',
-      'Oromo, Eastern': '_oromo',
-      'Oromo, West-central': '_oromo',
-      'Adamorobe Sign Language': '_sign_language',
-      'Algerian Sign Language': '_sign_language',
-      'American Sign Language': '_sign_language',
-      'Arabic Sign Language': '_sign_language',
-      'Argentine Sign Language': '_sign_language',
-      'Armenian Sign Language': '_sign_language',
-      'Australian Aborigines Sign Language': '_sign_language',
-      'Australian Sign Language': '_sign_language',
-      'Austrian Sign Language': '_sign_language',
-      'Bali Sign Language': '_sign_language',
-      'Bamako Sign Language': '_sign_language',
-      'Ban Khor Sign Language': '_sign_language',
-      'Belgian Sign Language': '_sign_language',
-      'Bolivian Sign Language': '_sign_language',
-      'Brazilian Sign Language': '_sign_language',
-      'British Sign Language': '_sign_language',
-      'Bulgarian Sign Language': '_sign_language',
-      'Catalonian Sign Language': '_sign_language',
-      'Chadian Sign Language': '_sign_language',
-      'Chiangmai Sign Language': '_sign_language',
-      'Chilean Sign Language': '_sign_language',
-      'Chinese Sign Language': '_sign_language',
-      'Colombian Sign Language': '_sign_language',
-      'Costa Rican Sign Language': '_sign_language',
-      'Czech Sign Language': '_sign_language',
-      'Danish Sign Language': '_sign_language',
-      'Dominican Sign Language': '_sign_language',
-      'Dutch Sign Language': '_sign_language',
-      'Ecuadorian Sign Language': '_sign_language',
-      'Estonian Sign Language': '_sign_language',
-      'Ethiopian Sign Language': '_sign_language',
-      'Finnish Sign Language': '_sign_language',
-      'Finnish-Swedish Sign Language': '_sign_language',
-      'French Sign Language': '_sign_language',
-      'German Sign Language': '_sign_language',
-      'Ghanaian Sign Language': '_sign_language',
-      'Greek Sign Language': '_sign_language',
-      'Guatemalan Sign Language': '_sign_language',
-      'Guinean Sign Language': '_sign_language',
-      'Haiphong Sign Language': '_sign_language',
-      'Hanoi Sign Language': '_sign_language',
-      'Hausa Sign Language': '_sign_language',
-      "Hawai'i Pidgin Sign Language": '_sign_language',
-      'Ho Chi Minh City Sign Language': '_sign_language',
-      'Hungarian Sign Language': '_sign_language',
-      'Icelandic Sign Language': '_sign_language',
-      'Indian Sign Language': '_sign_language',
-      'Indonesian Sign Language': '_sign_language',
-      'International Sign Language': '_sign_language',
-      'Irish Sign Language': '_sign_language',
-      'Israeli Sign Language': '_sign_language',
-      'Italian Sign Language': '_sign_language',
-      'Jamaican Country Sign Language': '_sign_language',
-      'Japanese Sign Language': '_sign_language',
-      'Jordanian Sign Language': '_sign_language',
-      'Kenyan Sign Language': '_sign_language',
-      'Korean Sign Language': '_sign_language',
-      'Kuala Lumpur Sign Language': '_sign_language',
-      'Laos Sign Language': '_sign_language',
-      'Latvian Sign Language': '_sign_language',
-      'Libyan Sign Language': '_sign_language',
-      'Lithuanian Sign Language': '_sign_language',
-      'Lyons Sign Language': '_sign_language',
-      'Madagascar Sign Language': '_sign_language',
-      'Malaysian Sign Language': '_sign_language',
-      'Maltese Sign Language': '_sign_language',
-      'Maritime Sign Language': '_sign_language',
-      "Martha's Vineyard Sign Language": '_sign_language',
-      'Mexican Sign Language': '_sign_language',
-      'Monastic Sign Language': '_sign_language',
-      'Mongolian Sign Language': '_sign_language',
-      'Moroccan Sign Language': '_sign_language',
-      'Mozambican Sign Language': '_sign_language',
-      'Namibian Sign Language': '_sign_language',
-      'Nepalese Sign Language': '_sign_language',
-      'New Zealand Sign Language': '_sign_language',
-      'Nicaraguan Sign Language': '_sign_language',
-      'Nigerian Sign Language': '_sign_language',
-      'Norwegian Sign Language': '_sign_language',
-      'Old Kentish Sign Language': '_sign_language',
-      'Pakistan Sign Language': '_sign_language',
-      'Penang Sign Language': '_sign_language',
-      'Persian Sign Language': '_sign_language',
-      'Peruvian Sign Language': '_sign_language',
-      'Philippine Sign Language': '_sign_language',
-      'Plains Indian Sign Language': '_sign_language',
-      'Polish Sign Language': '_sign_language',
-      'Portuguese Sign Language': '_sign_language',
-      'Providencia Sign Language': '_sign_language',
-      'Puerto Rican Sign Language': '_sign_language',
-      'Quebec Sign Language': '_sign_language',
-      'Rennellese Sign Language': '_sign_language',
-      'Romanian Sign Language': '_sign_language',
-      'Russian Sign Language': '_sign_language',
-      'Salvadoran Sign Language': '_sign_language',
-      'Saudi Arabian Sign Language': '_sign_language',
-      'Sierra Leone Sign Language': '_sign_language',
-      'Singapore Sign Language': '_sign_language',
-      'Slovakian Sign Language': '_sign_language',
-      'South African Sign Language': '_sign_language',
-      'Spanish Sign Language': '_sign_language',
-      'Sri Lankan Sign Language': '_sign_language',
-      'Swedish Sign Language': '_sign_language',
-      'Swiss-french Sign Language': '_sign_language',
-      'Swiss-german Sign Language': '_sign_language',
-      'Swiss-italian Sign Language': '_sign_language',
-      'Taiwanese Sign Language': '_sign_language',
-      'Tanzanian Sign Language': '_sign_language',
-      'Thai Sign Language': '_sign_language',
-      'Tunisian Sign Language': '_sign_language',
-      'Turkish Sign Language': '_sign_language',
-      'Ugandan Sign Language': '_sign_language',
-      'Ukrainian Sign Language': '_sign_language',
-      'Urubú-kaapor Sign Language': '_sign_language',
-      'Uruguayan Sign Language': '_sign_language',
-      'Venezuelan Sign Language': '_sign_language',
-      'Yiddish Sign Language': '_sign_language',
-      'Yucatec Maya Sign Language': '_sign_language',
-      'Yugoslavian Sign Language': '_sign_language',
-      'Zambian Sign Language': '_sign_language',
-      'Zimbabwe Sign Language': '_sign_language',
-      Tira: '_tira',
-      Toposa: '_toposa',
-      Toro: '_toro',
+      Anyuak: 'language1',
+      Acholi: 'language10',
+      Amharic: 'language5',
+      Bari: 'language4',
+      Bembe: 'language7',
+      'Dinka, Northeastern': 'language3',
+      'Dinka, Northwestern; Alor': 'language3',
+      'Dinka, South Central': 'language3',
+      'Dinka, Southeastern;': 'language3',
+      'Dinka, Southeastern': 'language3',
+      'Dinka, Southwestern; Rek': 'language3',
+      Nuer: 'language2',
+      Somali: 'language8',
       'Cutchi-swahili': 'language1',
       Swahili: 'language1',
       'Swahili, Congo': 'language1',
-      Acholi: 'language10',
-      'Dinka, Northeastern': 'language2',
-      'Dinka, Northwestern; Alor': 'language2',
-      'Dinka, South Central': 'language2',
-      'Dinka, Southeastern;': 'language2',
-      'Dinka, Southwestern; Rek': 'language2',
-      Nuer: 'language3',
-      Bari: 'language4',
       Zande: 'language5',
-      'Bahamas Creole English': 'language6',
-      'Belize Kriol English': 'language6',
-      'Chinese Pidgin English': 'language6',
-      English: 'language6',
-      'Fernando Po Creole English': 'language6',
-      'Guyanese Creole English': 'language6',
-      "Hawai'i Creole English": 'language6',
-      'Islander Creole English': 'language6',
-      'Jamaican Creole English': 'language6',
-      'Liberian English': 'language6',
-      'Montserat Creole English': 'language6',
-      'Nicaragua Creole English': 'language6',
-      'Sea Island Creole English': 'language6',
-      'Tobagonian Creole English': 'language6',
-      'Trinidadian Creole English': 'language6',
-      'Turks And Caicos Creole English': 'language6',
-      'Vincentian Creole English': 'language6',
-      'Virgin Islands Creole English': 'language6',
-      Bembe: 'language7',
-      Somali: 'language8',
     };
-    //==== END LANGUAGE MAPPINGS ==================//
 
     let lang = [];
     lang.push(
       data['languages.progres_languagecodeid']
         ? languageMap[data['languages.progres_languagecodeid'].Name] ||
-            'if_other_language__please_specify_335944b'
+            'language6'
         : undefined
     );
 
-    // ADDRESS MAPPINGS
     const address1 = data['individuals.progres_coalocationlevel1']
       ? data['individuals.progres_coalocationlevel1'].Name
       : '';
@@ -423,7 +213,6 @@ each(
       ? data['individuals.progres_coalocationlevel6']
       : '';
 
-    //CONCATENATE to map address_current
     const address_current =
       address1 +
       ' ' +
@@ -446,7 +235,7 @@ each(
         data['individuals.progres_familyname']) !== undefined;
 
     const missingFields = [];
-    // CHECKING MISSING FIELDS TO NOTIFY PROGRES ================================
+    // CHECK MISSING FIELDS ==================================
     if (!progres_description)
       missingFields.push('interventiontype.progres_description');
     if (!data['individuals.progres_id'])
@@ -461,14 +250,13 @@ each(
       missingFields.push('individuals.progres_dateofbirth');
     if (!data['individuals.progres_sex'])
       missingFields.push('individuals.progres_sex');
-    //TO CONSIDER: Should these be required also?
+    //QUESTION: Should these be required also?
     //     if (!data['user.user.progres_partner'])
     //       missingFields.push('user.user.progres_partner');
     //     if (!data['individuals.progres_coalocationlevel1'])
     //       missingFields.push('individuals.progres_coalocationlevel1');
     // =======================================================
 
-    //ERROR: Thrown if required field is missing from Progres referral sent to Primero
     if (!provided) {
       throw new Error(
         `Intervention referral is missing fields required for sending to Primero: ${missingFields.join(
@@ -481,12 +269,12 @@ each(
 
     const today = formatDate(new Date().toISOString(), 'YYYY-MM-DD');
 
-    //MAPPING to Primero case &  service forms
     const body = {
+      // progres_interventionnumber: data.progres_interventionnumber, //NOT FOUND IN PRIMERO?
       services_section: [
         {
           service_response_day_time: data.progres_interventionstartdate,
-          service_request_external: true,
+          service_request_external: true, //Confirm primero mapping
           service_request_title: data['user.title'],
           service_request_agency: data['user.progres_partner']
             ? data['user.progres_partner'].Name
@@ -496,16 +284,19 @@ each(
           service_referral_notes: [
             data.progres_interventiondescription,
             data.progres_reasonforreferral,
-            data.progres_interventionbyother,
-            data.progres_comments_nonrestrictedstore,
+            //   data.progres_interventionbyother,
+            //   data.progres_comments_nonrestrictedstore,
           ]
             .filter(Boolean)
-            .join(','),
-          service_type: serviceMap[service_type],
+            .join(',')
+            .replace(/<\/p>/g, ' ')
+            .replace(/<p>/g, ' '), // Reason for referral ?
+          service_type:
+            serviceMap[service_type] || 'focuses_non_specialized_mhpss_care', //REPLACES: data.progres_interventiontype2,
           service_implementing_agency:
             data.progres_businessunit === 'd69e8ec1-e80b-e611-80d3-001dd8b71f12'
               ? 'UNICEF'
-              : 'UNICEF', //NOTE:
+              : 'UNICEF', //To confirm no more BUs to map
           service_response_type: 'service_provision',
           service_referral: 'external_referral',
           unhcr_referral_status: 'pending',
@@ -517,32 +308,30 @@ each(
       name_first: data['individuals.progres_givenname'],
       name_middle: data['individuals.progres_middlename'],
       name_last: data['individuals.progres_familyname'],
-      name_nickname: data['individuals.progres_id_commonyusedname'],
+      name_nickname: data['individuals.progres_commonyusedname'],
       date_of_birth: data['individuals.progres_dateofbirth'].split('T')[0],
       age: data['individuals.progres_dateofbirth']
         ? calculateAge(new Date(data['individuals.progres_dateofbirth']))
         : undefined,
       sex: data['individuals.progres_sex'] ? sexMap[progres_sex] : undefined,
       telephone_current: data['individuals.progres_primaryphonenumber'],
-      address_current,
-      protection_concerns: protection[0] ? protection : null,
-      language: lang[0] ? lang : null,
+      address_current, //TODO; Contactenate locationlevel1, 2, ...6 (comma separated)
+      protection_concerns: protection[0] ? protection : null, //TODO; Confirm protecton mapping works
+      language: lang[0] ? lang : null, //TODO; Confirm language mapping works
       status: 'open',
-      case_id: data.progres_primeroid ? data.progres_primeroid : undefined,
-      owned_by: 'progresv4_primero_intake', //NOTE: Gambella-specific
-      module_id: 'primeromodule-cp',
-      source_identification_referral: 'Humanitarian agencies', //NOTE:  Gambella-specific?
+      case_id: data.progres_primeroid ? data.progres_primeroid : undefined, // Advise on mapping
+      owned_by: 'progresv4_primero_intake', //'unhcr_cw',
+      module_id: 'primeromodule-cp', //hardcode default - to confirm
+      //source_identification_referral: 'Humanitarian agencies', //Removed from config
+      //registration_date: `${today}T00:00:00Z`,
+      //associated_user_names: '[unhcr_cw]', //NEEDED?
+      //remote: 'true', //NEEDED?
+      //created_by: 'openfn_testing', //NEEDED? Set automatically?
+      //created_by_source: '', //NEEDED?
     };
-    console.log('Mapping referral data from Progres to Primero...');
-    console.log(
-      'Primero unhcr_individual_no (or "progres_id"):',
-      body.unhcr_individual_no
-    );
-    console.log(
-      'Primero unhcr_individual_no (or "progres_registrationgroupid"):',
-      body.unhcr_id_no
-    );
-    console.log('Primero existing case_id:', body.case_id);
+    // console.log('Mapping referral data to Primero');
+
+    console.log('data to send to Primero:', body);
 
     // return state;
     return getCases(

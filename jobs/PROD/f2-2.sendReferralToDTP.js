@@ -1,7 +1,10 @@
 fn(state => {
   const { host, token } = state.configuration;
   //== Logging Primero referral before we map to DTP Interoperability form
-  console.log('Primero referral to send to DTP...', JSON.stringify(state.data, null, 2));
+  console.log(
+    'Primero referral to send to DTP...',
+    JSON.stringify(state.data, null, 2)
+  );
 
   //== Fetching Primero user data to complete referral mappings below
   return http
@@ -122,10 +125,17 @@ each(
 
     //TODO: Confirm mappings
     const languageMap = {
+      language1: 'Anyuak',
+      language2: 'Nuer',
+      language3: 'Dinka',
+      language4: 'Shuluk',
+      murle_fce1c91: 'Murle',
+      if_other_language__please_specify_335944b: 'Other',
       _amharic: 'Amharic',
       _arabic: 'Arabic',
       _boma: 'Boma',
       _didinga: 'Didinga',
+      _english: 'English',
       _french: 'French',
       _karamojong: 'Karamojong',
       _kifulero: 'Fuliiru, Kifulero',
@@ -146,21 +156,6 @@ each(
       _tira: 'Tira',
       _toposa: 'Toposa',
       _toro: 'Toro',
-      language1: 'Swahili',
-      language10: 'Acholi',
-      language2: 'Dinka',
-      language3: 'Nuer',
-      language4: 'Bari',
-      language5: 'Zande',
-      language6: 'English',
-      language7: 'Bembe',
-      language8: 'Somali',
-      if_other_language__please_specify_335944b: 'Other',
-      // _english: 'English',
-      // _french: 'French',
-      // language6: 'Somali',
-      // language1: 'English',
-      // language8: 'English'
     };
 
     let lang = [];
@@ -171,8 +166,8 @@ each(
     let protection = [];
     data.protection_concerns
       ? data.protection_concerns.forEach(pc =>
-        protection.push(protectionMap[pc])
-      )
+          protection.push(protectionMap[pc])
+        )
       : protection.push(protectionMap['physical_abuse_violence']);
 
     const referrals = [];
@@ -186,21 +181,16 @@ each(
       const referralMapping = {
         //== Fields pulled from Primero user - defined in case.owned_by =======//
         primero_user: data.owned_by,
-        position: user && user.position
-          ? user.position
-          : 'Case Worker', //Hardcoded defaults for testing if user profile not filled
-        email: user && user.email
-          ? user.email
-          : 'test@primero.org',
-        phone: user && user.phone
-          ? user.phone
-          : '0790970543',
-        full_name: user && user.full_name
-          ? user.full_name
-          : 'Primero CP',
+        position: user && user.position ? user.position : 'Case Worker', //Hardcoded defaults for testing if user profile not filled
+        email: user && user.email ? user.email : 'test@primero.org',
+        phone: user && user.phone ? user.phone : '0790970543',
+        full_name: user && user.full_name ? user.full_name : 'Primero CP',
         //=================================================================//
         request_type: 'ReceiveIncomingReferral',
-        service_implementing_agency: service.service_implementing_agency === 'UNHCR' ? 'UNICEF' : service.service_implementing_agency, //TODO: Discuss Primero config w/ Robert
+        service_implementing_agency:
+          service.service_implementing_agency === 'UNHCR'
+            ? 'UNICEF'
+            : service.service_implementing_agency, //TODO: Discuss Primero config w/ Robert
         service_response_day_time: service.service_response_day_time,
         service_type: serviceMap[service.service_type], //Alternative Care
         service_type_other: service.service_type_other
@@ -209,7 +199,7 @@ each(
         service_referral_notes: service.service_referral_notes
           ? service.service_referral_notes
           : 'Primero referral',
-        owned_by_agency_id: 'UNICEF',//data.owned_by_agency_id, //E.g., : UNICEF, Save the Children International
+        owned_by_agency_id: 'UNICEF', //data.owned_by_agency_id, //E.g., : UNICEF, Save the Children International
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
         name_first: data.name_first,
@@ -223,8 +213,8 @@ each(
           data.sex === 'unknown_4b34795'
             ? 'unknown'
             : data.sex === 'other_b25f252'
-              ? 'other'
-              : data.sex,
+            ? 'other'
+            : data.sex,
         address_current: data.address_current,
         telephone_current: data.telephone_current
           ? data.telephone_current.toString()
@@ -272,46 +262,3 @@ each(
     })(state);
   })
 );
-
-//==== LEGACY MAPPINGS ===============================================================================//
-//==== UPDATE: We no longer provide Progres Ids, but rather the Primero Ids for DTP to map ===========//
-//   const obj = {
-//     // progres_businessunit: 'd69e8ec1-e80b-e611-80d3-001dd8b71f12', //Dadaab UAT hardcoded GUID for testing
-//     progres_businessunit: service.service_implementing_agency, //Dadaab UAT hardcoded GUID for testing
-//     // progres_referraldate: '2021-04-28T19:34:43.000Z', // inside an array
-//     progres_referraldate: service.service_response_day_time, // inside an array
-//     // progres_requestedservice: 'documentation', // inside an array
-//     progres_requestedservice: service.service_type, // inside an array
-//     // progres_otherrequestedservices: '', // inside an array
-//     progres_otherrequestedservices: service.service_type_other, // inside an array
-//     // progres_reasonforreferral: 'Testing for interoperability',
-//     progres_reasonforreferral: service.service_referral_notes,
-//     progres_organizationfrom: data.owned_by_agency_id,
-//     progres_orgreferredby: data.owned_by, //data.user.full_name
-//     progres_orgposition: user ? user.position : 'Case Worker', //TODO: Get user info from endpoint?
-//     progres_orgemail: user ? user.email : 'test@primero.org',
-//     progres_orgphonenumber: user ? user.phone : '0790970543',
-//     progres_unhcrid: data.unhcr_individual_no,
-//     progres_pocotheridnumber: data.unhcr_id_no,
-//     progres_pocfirstname: data.name_first,
-//     progres_pocmiddlename: data.name_middle,
-//     progres_poclastname: data.name_last,
-//     progres_comments: data.name_nickname,
-//     progres_pocdateofbirth: new Date(data.date_of_birth),
-//     progres_pocsex: data.sex,
-//     progres_pocaddress: data.address_current,
-//     progres_pocphonenumber: data.telephone_current,
-//     progres_spneedcategory: 'DS-SC', // Advise on mapping
-//     progres_otherprotectionconcerns: data.protection_concerns_other,
-//     progres_primerotransferstatus: '', // inside an array
-//     progres_comments: 'English', // field present multiple times
-//     progres_orgreferralid: data.id,
-//     progres_priority: 'High and Emergency',
-//     // progres_priority:
-//     //   risk_level && risk_level!==undefined ?
-//     //   (risk_level && risk_level === 'High' ? 'High and Emergency' : undefined) :
-//     //   undefined,
-//   };
-//   console.log('Mapping referral to DTP:', JSON.stringify(obj, null, 2));
-// });
-//====================================================================================================//

@@ -1,87 +1,80 @@
-alterState(state => {
+fn(state => {
   console.log('Last sync end date:', state.lastRunDateTime);
-  const manualCursor = '2021-10-15T00:00:00.652Z';
+  const manualCursor = '2021-10-14T15:10:00.587Z';
+  const cursor = state.lastRunDateTime || manualCursor;
+  return { ...state, referralIds: [], cursor };
+});
 
+// Get cases with UNHCR referrals
+fn(state => {
   return getCases(
     {
-      //remote: true,
-      'associated_user_names[0]': 'unhcr_cw1',
-      //associated_user_names: ['unhcr_cw1'],
-      last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
+      remote: true,
+      'associated_user_names[0]': 'unhcr_cw',
+      'associated_user_names[1]': 'unhcr_cw1',
+      last_updated_at: `${state.cursor}..`,
     },
-    state => {
-      const cases = state.data
-        .filter(
-          data =>
-            data.services_section &&
-            data.services_section.length > 0 &&
-            data.services_section.some(
-              serv => //Only get 'UNHCR' services && those created since last sync
-                serv.service_implementing_agency === 'UNHCR' //&& //ADDED: to replace below filtering
-                // (serv.service_implementing_agency_individual === 'unhcr_cw' ||
-                // serv.service_implementing_agency_individual === 'unhcr_cw1') &&
-                
-                //TO DISCUSS With JACK:
-                //new Date(serv.service_response_day_time) >=
-                //new Date(state.lastRunDateTime || manualCursor)
-            )
-        )
-        .map(c => {
-          let obj = {};
-          obj = { ...c };
-          if (c.services_section && c.services_section.length > 0) {
-            obj['services_section'] = [];
-            c.services_section.forEach(serv => {
-              if (serv.service_implementing_agency === 'UNHCR' 
-              //TODO: Discuss with UNHCR
-              /*&& new Date(serv.service_response_day_time) >=
-                new Date(state.lastRunDateTime || manualCursor) */) {
-                obj['services_section'].push(serv);
-              }
-            });
-          }
-          return obj;
-        });
-
-      console.log(cases.length, 'referrals fetched.');
-      console.log('Posting to Inbox to later send to DTP...', JSON.stringify(cases, null, 2));
-
-      state.cases = cases;
-
-      const { openfnInboxUrl, xApiKey } = state.configuration;
-      return each(cases, state => {
-        const data = {
-          _json: [state.data],
-        };
-        if (
-          state.data.services_section &&
-          state.data.services_section.length > 0
-        ) {
-          return http
-            .post({
-              url: openfnInboxUrl,
-              data,
-              headers: { 'x-api-key': xApiKey },
-            })(state)
-            .then(() => {
-              console.log('Case posted to openfn inbox.');
-              return state;
-            })
-            .catch(error => {
-              let newError = error;
-              newError.config = 'REDACTED';
-              throw newError;
-            });
-        } else {
-          console.log('No referral services found to send to DTP.');
-          return state;
-        }
-      })(state);
-    }
+    state => ({
+      ...state,
+      cases: state.data.filter(
+        c =>
+          c.services_section &&
+          c.services_section.length > 0 &&
+          c.services_section.some(
+            s => s.service_implementing_agency === 'UNHCR'
+          )
+      ),
+    })
   )(state);
 });
 
-alterState(state => {
+// Get referral details for each UNCHR case which have been created since the last run
+each(
+  '$.cases[*]',
+  getReferrals({ externalId: 'record_id', id: dataValue('id') }, state => {
+    // STEP 3: filter referrals where 'created_at_date' >= lastRUnDateTime || manualCursor
+    state.data
+      .filter(r => new Date(r.created_at) >= new Date(state.cursor))
+      .map(r => {
+        state.referralIds.push(r.service_record_id);
+      });
+    return state;
+  })
+);
+
+fn(state => ({
+  ...state,
+  cases: state.cases.map(c => ({
+    ...c,
+    services_section: c.services_section
+      .filter(s => state.referralIds.includes(s.unique_id))
+      .filter(s => s.service_implementing_agency === 'UNHCR'),
+  })),
+}));
+
+// Post referral data to OpenFn inbox
+fn(state => {
+  const { openfnInboxUrl, xApiKey } = state.configuration;
+
+  return each(state.cases, state => {
+    return http
+      .post({
+        url: openfnInboxUrl,
+        data: { _json: [state.data] },
+        headers: { 'x-api-key': xApiKey },
+      })(state)
+      .then(() => {
+        console.log('Case posted to openfn inbox.');
+        return state;
+      })
+      .catch(error => {
+        throw { ...error, config: 'REDACTED' };
+      });
+  })(state);
+});
+
+// After job completes successfully, update cursor
+fn(state => {
   let lastRunDateTime = state.cases
     .map(c => c.last_updated_at)
     .sort((a, b) => new Date(b.date) - new Date(a.date))[0];

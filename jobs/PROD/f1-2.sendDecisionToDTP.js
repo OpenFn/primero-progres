@@ -1,6 +1,6 @@
-alterState(state => {
+fn(state => {
   console.log('Current cursor value:', state.lastRunDateTime);
-  const manualCursor = '2021-10-14T00:00:00.587Z';
+  const manualCursor = '2021-12-09T02:00:00.000Z';
 
   return getCases(
     {
@@ -36,7 +36,7 @@ alterState(state => {
       state.referralsToSend = referralsToSend;
       if (referralsToSend.length === 0) {
         console.log(
-          'All cases have "open" status or don\'t have a change in UNHCR Referral Status. No decisions to send to DTP'
+          'No change in UNHCR Referral Status detected. No decisions to send to DTP.'
         );
         return state;
       }
@@ -52,10 +52,16 @@ alterState(state => {
             allowedStatus.includes(state.data.unhcr_referral_status)
           ) {
             const decision = {
-              case_id: `${data.case_id}#${state.data.unique_id.substr(-12)}`,
+              // case_id: `${data.case_id}#${state.data.unique_id.substr(-12)}`,
+              case_id: data.case_id,
               primero_user: data.owned_by,
-              progres_interventionnumber: state.data.progres_interventionnumber, //TODO: map from services_section.progres_interventionnumber
-              status: state.data.unhcr_referral_status,
+              progres_interventionnumber: state.data.progres_interventionnumber,
+              status:
+                state.data.unhcr_referral_status === 'accepted'
+                  ? 'acknowledged'
+                  : state.data.unhcr_referral_status === 'rejected'
+                  ? 'rejected'
+                  : 'Pending Acknowledgement',
               closure_reason:
                 state.data.unhcr_referral_rejection_reason ||
                 'No reason specified.',
@@ -96,7 +102,7 @@ alterState(state => {
   )(state);
 });
 
-alterState(state => {
+fn(state => {
   let lastRunDateTime = state.referralsToSend
     .map(c => c.last_updated_at)
     .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
