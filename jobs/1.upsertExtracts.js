@@ -190,8 +190,7 @@ each(
     lang.push(
       data['languages.progres_languagecodeid']
         ? languageMap[data['languages.progres_languagecodeid'].Name] ||
-            data['languages.progres_languagecodeid'].Name
-            //'if_other_language__please_specify_335944b'
+           'language6'
         : undefined
     );
 
