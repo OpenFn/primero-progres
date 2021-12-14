@@ -3,7 +3,7 @@ fn(state => {
   //== Logging Primero referral before we map to DTP Interoperability form
   console.log(
     'Primero referral to send to DTP...',
-    JSON.stringify(state.data, null, 2)
+    JSON.stringify(state.cases, null, 2)
   );
 
   //== Fetching Primero user data to complete referral mappings below
@@ -21,7 +21,7 @@ fn(state => {
 });
 
 each(
-  dataPath('._json[*]'),
+  '$.cases[*]',
   fn(state => {
     console.log('Creating referral for each unhcr service...');
     const { data, configuration, users } = state;
