@@ -1,10 +1,8 @@
 fn(state => {
   const { host, token } = state.configuration;
   //== Logging Primero referral before we map to DTP Interoperability form
-  console.log(
-    'Primero referral to send to DTP...',
-    JSON.stringify(state.data, null, 2)
-  );
+  const caseid = state.cases.id;
+  console.log('Primero referral to send to DTP found for case: ', caseid);
 
   //== Fetching Primero user data to complete referral mappings below
   return http
@@ -21,7 +19,7 @@ fn(state => {
 });
 
 each(
-  dataPath('._json[*]'),
+  '$.cases[*]',
   fn(state => {
     console.log('Creating referral for each unhcr service...');
     const { data, configuration, users } = state;
@@ -30,7 +28,6 @@ each(
 
     const user = users.find(user => user.user_name === data.owned_by);
 
-    //TODO: Confirm mappings
     const serviceMap = {
       alternative_care: 'Alternative Care',
       focuses_non_specialized_mhpss_care: 'Child Protection Service',
@@ -38,7 +35,6 @@ each(
     };
     state.serviceMap = serviceMap;
 
-    //TODO: Confirm mappings
     const protectionMap = {
       physical_abuse_violence: 'DS-LBM',
       sexual_abuse_violence: 'DS-UBM',
@@ -122,13 +118,16 @@ each(
       sv_fm__forced__early_marriage__b1a8ba0: 'SV-FM',
       sv_ss__survival_sex__0a5cc10: 'SV-SS',
     };
-
-    //TODO: Confirm mappings
     const languageMap = {
       language1: 'Anyuak',
       language2: 'Nuer',
       language3: 'Dinka',
-      language4: 'Shuluk',
+      language4: 'Bari',
+      language5: 'Amharic',
+      language6: 'Other',
+      language7: 'Bembe',
+      language8: 'Somali',
+      language10: 'Acholi',
       murle_fce1c91: 'Murle',
       if_other_language__please_specify_335944b: 'Other',
       _amharic: 'Amharic',
@@ -181,25 +180,25 @@ each(
       const referralMapping = {
         //== Fields pulled from Primero user - defined in case.owned_by =======//
         primero_user: data.owned_by,
-        position: user && user.position ? user.position : 'Case Worker', //Hardcoded defaults for testing if user profile not filled
-        email: user && user.email ? user.email : 'test@primero.org',
-        phone: user && user.phone ? user.phone : '0790970543',
+        position: user && user.position ? user.position : 'Case Worker',
+        email: user && user.email ? user.email : 'caseworker@primero.org',
+        phone: user && user.phone ? user.phone : '0000000000',
         full_name: user && user.full_name ? user.full_name : 'Primero CP',
         //=================================================================//
         request_type: 'ReceiveIncomingReferral',
         service_implementing_agency:
           service.service_implementing_agency === 'UNHCR'
             ? 'UNICEF'
-            : service.service_implementing_agency, //TODO: Discuss Primero config w/ Robert
+            : service.service_implementing_agency,
         service_response_day_time: service.service_response_day_time,
-        service_type: serviceMap[service.service_type], //Alternative Care
+        service_type: serviceMap[service.service_type],
         service_type_other: service.service_type_other
           ? service.service_type_other
           : null,
         service_referral_notes: service.service_referral_notes
           ? service.service_referral_notes
           : 'Primero referral',
-        owned_by_agency_id: 'UNICEF', //data.owned_by_agency_id, //E.g., : UNICEF, Save the Children International
+        owned_by_agency_id: 'UNICEF', //E.g., : UNICEF, Save the Children International
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
         name_first: data.name_first,
@@ -229,17 +228,15 @@ each(
       //===== End of referral mapping ================================================//
 
       const shortid = data.case_id_display;
-      console.log(
-        'Mapping referral data to DTP:',
-        JSON.stringify(referralMapping, null, 2)
-      );
+      const recordid = data.id;
+      console.log('Mapping referral data to DTP for case with id: ', recordid);
       console.log('case_id_display:', shortid);
 
       //=== Here we send the referrals to DTP ======///
       return http
         .post({
           url: urlDTP,
-          data: referralMapping, //mapped referral obj,
+          data: referralMapping,
           headers: {
             'Ocp-Apim-Subscription-Key':
               configuration['Ocp-Apim-Subscription-Key'],

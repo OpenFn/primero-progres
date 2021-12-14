@@ -1,3 +1,4 @@
+// Set up a manual cursor and referrals array.
 fn(state => {
   console.log('Last sync end date:', state.lastRunDateTime);
   const manualCursor = '2021-10-14T15:10:00.587Z';
@@ -10,6 +11,7 @@ fn(state => {
   return getCases(
     {
       remote: true,
+      //QUESTION: TO REMOVE? Or update if this user option changes?
       'associated_user_names[0]': 'unhcr_cw',
       'associated_user_names[1]': 'unhcr_cw1',
       last_updated_at: `${state.cursor}..`,
@@ -23,6 +25,10 @@ fn(state => {
           c.services_section.some(
             s => s.service_implementing_agency === 'UNHCR'
           )
+        // ADDED: to replace below filtering
+        // Only get 'UNHCR' services && those created since last sync
+        // (service.service_implementing_agency_individual === 'unhcr_cw' ||
+        // service.service_implementing_agency_individual === 'unhcr_cw1') &&
       ),
     })
   )(state);
@@ -51,27 +57,6 @@ fn(state => ({
       .filter(s => s.service_implementing_agency === 'UNHCR'),
   })),
 }));
-
-// Post referral data to OpenFn inbox
-fn(state => {
-  const { openfnInboxUrl, xApiKey } = state.configuration;
-
-  return each(state.cases, state => {
-    return http
-      .post({
-        url: openfnInboxUrl,
-        data: { _json: [state.data] },
-        headers: { 'x-api-key': xApiKey },
-      })(state)
-      .then(() => {
-        console.log('Case posted to openfn inbox.');
-        return state;
-      })
-      .catch(error => {
-        throw { ...error, config: 'REDACTED' };
-      });
-  })(state);
-});
 
 // After job completes successfully, update cursor
 fn(state => {
