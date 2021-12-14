@@ -66,25 +66,26 @@ fn(state => ({
 }));
 
 // Post data to OpenFn inbox
-fn(state => {
-  const { openfnInboxUrl, xApiKey } = state.configuration;
+// Note: We don't post data to OpenFn Inbox anymore
+// fn(state => {
+//   const { openfnInboxUrl, xApiKey } = state.configuration;
 
-  return each(state.cases, state => {
-    return http
-      .post({
-        url: openfnInboxUrl,
-        data: { _json: [state.data] },
-        headers: { 'x-api-key': xApiKey },
-      })(state)
-      .then(() => {
-        console.log('Case posted to openfn inbox.');
-        return state;
-      })
-      .catch(error => {
-        throw { ...error, config: 'REDACTED' };
-      });
-  })(state);
-});
+//   return each(state.cases, state => {
+//     return http
+//       .post({
+//         url: openfnInboxUrl,
+//         data: { _json: [state.data] },
+//         headers: { 'x-api-key': xApiKey },
+//       })(state)
+//       .then(() => {
+//         console.log('Case posted to openfn inbox.');
+//         return state;
+//       })
+//       .catch(error => {
+//         throw { ...error, config: 'REDACTED' };
+//       });
+//   })(state);
+// });
 
 // After job completes successfully, update cursor
 fn(state => {
