@@ -278,7 +278,7 @@ each(
           service_request_title: data['user.title'],
           service_request_agency: data['user.progres_partner']
             ? data['user.progres_partner'].Name
-            : undefined,
+            : 'UNHCR',
           service_request_phone: data['user.mobilephone'],
           service_request_email: data['user.internalemailaddress'],
           service_referral_notes: [
