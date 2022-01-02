@@ -1,6 +1,8 @@
 # UNICEF Primero - UNHCR Progres Interoperability 
 
-OpenFn jobs for interoperability inter-agency solution in Sudan.  
+**See the Github site for the complete project overview and finalized documenation: [openfn.github.io/primero-progres/](https://openfn.github.io/primero-progres/)**
+
+OpenFn documentation for interoperability interagency referrals exchange solution in Gambella, Ethiopia. See below for the **Implementation Checklist**. 
 
 *Note that commits to `master` will be audo-deployed to OpenFn.org. Always work on a branch!*
 
