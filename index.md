@@ -41,7 +41,7 @@ Data sharing will improve the experience of field staff using the different syst
 - Upgrade to Primero V2 underway
 - ProGres V4/RApp is deployed, CP Module is in use 
 
-**2) Identify in-country agency focal points for interoperability **
+**2) Identify in-country agency focal points for interoperability**
 
 If your programme is interested in interoperability between Primero and proGres v4, a clearly defined working group is critical for coordination. The in-country (inter-agency) Child Protection team (CP AoR or Case Management Task Force) and the agencies participating in the system implementation must agree to interoperability between Primero and proGres v4. A dedicated system administrator must be appointed to oversee the implementation of interoperability, testing, training and on-going support. Typically this would be the CPIMS+ System Administrator or a focal point with a strong understanding of information management systems and child protection who is actively involved with inter-agency child protection case workers and managers. This in-country appointed focal point will be requested to meet with the Primero and proGres v4 team for 1 hour weekly calls for 9 weeks for the duration of interoperability implementation and participate in a 4 hour system administrator training for interoperability. The focal point will support end-to-end testing of data sharing between the 2 systems, and training end-users once the system is ready to go-live. Once interoperability is live, the focal point will also be the user who would support with assigning referrals to the appropriate agency and troubleshoot any issues that end-users may face. 
 
@@ -59,25 +59,18 @@ Protection Concerns (as defined in the IA paper forms and CPIMS+)
 Participating agencies 
 Languages spoken (as defined in the IA paper forms and CPIMS+)
 
-4) Costing 
+**5) Costing**  
 _To update_
 
 
 ### Timeline Considerations
-| Task  | Lead | Timeline |
-| ------------- | ------------- | -------------- |
-| Signed Data Protection and Information Sharing Protocol shared with Primero and proGres v4 teams | In-country appointed inter-agency focal point| 1 day |
-|Data flow and mapping specifications are finalized| Primero Lead (UNICEF HQ) and proGres v4 (UNHCR HQ) in coordination with the in-country appointed inter-agency focal point | 3 weeks|
-| Content Cell  | Content Cell  | 
-| Content Cell  | Content Cell  |
-
-
+_To update_
 
 
 ### Annex 1: Consent and Assent in Interoperability between Primero’s CPIMS+ and proGres v4 Child Protection Module[1]
 The principle of consent and assent are key in the ability of proGres4 and Primero to comply with data subjects’ rights[2]. This means that consent and assent is not only a principle that is required before any personal and/or protection data is collected or shared, but also something which a data subject has the right to withdraw. Note: this principle should be clearly outlined in the country level Data Protection and Information Sharing Protocol, therefore all related actions should align to this or any other country level protocols.
 
-It is therefore important to note that w**hen it relates to interoperability for purposes of service provision and referral data sharing:**
+It is therefore important to note that **when it relates to interoperability for purposes of service provision and referral data sharing:**
 1. Consent be obtained before making any referrals within or outside the organization, which will therefore also apply to all referrals between proGresV4 CP module and CPIMS+;
 2. The Case Worker should clarify with the child and caregiver for _how long_ this consent is valid and _how to withdraw or revoke_ their consent at any time. In some cases, consent/assent may only be given for a one-off referral on the understanding that information about the case will not be shared after that particular referral has been made.
 3. If consent is revoked it is important to note the CPIMS+ allows a case worker to revoke access to a referral to any users that a referral was shared with; however, there is no equivalent in proGresV4.  
@@ -128,7 +121,7 @@ Note: Extraordinary circumstances occur when data subjects cannot provide consen
 
 **How does interoperability with other system(s) affect the inter-agency process of data sharing (ie. compilation, reporting and analysis)?** It should not change what information is shared, it should just modify the modality of sharing.  For example, interoperability would enable referrals to be sent directly, and not require paper based or email based referral forms.  In terms of data compilaton, for GBVIMS,  the process would not change.  The Interagency Coordinator would still compile monthly statistics reports from DGOs, who could generate the report no matter what system they use, GBVIMS, GBVIMS+, V4. 
 
-W**hat is/are the scenario(s) in which data needs to be shared with other system(s) – user stories?** Referrals are the current use case of interoperability between Primero and external systems, as agreed to by the partners.
+**What is/are the scenario(s) in which data needs to be shared with other system(s) – user stories?** Referrals are the current use case of interoperability between Primero and external systems, as agreed to by the partners.
 
 **What constitutes a referral between Primero/CPIMS+ and Progres4? For what specific service?**
 We would define a referral as follows: To make a referral is to “...proactively facilitate access to [...] services. Facilitating referral [...] may also involve ensuring that the person can physically reach and obtain access to the necessary services. At a minimum, it requires providing contact information on services of proven reliability”[1]. There must be a legitimate purpose for a referral, consent/assent must normally be obtained from the referral subject (see below), and the personal data provided should be limited to what is needed for the service to be provided. The modalities of referrals will differ from context to context, and should be defined as per operation-specific SOPs.  Legitimate purpose concerns the how “personal data should be collected “for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes.” [1]  Thus any referral between the systems would be services in line with this definition.  The specific services would be defined by those outlined in the contextual CM SOPs.
@@ -137,12 +130,16 @@ Open, active cases with services needed immediately. This would be outlined in C
 Open, active cases for protection services and assistance referrals wich is provided based upon informaiton know to UNHCR, whether immediately or in the future.   To do these type of referrals the suggested protocol would be: UNHCR and partners should agree on the list of potential protection and assistance services that can be accessed or are likely to tbe accessed in the future (e.g. those in relation to voluntary repatriation) in a particular operation. UNHCR should provide clear and transparent information about how data will be processed, stored, shared and used, and how data subjects may or may not be informed about this or contacted. UNHCR and partners should also take steps to identify and mitigate any identified risks in the process. UNHCR should not ask for information to be shared with the consent of the data subjects, and NGO partners should ask for consent from PoC in good faith. For this purpose it is only ok to share limited information about a protection incident of vulnerability for this purpose, such as a specific needs code or case number in an agreed upon referral form/modality, with the data subject’s consent.
  
 **For which purpose a case should be referred to proGres v4 CP module? (if it’s for a durable solution, could you clarify what entails durable solutions and provide a list of examples?)** See above response
+
 **Which document defines what constitutes a referral? Is it global or country level?** What constitutes a referral is defined above, as with all CM SOPs the modalities of Referrals will be determined on an operation by operation basis.
+
 **What data points can be shared with other system(s) is a safe and confidential manner? What could be some of the risk(s) involved with data sharing? How can it be mitigated?** Data will be transferred with a specific protocol to follow in the system. Primero has an audit functionality to track the referrals and ensure there isn’t misuse of the system.
-**Is development work needed to enable interoperability between systems? If so, how can it be done? **Yes, this will be done by the Primero development vendors.
+
+**Is development work needed to enable interoperability between systems? If so, how can it be done?** Yes, this will be done by the Primero development vendors.
 How do we address challenges that we may encounter when discussing interoperability in specific contexts? (I.e. specific context-related risks and considerations for data sharing among UNICEF/UNHCR, INGOs/Implementing Partners and Governments). A specific forum that would allow for these issues to be addressed without taking the focus away from forums focused on other systems such as PCC or GBVIMS was proposed.  We would prefer to develop the modality and approach collaboratively and not prescribe a process. 
 
 **Which  users from UNHCR can receive referrals? Why (for what specific service)? Who makes the decision on whom from UNHCR receives referral from Primero?**  The procedure for referring to UNHCR in proGres could look different in different contexts.  If the CP or GBV focal point was to be the first point of referral then it would go directly to the individual.  If an individual is being referred to a unit, the there is a unit referral focal point designated that is responsible for dividing tasks amongst the team.  This would be for example in a case of documentation or RSD.  The sharing of a referral does not allow for access to a case file, only the referral form which outlines what service is needed.  Any additional information that can be shared (as necessary and with the consent of the survivor) would only be shared once the individual responsible for providing the services has been assigned. These individuals are outlined in v4 SOPs and can be shared and updated with all partners participating with interoperable services and would be updated as part of referral pathways.
+
 **Which rollouts will be prioritized for UNHCR for Primero-ProGres v4 interoperability?** This can be determined collaboratively, we do not have a specific priority, although a refugee context would be the most logical. 
 
 ### Annex 3: Terminology
