@@ -25,14 +25,29 @@ This first flow automates the sending of referrals from proGres v4 users to Prim
 
 Once the referral is received in Primero, you can [watch this short video](https://youtu.be/XOqqUHaLDhE) on how to accept or reject the referral. Note: the progresv4_primero_intake user will review all referrals from proGres v4 and reassign the referral to the appropriate case worker to complete the referral. For more details, [review slides 3-8](https://docs.google.com/presentation/d/1H9ncQvGcWrT6nVn--wAYKxjNIzKoMt7IkbFiEc1_F6s/edit#slide=id.geff43a9d2b_0_59).
 
+
+![image](https://user-images.githubusercontent.com/80456839/149411049-1466360b-c823-415b-a224-e44a51211b43.png)
+
+
+
 **Flow 2: Primero → proGres v4 Referral Sharing**
 This second flow automates the sending of referrals from Primero users to proGres v4. See this Flow 2 diagram for step-by-step documentation of the integration flow. UPDATE LINK!!!! You can [watch this short video](https://youtu.be/4HIC0FFU3b4) on how to create a referral in Primero and send the referral to proGres v4. 
 
-Once the referral is received in proGres v4, you can [watch this short video](https://youtu.be/aXFuVZ-eNSI) on how to accept or reject the referral. For more details, [review slides 9-15](https://docs.google.com/presentation/d/1H9ncQvGcWrT6nVn--wAYKxjNIzKoMt7IkbFiEc1_F6s/edit#slide=id.geff43a9d2b_0_82).
+Once the referral is received in proGres v4, you can [watch this short video](https://youtu.be/aXFuVZ-eNSI) on how to accept or reject the referral. For more details, [review slides 9-15](https://docs.google.com/presentation/d/1H9ncQvGcWrT6nVn--wAYKxjNIzKoMt7IkbFiEc1_F6s/edit#slide=id.geff43d2b_0_82).
 
 If consent is revoked, please see Annex 1: Consent and Assent in Primero’s CPIMS+ and proGres v4 Child Protection Modules.
 
+![image](https://user-images.githubusercontent.com/80456839/149411137-91a35ada-9c4d-4dc3-8bd3-3d8b8af7e412.png)
+
+Find both data flow diagrams [here](https://docs.google.com/presentation/d/1S_BuMzJ2MzcvJCoHUPWxkfwYkFP-V-ValIWH4EP3Cj8/edit#slide=id.p).
+
+**Assumptions**
+1. UNICEF Primero updates on services will not be shared with UNHCR/Progres in this first phase, only the original referral request.
+2. If UNICEF Primero user revokes consent for a case, then a manual SOP will be determined for communicating that with UNHCR. The interoperability solution will not communicate this change in case.
+3. The exchange of only 4 service types (a.k.a. "intervention types") will be supported between agencies. See mapping [here](https://docs.google.com/spreadsheets/d/1ieoiGsdGuOA1E3jbw0lWkW-H-V9RzrtxYUdrRsHpOF4/edit#gid=284761480). Primero and Progres users must be trained to NOT send other service types in interagency referral requests.
+
 #### What information can be shared in Primero and proGres v4 Interoperability 
+
 
 This interoperability solution leverages the standardized Global Inter-Agency Case Management Task Force Interagency Forms in Primero but may be localized for each implementation to meet unique data sharing agreements and/or Primero system configurations. 
 
@@ -51,6 +66,8 @@ Given each implementation’s unique data sharing agreement and localizations in
 1. the related Interagency Form (see column R), and 
 2. whether this mapping may be localized (see column T).
 If changes are to be made to this mapping specification, they should (1) first be identified and documented by business owners in this [mapping document](https://docs.google.com/spreadsheets/d/1j5bVbg1-c3Pwyx3DiALxaOD4ulGTEdEGJCrgu2DVT38/edit#gid=1470043016) (referenced above), and then (2) provided to technical implementers to make the corresponding OpenFn mapping changes in the solution. 
+
+Note: For any change requests to the mappings, duplicate the tab to create a new version and add highlighting to show changes and help version control the mappings.
 
 #### Configuration Considerations
 
@@ -74,10 +91,21 @@ As the programme expands, the Primero team will support in configuring the inter
 - [Github site with detailed documentation](https://openfn.github.io/primero-progres/)
 - [Ethiopia, Gambella Primero - ProGres IA Referral Exchange Mapping Specification (2021 Final Version)](https://docs.google.com/spreadsheets/d/1j5bVbg1-c3Pwyx3DiALxaOD4ulGTEdEGJCrgu2DVT38/edit#gid=1470043016)
 - [Archived Legacy Decision-Making IA Mapping Specification for Ethiopia, Gambella (2019-2021)](https://docs.google.com/spreadsheets/d/1ieoiGsdGuOA1E3jbw0lWkW-H-V9RzrtxYUdrRsHpOF4/edit#gid=790782914)
+- [Primero IO Training for Administrators](https://docs.google.com/presentation/d/1u8A2Ke4n7i4_IXF65wA5yKeBIcfUijVvnUwnvPjEtM4/edit#slide=id.ga81cdd0b96_0_755)
+- [Primero-Progres IO Flows & Testing Steps](https://docs.google.com/presentation/u/2/d/1H9ncQvGcWrT6nVn--wAYKxjNIzKoMt7IkbFiEc1_F6s/edit#slide=id.geff43a9d2b_0_128)
 
 **Template interagency solution documentation** (that can be re-used/replicated)
 [Github site with detailed documentation](https://github.com/OpenFn/unicef-unhcr-io)
 [IA Data Element Mapping Specification template](https://docs.google.com/spreadsheets/d/1y3bFz7AL8H4D-H-G4WVx-vdrxwzroyGKTvFCMBvjwCI/edit#gid=1470043016)
+
+#### Support Contacts
+**UNICEF**: 
+Jan Panchalingam, Primero Interoperability Focal Point at jpanchalingam@unicef.org 
+Marta Passerini, CPIMS+ Inter Agency Focal Point at mpasserini@unicef.org
+
+**UNHCR**: 
+Jessica Stuart-Clarke, UNHCR Interoperability Focal Point at stuartcl@unhcr.org
+
 
 ### Annex 1: Consent and Assent in Interoperability between Primero’s CPIMS+ and proGres v4 Child Protection Module
 The principle of consent and assent are key in the ability of proGres4 and Primero to comply with data subjects’ rights (an individual whose personal data is subject to processing). This means that consent and assent is not only a principle that is required before any personal and/or protection data is collected or shared, but also something which a data subject has the right to withdraw. Note: this principle should be clearly outlined in the country level Data Protection and Information Sharing Protocol, therefore all related actions should align to this or any other country level protocols.
