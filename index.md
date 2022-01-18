@@ -1,6 +1,6 @@
-## UNICEF <> UNHCR Interagency Interoperability: Gambella Pilot
+# UNICEF <> UNHCR Interagency Interoperability: Gambella Pilot
 
-### Technical Requirements for Ethiopia (Gambella) Pilot
+## Technical Requirements for Ethiopia (Gambella) Pilot
 
 
 This project will deliver a two-way data integration solution to automate case referral exchange between Primero and proGres v4 systems and user groups. This implementation will be a working prototype between a Primero Gambella, Ethiopia demo system and a UNHCR-provider developer environment for DTP/proGres v4. This solution will be available to other countries to adapt, localize, and implement, including making changes to how data elements should be mapped between systems. All OpenFn configurations (not any data) can be made open-source for other partners to reuse and extend.
@@ -14,11 +14,11 @@ This project will deliver a two-way data integration solution to automate case r
 | proGres v4 will be a source of intervention cases and decisions and a destination for intervention cases and decisions coming from Primero.   | OpenFn will provide the infrastructure for receiving and processing data received from the DTP/ proGres v4 systems. OpenFn provides a secure API endpoint with configurable API keys to which DTP can forward intervention data for onward processing to Primero. On receipt of this data, OpenFn jobs will be configured to be automatically triggered to initiate steps to validate the data, forward to Primero, and send back delivery and decision updates to DTP.  |
 | Due to the highly sensitive nature of the data, it must be secured properly. There is a high need for authorization and authentication to control access to the data.   | OpenFn out-of-box platform features will be leveraged to ensure the highest level of security and design are implemented in this implementation. See _Project Security Compliance_ section for additional details on configuration. Additionally, when OpenFn authenticates with DTP, UNICEF will generate a client-side certificate, so that its SHA1 thumbprint can be included in every request made to the DTP APIs. |
 
-### Technical Specifications and Training for Ethiopia (Gambella) Pilot
+## Technical Specifications and Training for Ethiopia (Gambella) Pilot
 
 This two-way data integration was achieved via data integration solutions configured on the OpenFn platform to connect the Primero Gambella demo system and a developer proGres v4 environment. [See the technical specifications](https://docs.google.com/document/d/1my6LFr6Fq98wG3dDcURcl9THBrWG7hHLurchJC59Zos/edit?usp=sharing) for detailed documentation of the solution implemented and how it works. 
 
-#### Data Flows
+### Data Flows
 
 **Flow 1: proGres v4 → Primero Referral Sharing**
 This first flow automates the sending of referrals from proGres v4 users to Primero. See this Flow 1 diagram for step-by-step documentation of the integration flow. UPDATE LINK!!!! You can [watch this short video](https://youtu.be/GcYd8c4qkns) on how to create a referral in proGres v4 and send the referral to Primero. 
@@ -46,8 +46,7 @@ Find both data flow diagrams [here](https://docs.google.com/presentation/d/1S_Bu
 2. If UNICEF Primero user revokes consent for a case, then a manual SOP will be determined for communicating that with UNHCR. The interoperability solution will not communicate this change in case.
 3. The exchange of only 4 service types (a.k.a. "intervention types") will be supported between agencies. See mapping [here](https://docs.google.com/spreadsheets/d/1ieoiGsdGuOA1E3jbw0lWkW-H-V9RzrtxYUdrRsHpOF4/edit#gid=284761480). Primero and Progres users must be trained to NOT send other service types in interagency referral requests.
 
-#### What information can be shared in Primero and proGres v4 Interoperability 
-
+### What information can be shared in Primero and proGres v4 Interoperability 
 
 This interoperability solution leverages the standardized Global Inter-Agency Case Management Task Force Interagency Forms in Primero but may be localized for each implementation to meet unique data sharing agreements and/or Primero system configurations. 
 
@@ -69,7 +68,13 @@ If changes are to be made to this mapping specification, they should (1) first b
 
 Note: For any change requests to the mappings, duplicate the tab to create a new version and add highlighting to show changes and help version control the mappings.
 
-#### Configuration Considerations
+### Solution Assumptions
+This initial implementation assumes the following: 
+1. UNICEF Primero updates on services will not be shared with UNHCR/Progres in this first phase, only the original referral request.
+2. If UNICEF Primero user revokes consent for a case, then a manual SOP will be determined for communicating that with UNHCR. The interoperability solution will not communicate this change in case.
+3. The exchange of only 4 service types (a.k.a. "intervention types") will be supported between agencies. [See mapping here](https://docs.google.com/spreadsheets/d/1j5bVbg1-c3Pwyx3DiALxaOD4ulGTEdEGJCrgu2DVT38/edit#gid=284761480). Primero and Progres users must be trained to NOT send other service types in interagency referral requests.
+
+## Configuration Considerations
 
 When implementing this interoperability solution for a new Primero instance, implementers and Primero system administrators should consider the following: 
 
@@ -86,7 +91,7 @@ As the programme expands, the Primero team will support in configuring the inter
 
 3. **Implementing Agency:** Alternative care, Family Tracing and Reunification and Case Management Services have been configured to be exchanged with UNHCR. Users will select “UNHCR” as the Implementing Agency, and will select “unhcr_cw” to send the referral to proGres v4.
 
-#### Links
+## Links
 **Gambella-specific solution documentation**
 - [Github site with detailed documentation](https://openfn.github.io/primero-progres/)
 - [Ethiopia, Gambella Primero - ProGres IA Referral Exchange Mapping Specification (2021 Final Version)](https://docs.google.com/spreadsheets/d/1j5bVbg1-c3Pwyx3DiALxaOD4ulGTEdEGJCrgu2DVT38/edit#gid=1470043016)
@@ -95,19 +100,19 @@ As the programme expands, the Primero team will support in configuring the inter
 - [Primero-Progres IO Flows & Testing Steps](https://docs.google.com/presentation/u/2/d/1H9ncQvGcWrT6nVn--wAYKxjNIzKoMt7IkbFiEc1_F6s/edit#slide=id.geff43a9d2b_0_128)
 
 **Template interagency solution documentation** (that can be re-used/replicated)
-[Github site with detailed documentation](https://github.com/OpenFn/unicef-unhcr-io)
-[IA Data Element Mapping Specification template](https://docs.google.com/spreadsheets/d/1y3bFz7AL8H4D-H-G4WVx-vdrxwzroyGKTvFCMBvjwCI/edit#gid=1470043016)
+- [Github site with detailed documentation](https://github.com/OpenFn/unicef-unhcr-io)
+- [IA Data Element Mapping Specification template](https://docs.google.com/spreadsheets/d/1y3bFz7AL8H4D-H-G4WVx-vdrxwzroyGKTvFCMBvjwCI/edit#gid=1470043016)
 
-#### Support Contacts
+## Support Contacts
 **UNICEF**: 
-Jan Panchalingam, Primero Interoperability Focal Point at jpanchalingam@unicef.org 
-Marta Passerini, CPIMS+ Inter Agency Focal Point at mpasserini@unicef.org
+- Jan Panchalingam, Primero Interoperability Focal Point at jpanchalingam@unicef.org 
+- Marta Passerini, CPIMS+ Inter Agency Focal Point at mpasserini@unicef.org
 
 **UNHCR**: 
-Jessica Stuart-Clarke, UNHCR Interoperability Focal Point at stuartcl@unhcr.org
+- Jessica Stuart-Clarke, UNHCR Interoperability Focal Point at stuartcl@unhcr.org
 
 
-### Annex 1: Consent and Assent in Interoperability between Primero’s CPIMS+ and proGres v4 Child Protection Module
+## Annex 1: Consent and Assent in Interoperability between Primero’s CPIMS+ and proGres v4 Child Protection Module
 The principle of consent and assent are key in the ability of proGres4 and Primero to comply with data subjects’ rights (an individual whose personal data is subject to processing). This means that consent and assent is not only a principle that is required before any personal and/or protection data is collected or shared, but also something which a data subject has the right to withdraw. Note: this principle should be clearly outlined in the country level Data Protection and Information Sharing Protocol, therefore all related actions should align to this or any other country level protocols.
 
 It is therefore important to note that **when it relates to interoperability for purposes of service provision and referral data sharing:**
