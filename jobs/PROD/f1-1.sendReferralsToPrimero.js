@@ -7,7 +7,7 @@ each(
       const diff = Date.now() - dob.getTime();
       const age_dt = new Date(diff);
 
-      return Math.abs(age_dt.getUTCFullYear() - 1970);
+      return Math.abs(age_dt.getUTCFullYear() - 1970); //.toString();
     };
 
     const formatDate = (date, format) => {
@@ -147,16 +147,8 @@ each(
       ? data['spnsubcategory2code']
       : undefined;
 
-    //OLD MAPPINGS FROM DADAAB
-    // const spneed = data['specificneeds.progres_spnsubcategory2']
-    //   ? data['specificneeds.progres_spnsubcategory2'].Name
-    //   : data['specificneeds.progres_spncategory2']
-    //   ? data['specificneeds.progres_spncategory2'].Name
-    //   : undefined;
-
     let protection = [];
     protection.push(protectionMap[spneed]);
-    //data.interventions.forEach(pc => protection.push(protectionMap[pc.specificneeds.progres_spncategory2.Id]));
 
     const sexMap = {
       125080000: 'female',
@@ -249,7 +241,6 @@ each(
       missingFields.push('individuals.progres_dateofbirth');
     if (!data['individuals.progres_sex'])
       missingFields.push('individuals.progres_sex');
-    // =======================================================
 
     if (!provided) {
       throw new Error(
@@ -258,6 +249,7 @@ each(
         )}. Please include missing fields and re-send the request`
       );
     }
+    // =======================================================
 
     const service_type = data['interventiontype.progres_description'];
 
@@ -267,7 +259,7 @@ each(
       services_section: [
         {
           service_response_day_time: data.progres_interventionstartdate,
-          service_request_external: true,
+          service_request_external: true, //Confirm primero mapping
           service_request_title: data['user.title'],
           service_request_agency: data['user.progres_partner']
             ? data['user.progres_partner'].Name
@@ -284,10 +276,7 @@ each(
             .replace(/<p>/g, ' '),
           service_type:
             serviceMap[service_type] || 'focuses_non_specialized_mhpss_care',
-          service_implementing_agency:
-            data.progres_businessunit === 'd69e8ec1-e80b-e611-80d3-001dd8b71f12'
-              ? 'UNICEF'
-              : 'UNICEF',
+          service_implementing_agency: 'UNICEF', //default request for Gambella instead of progres_businessunit
           service_response_type: 'service_provision',
           service_referral: 'external_referral',
           unhcr_referral_status: 'pending',
@@ -311,7 +300,7 @@ each(
       language: lang[0] ? lang : null,
       status: 'open',
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined,
-      owned_by: 'progresv4_primero_intake', //default focal point user
+      owned_by: 'progresv4_primero_intake', //Gambella intake user
       module_id: 'primeromodule-cp',
     };
 
@@ -331,9 +320,7 @@ each(
               }),
             },
             state => {
-              console.log(
-                `New case created for case id: ${state.data.case_id}`
-              );
+              console.log(`New case created for case id:${state.data.case_id}`);
               return state;
             }
           )(state);
