@@ -21,7 +21,7 @@ This two-way data integration was achieved via data integration solutions config
 ### Data Flows
 
 **Flow 1: proGres v4 → Primero Referral Sharing**
-This first flow automates the sending of referrals from proGres v4 users to Primero. See this Flow 1 diagram for step-by-step documentation of the integration flow. UPDATE LINK!!!! You can [watch this short video](https://youtu.be/GcYd8c4qkns) on how to create a referral in proGres v4 and send the referral to Primero. 
+This first flow automates the sending of referrals from proGres v4 users to Primero. See this Flow 1 diagram for step-by-step documentation of the integration flow. You can [watch this short video](https://youtu.be/GcYd8c4qkns) on how to create a referral in proGres v4 and send the referral to Primero. 
 
 Once the referral is received in Primero, you can [watch this short video](https://youtu.be/XOqqUHaLDhE) on how to accept or reject the referral. Note: the progresv4_primero_intake user will review all referrals from proGres v4 and reassign the referral to the appropriate case worker to complete the referral. For more details, [review slides 3-8](https://docs.google.com/presentation/d/1H9ncQvGcWrT6nVn--wAYKxjNIzKoMt7IkbFiEc1_F6s/edit#slide=id.geff43a9d2b_0_59).
 
@@ -31,7 +31,7 @@ Once the referral is received in Primero, you can [watch this short video](https
 
 
 **Flow 2: Primero → proGres v4 Referral Sharing**
-This second flow automates the sending of referrals from Primero users to proGres v4. See this Flow 2 diagram for step-by-step documentation of the integration flow. UPDATE LINK!!!! You can [watch this short video](https://youtu.be/4HIC0FFU3b4) on how to create a referral in Primero and send the referral to proGres v4. 
+This second flow automates the sending of referrals from Primero users to proGres v4. See this Flow 2 diagram for step-by-step documentation of the integration flow. You can [watch this short video](https://youtu.be/4HIC0FFU3b4) on how to create a referral in Primero and send the referral to proGres v4. 
 
 Once the referral is received in proGres v4, you can [watch this short video](https://youtu.be/aXFuVZ-eNSI) on how to accept or reject the referral. For more details, [review slides 9-15](https://docs.google.com/presentation/d/1H9ncQvGcWrT6nVn--wAYKxjNIzKoMt7IkbFiEc1_F6s/edit#slide=id.geff43d2b_0_82).
 
@@ -137,4 +137,4 @@ Note: Only, in _exceptional circumstances_, information disclosed by children ca
 
 In such situations, the reasons for sharing Personal Data in such a manner must be clearly explained to the affected child.  There is no hard or fast rule for disclosing information shared by a child. Information shared against or without explicit consent/assent should be in line with confidentiality and consent and assent principles and processes outlined in the country's Case Management Standard Operating Procedures and the Data Protection and  Information sharing Protocolo. Because sharing information in light of exceptions to confidentiality can be subjective, each case should be considered individually, and decisions to share information should be taken in line with country procedures and involve senior child protection colleagues.
 
-Please refer to the Inter-agency DPP-ISP for more information on data protection and information sharing: https://alliancecpha.org/en/child-protection-online-library/data-protection-and-information-sharing-protocol-dpisp-guidance-and
+Please refer to the Inter-agency DPP-ISP for more information on [data protection and information sharing](https://alliancecpha.org/en/child-protection-online-library/data-protection-and-information-sharing-protocol-dpisp-guidance-and)
