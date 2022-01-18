@@ -1,5 +1,9 @@
 # UNICEF <> UNHCR Interagency Interoperability: Gambella Pilot
 
+## Programmatic Requirements for Primero and proGres v4 Interoperability
+
+You can find an overview, expectations, prerequisites and timelines for implementing interoperability on [www.cpims.org/interoperability](https://www.cpims.org/interoperability). 
+
 ## Technical Requirements for Ethiopia (Gambella) Pilot
 
 
@@ -98,10 +102,12 @@ As the programme expands, the Primero team will support in configuring the inter
 - [Archived Legacy Decision-Making IA Mapping Specification for Ethiopia, Gambella (2019-2021)](https://docs.google.com/spreadsheets/d/1ieoiGsdGuOA1E3jbw0lWkW-H-V9RzrtxYUdrRsHpOF4/edit#gid=790782914)
 - [Primero IO Training for Administrators](https://docs.google.com/presentation/d/1u8A2Ke4n7i4_IXF65wA5yKeBIcfUijVvnUwnvPjEtM4/edit#slide=id.ga81cdd0b96_0_755)
 - [Primero-Progres IO Flows & Testing Steps](https://docs.google.com/presentation/u/2/d/1H9ncQvGcWrT6nVn--wAYKxjNIzKoMt7IkbFiEc1_F6s/edit#slide=id.geff43a9d2b_0_128)
+- [Updating this GitHub website](https://github.com/OpenFn/primero-progres/edit/gh-pages/index.md)
 
 **Template interagency solution documentation** (that can be re-used/replicated)
 - [Github site with detailed documentation](https://github.com/OpenFn/unicef-unhcr-io)
 - [IA Data Element Mapping Specification template](https://docs.google.com/spreadsheets/d/1y3bFz7AL8H4D-H-G4WVx-vdrxwzroyGKTvFCMBvjwCI/edit#gid=1470043016)
+- [Programmatic prerequisites, expectations and timelines](https://www.cpims.org/interoperability)
 
 ## Support Contacts
 
