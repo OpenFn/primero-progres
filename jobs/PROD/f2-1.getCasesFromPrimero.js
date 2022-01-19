@@ -1,7 +1,7 @@
 // Set up a manual cursor and referrals array.
 fn(state => {
   console.log('Last sync end date:', state.lastRunDateTime);
-  const manualCursor = '2021-10-14T15:10:00.587Z';
+  const manualCursor = '2022-01-20T00:00:00.587Z';
   const cursor = state.lastRunDateTime || manualCursor;
   return { ...state, referralIds: [], cursor };
 });
@@ -11,7 +11,6 @@ fn(state => {
   return getCases(
     {
       remote: true,
-      //QUESTION: TO REMOVE? Or update if this user option changes?
       'associated_user_names[0]': 'unhcr_cw',
       'associated_user_names[1]': 'unhcr_cw1',
       last_updated_at: `${state.cursor}..`,
@@ -25,10 +24,6 @@ fn(state => {
           c.services_section.some(
             s => s.service_implementing_agency === 'UNHCR'
           )
-        // ADDED: to replace below filtering
-        // Only get 'UNHCR' services && those created since last sync
-        // (service.service_implementing_agency_individual === 'unhcr_cw' ||
-        // service.service_implementing_agency_individual === 'unhcr_cw1') &&
       ),
     })
   )(state);
