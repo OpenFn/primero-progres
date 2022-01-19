@@ -198,7 +198,7 @@ each(
         service_referral_notes: service.service_referral_notes
           ? service.service_referral_notes
           : 'Primero referral',
-        owned_by_agency_id: 'UNICEF', //E.g., : UNICEF, Save the Children International
+        owned_by_agency_id: 'UNICEF', //E.g., UNICEF, Save the Children International
         unhcr_individual_no: data.unhcr_individual_no,
         unhcr_id_no: data.unhcr_id_no,
         name_first: data.name_first,
@@ -222,14 +222,17 @@ each(
         protection_concerns_other: data.protection_concerns_other
           ? data.protection_concerns_other
           : null,
-        language: lang[0] ? lang.join(', ') : null, //language1,language2
+        language: lang[0] ? lang.join(', ') : null, //e.g., 'language1,language2'
         id: `${data.case_id}#${service.unique_id.substr(-12)}`,
       };
       //===== End of referral mapping ================================================//
 
       const shortid = data.case_id_display;
-      const recordid = data.id;
-      console.log('Mapping referral data to DTP for case with id: ', recordid);
+      const recordid = referralMapping.id;
+      console.log(
+        'Mapping Primero data to DTP for referral with id: ',
+        recordid
+      );
       console.log('case_id_display:', shortid);
 
       //=== Here we send the referrals to DTP ======///
