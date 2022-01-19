@@ -37,7 +37,10 @@ each(state.data.interventions, state => {
     rejected_reason: reason ? rejection : reason,
   };
 
-  console.log('Decision to send back to Primero:', decision);
+  console.log(
+    `Decision to send back to Primero for case ${case_id} with service_id ${service_id}`
+  );
+  console.log('Decision status: ', decision.status);
 
   return getReferrals({ externalId: 'case_id', id: case_id }, state => {
     const referrals = state.data;
@@ -51,7 +54,7 @@ each(state.data.interventions, state => {
     decision['id'] = referral.id;
     decision['record_id'] = referral.record_id;
     console.log(
-      `Found case to update with decision ${JSON.stringify(decision, null, 2)} `
+      `Found case ${case_id} to update with decision with Primero referral id: ${referral.id}`
     );
     return updateReferrals(
       {
@@ -61,7 +64,9 @@ each(state.data.interventions, state => {
         data: decision,
       },
       state => {
-        console.log(`Upload succcessful for case: ${case_id}`);
+        console.log(
+          `Referral decision update succcessful for case: ${case_id}`
+        );
         return state;
       }
     )(state);
