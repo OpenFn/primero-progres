@@ -63,9 +63,9 @@ fn(state => {
             };
 
             console.log(
-              'Decision to send to DTP: ',
-              JSON.stringify(decision, null, 2)
+              `Decision to send to DTP for case ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`
             );
+            console.log(`Decision status: ${decision.status}`);
             return http
               .post({
                 url: urlDTP,
