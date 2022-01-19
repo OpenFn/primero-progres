@@ -11,8 +11,7 @@ alterState(state => {
   };
 
   console.log(
-    'Sending success message to DTP...',
-    JSON.stringify(data, null, 2)
+    `Sending success message to DTP for case ${data.case_id} and progres_interventionnumber ${data.progres_interventionnumber}`
   );
   return http
     .post({
