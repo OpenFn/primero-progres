@@ -34,8 +34,7 @@ alterState(state => {
 
   if (isError) {
     console.log(
-      'Sending error message to DTP...',
-      JSON.stringify(data, null, 2)
+      `Sending error message to DTP for case ${data.case_id} with progres_interventionnumber ${data.progres_interventionnumber}`
     );
     return http
       .post({
