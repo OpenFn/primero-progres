@@ -95,6 +95,26 @@ As the programme expands, the Primero team will support in configuring the inter
 
 3. **Implementing Agency:** Alternative care, Family Tracing and Reunification and Case Management Services have been configured to be exchanged with UNHCR. Users will select “UNHCR” as the Implementing Agency, and will select “unhcr_cw” to send the referral to proGres v4.
 
+## Security and Compliance
+
+The OpenFn platform complies with the [UNICEF CLASS I System Security Requirements](https://www.ungm.org/UNUser/Documents/DownloadPublicDocument?docId=784274). Beyond meeting these baseline requirements, we would like to draw the attention to the fact that OpenFn is not a standalone system, but rather a system which is carefully configured by UNICEF, OpenFn, or UNICEF’s partners to comply with project-level security requirements and to connect with other systems in the UNICEF ecosystem (such as Primero). 
+
+OFG implementation consultants must support these partners to ensure the OpenFn implementation is in compliance with relevant security requirements and adhering to best practices. See the below checklist for project-specific implementation & security considerations.
+
+See Github for the solution documentation: https://github.com/OpenFn/primero-progres
+
+| Checklist Item   | Comments | Timeline   | Status |
+| ------------- | ------------- |------------- | ------------- |
+| 1. Do not persist Primero data as Messages in OpenFn | OpenFn projects should be configured to not persist Primero information in the OpenFn project inbox. Primero case data should never sit at rest in OpenFn. OpenFn is the data processor, UNICEF is the data controller. | Before go-live and connection to production systems | Completed before go-live. | 
+| 2. Modify data storage settings to not delete notifications received from Progresv4/DTP after data has been synced with Primero | UNHCR systems send notifications via POST requests to OpenFn with referral data & related decisions. OpenFn production projects will be configured to delete these notification payloads after the data has been successfully synced with Primero, so that no data is stored on OpenFn servers. | Before go-live and connection to production systems |Completed before go-live. |
+| 3. Configure Github repository & connect with OpenFn project| Github provides version control and management of different development pipelines and change request| Before integration setup begin | Completed before go-live.| 
+| 4. Seek partner sign-off on information logged in OpenFn Activity History| Do not log any personally identifiable information - only system IDs and date timestamps that may be required for transaction auditing. | Before go-live and connection to production systems | Completed before go-live. | 
+| 5. Reset OpenFn Inbox security token for production system & share with UNHCR. | UNHCR will send a “POST” HTTP request to the OpenFn inbox when new intervention referrals are ready to be shared with Primero. This additional security feature requires an additional authorization token in order to write data to the OpenFn inbox. This should be reset and shared with UNHCR administrators before go-live. | Before go-live and connection to production systems | Completed before go-live | 
+| 6. Confirm with UNICEF & UNHCR partners what are the appropriate access settings & administrators for the Github repository | Github repositories should never contain data, only code for OpenFn “job” scripts used to process data. Consider making the repository “private” and only granting read/write access to the relevant project administrators.   | Before go-live and connection to production systems | Completed before go-live. |
+| 7. Confirm list of administrator users who need access to OpenFn project| Only project admins who need access to OpenFn for ongoing integration monitoring should require access to the production project on OpenFn.org. | Before go-live and connection to production systems | Completed before go-live. |
+| 8. Confirm with UNICEF & UNHCR partners that OpenFn credential is granted API-only access  | Ensure no overly broad/ unnecessary permissions are granted to the OpenFn credential used to access the Primero or proGres v4.  | Before go-live and connection to production systems | Completed before go-live. |
+| 9. Train administrators on OpenFn platform administration, user management, and integration activity monitoring. | Training is critical to total solution handover and ensuring security best practices are maintained during the project lifetime.| Before go-live and connection to production systems|  Completed on January 20, 2022. Training materials added to Github documentation.  |
+
 ## Links
 **Gambella-specific solution documentation**
 - [Github site with detailed documentation](https://openfn.github.io/primero-progres/)
