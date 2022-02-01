@@ -57,9 +57,8 @@ This interoperability solution leverages the standardized Global Inter-Agency Ca
 The following details are shared between Primero and proGres v4: 
 1. Consent of the child
 2. Basic identification (Name(s), date of birth, sex, current address, telephone, languages spoken, UNHCR individual ID, UNHCR registration group number)
-3. Protection Concerns
-4. Services (type of service, reason for referral, implementing agency, service requestor details, and referral status)
-5. Users (configured for receiving proGres referrals)
+3. Services (type of service, reason for referral, implementing agency, service requestor details, and referral status)
+4. Users (configured for receiving proGres referrals)
 
 This solution was developed for the Gambella, Ethiopia instance of Primero v2 and the CPIMS+ module. It can be re-implemented and localized with a relatively low level of effort for other Primero systems using this version and module.  To reuse the Interagency Interoperability solution first piloted in Gambella, implementers can clone the OpenFn jobs (or “integration scripts”) and the OpenFn project space configuration (which contains features for automating & monitoring the jobs), as well as make adjustments to localize these components as needed for the next implementation. The key steps for a re-implementation have been outlined on this repository: https://github.com/OpenFn/unicef-unhcr-io
 
@@ -89,11 +88,11 @@ For example, if your Primero administrator has configured a custom field that is
 
 2. **Focal Point User:** Has the “focal point user” for receiving referrals from UNHCR been identified? Is this 1 user, or multiple users (i.e., 1 user per partner agency)? 
 
-To begin, Primero partners will select 1 user who will receive the referrals from proGres v4, and reassign the cases to the appropriate case worker/manager/focal points. This user will be the “progresv4_primero_intake”. 
+To begin, Primero partners will select 1 user who will receive the referrals from proGres v4, and reassign the cases to the appropriate case worker/manager/focal points. This user will be the “progresv4_primero_intake”. For Ethiopia, this user will be the lead system administrators from each agency. 
 
 As the programme expands, the Primero team will support in configuring the interoperability solution to allow for 1 user per agency (for example, “plan_international_intake”, or “save_the_children_intake”, or “irc_intake”) who will receive referrals assigned to their agency.
 
-3. **Implementing Agency:** Alternative care, Family Tracing and Reunification and Case Management Services have been configured to be exchanged with UNHCR. Users will select “UNHCR” as the Implementing Agency, and will select “unhcr_cw” to send the referral to proGres v4.
+3. **Implementing Agency:** All services have been configured to be exchanged with UNHCR. A case worker has been set up in Primero and users will select “UNHCR” as the Implementing Agency, and will select “unhcr_cw” to send the referral to proGres v4.
 
 ## Security and Compliance
 
