@@ -146,29 +146,3 @@ See Github for the solution documentation: https://github.com/OpenFn/primero-pro
 - Marta Passerini, CPIMS+ Inter Agency Focal Point at mpasserini@unicef.org
 
 
-## Annex 1: Consent and Assent in Interoperability between Primero’s CPIMS+ and proGres v4 Child Protection Module
-The principle of consent and assent are key in the ability of proGres4 and Primero to comply with data subjects’ rights (an individual whose personal data is subject to processing). This means that consent and assent is not only a principle that is required before any personal and/or protection data is collected or shared, but also something which a data subject has the right to withdraw. Note: this principle should be clearly outlined in the country level Data Protection and Information Sharing Protocol, therefore all related actions should align to this or any other country level protocols.
-
-It is therefore important to note that **when it relates to interoperability for purposes of service provision and referral data sharing:**
-1. Consent be obtained before making any referrals within or outside the organization, which will therefore also apply to all referrals between proGresV4 CP module and CPIMS+;
-2. The Case Worker should clarify with the child and caregiver for _how long_ this consent is valid and _how to withdraw or revoke_ their consent at any time. In some cases, consent/assent may only be given for a one-off referral on the understanding that information about the case will not be shared after that particular referral has been made.
-3. If consent is revoked it is important to note the CPIMS+ allows a case worker to revoke access to a referral to any users that a referral was shared with; however, there is no equivalent in proGresV4.  
-
-Therefore: 
-1. If consent is withdrawn from a child/caregiver who is being case managed by a case worker using CPIMS+, the case worker will revoke all pending referrals in CPIMS+ and will also send written communication via a password protected email via a secure office email to the designated UNHCR focal point for proGresv4 who reviews all referrals from CPIMS+.  The case worker will also call the UNHCR colleague within 24 hours if no confirmation of reception is received. 
-
-The communication must include: 1) case number; 2) date in which consent was withdrawn; and 3) if the withdrawal is applicable to only some but not all services for which the referral was made - this must be specified (e.g. consent may be withdrawn for resettlement only). 
-
-The UNHCR focal point for proGresv4 will then be required to terminate the specific referral in proGresv4.
-
-2. If a child/caregiver is being case managed by UNHCR and consent is revoked, UNHCR must inform the designated CPIMS+ case worker who is reviewing that referral and send written communication via a password protected email via a secure office email. The UNHCR protection officer will also call the CPIMS+ case worker within 24 hours if no confirmation of reception is received. The CPIMS+ case worker will also “revoke” the referral from UNHCR into the CPIMS+. 
-
-The communication must include: 1) case number; 2) date in which consent was withdrawn; and 3)if the withdrawal is applicable to only some but not all services which the referral was made for then this needs to be specified (e.g. consent may be withdrawn for FTR  only). 
-
-The CPIMS+ case worker will then be required to make a note on the case on the reason for closure and close the case in CPIMS+.
-
-Note: Only, in _exceptional circumstances_, information disclosed by children can be shared against their wishes if it is considered – after careful evaluation - in their best interests to do so, usually if the child or another person is at risk of being harmed or harming themselves, or if sharing the data is determined to be in the child’s best interests. Exceptions to confidentiality should be outlined at the beginning of intake/assessment, when reviewing and obtaining consent/assent as well - and then reiterated later.
-
-In such situations, the reasons for sharing Personal Data in such a manner must be clearly explained to the affected child.  There is no hard or fast rule for disclosing information shared by a child. Information shared against or without explicit consent/assent should be in line with confidentiality and consent and assent principles and processes outlined in the country's Case Management Standard Operating Procedures and the Data Protection and  Information sharing Protocolo. Because sharing information in light of exceptions to confidentiality can be subjective, each case should be considered individually, and decisions to share information should be taken in line with country procedures and involve senior child protection colleagues.
-
-Please refer to the Inter-agency DPP-ISP for more information on [data protection and information sharing](https://alliancecpha.org/en/child-protection-online-library/data-protection-and-information-sharing-protocol-dpisp-guidance-and)
