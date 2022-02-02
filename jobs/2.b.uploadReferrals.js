@@ -1,7 +1,7 @@
-/*fn(state => {
+fn(state => {
   const { host, token } = state.configuration;
   //== Logging Primero referral before we map to DTP Interoperability form
-  console.log(
+ /* console.log(
     'Primero referral to send to DTP...',
     JSON.stringify(state.cases, null, 2)
   ); */
