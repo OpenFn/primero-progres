@@ -220,7 +220,7 @@ each(
         //   service.service_implementing_agency === 'UNHCR'
         //     ? 'UNICEF'
         //     : service.service_implementing_agency, //TODO: Discuss Primero config w/ Robert
-        // service_response_day_time: service.service_response_day_time,
+        service_response_day_time: service.service_response_day_time,
         service_type: serviceMap[service.service_type], //Alternative Care
         service_type_other: service.service_type_other
           ? service.service_type_other
