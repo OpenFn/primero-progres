@@ -202,6 +202,7 @@ each(
     //== For every 1 Primero service, send 1 DTP referral =======//
     return each(services_section, state => {
       const service = state.data;
+      console.log('Starting to map services...')
 
       //===============================================================================//
       //=== Mappings for Primero referral --> Progres v4 ==============================//
