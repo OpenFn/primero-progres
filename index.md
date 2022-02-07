@@ -25,6 +25,7 @@ This two-way data integration was achieved via data integration solutions config
 ### Data Flows
 
 **Flow 1: proGres v4 → Primero Referral Sharing**
+![image](https://user-images.githubusercontent.com/46493398/152817273-75cc33ca-8fe8-4db6-8470-a3d09032dd53.png)
 This first flow automates the sending of referrals from proGres v4 users to Primero. See this Flow 1 diagram for step-by-step documentation of the integration flow. You can [watch this short video](https://youtu.be/GcYd8c4qkns) on how to create a referral in proGres v4 and send the referral to Primero. 
 
 Once the referral is received in Primero, you can [watch this short video](https://youtu.be/XOqqUHaLDhE) on how to accept or reject the referral. Note: the progresv4_primero_intake user will review all referrals from proGres v4 and reassign the referral to the appropriate case worker to complete the referral. For more details, [review slides 3-8](https://docs.google.com/presentation/d/1H9ncQvGcWrT6nVn--wAYKxjNIzKoMt7IkbFiEc1_F6s/edit#slide=id.geff43a9d2b_0_59).
@@ -35,6 +36,7 @@ Once the referral is received in Primero, you can [watch this short video](https
 
 
 **Flow 2: Primero → proGres v4 Referral Sharing**
+![image](https://user-images.githubusercontent.com/46493398/152817416-eaf039e1-7134-4b83-9e9c-ef6a0ac9b441.png)
 This second flow automates the sending of referrals from Primero users to proGres v4. See this Flow 2 diagram for step-by-step documentation of the integration flow. You can [watch this short video](https://youtu.be/4HIC0FFU3b4) on how to create a referral in Primero and send the referral to proGres v4. 
 
 Once the referral is received in proGres v4, you can [watch this short video](https://youtu.be/aXFuVZ-eNSI) on how to accept or reject the referral. For more details, [review slides 9-15](https://docs.google.com/presentation/d/1H9ncQvGcWrT6nVn--wAYKxjNIzKoMt7IkbFiEc1_F6s/edit#slide=id.geff43d2b_0_82).
