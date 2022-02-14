@@ -32,6 +32,27 @@ each(
       alternative_care: 'Alternative Care',
       focuses_non_specialized_mhpss_care: 'Child Protection Service',
       food: 'Family Reunification Service',
+      security_e_g_safe_shelter: 'Safehouse Service',
+      education_formal: 'Psychosocial Service',
+      non_formal_education: 'Police/Other Service',
+      family_tracing_and_reunification: 'Legal Assistance Service',
+      basic_psychosocial_support: 'Livelihoods Service',
+      specialized_mhpss_services: 'Family Mediation Service',
+      non_food_items: 'Education Service',
+      cash_assistance: 'NFI/Clothes/Shoes Service',
+      livelihoods: 'Water/Sanitation Service',
+      medical: 'Registration Service',
+      nutrition: 'Food Service',
+      legal_support: 'Adolescent and Youth Empowerment',
+      documentation: 'Early Childhood Service',
+      services_for_children_with_disabilities: 'Other Service',
+      sexual_and_reproductive_health: 'Sexual and reproductive health',
+      shelter: 'Shelter',
+      wash: 'WASH',
+      durable_solution_in_coordination_with_unhcr:
+        'Durable solution (in coordination with UNHCR)',
+      relocation: 'Relocation',
+      other_please_specify: 'Other',
     };
     state.serviceMap = serviceMap;
 
@@ -186,10 +207,12 @@ each(
         full_name: user && user.full_name ? user.full_name : 'Primero CP',
         //=================================================================//
         request_type: 'ReceiveIncomingReferral',
-        service_implementing_agency:
-          service.service_implementing_agency === 'UNHCR'
-            ? 'UNICEF'
-            : service.service_implementing_agency,
+        //== TODO: Update mappings after prod testing
+        service_implementing_agency: 'ProGres – Testing', //NOTE: Temporary mapping for prod test
+        // service_implementing_agency:
+        //   service.service_implementing_agency === 'UNHCR'
+        //     ? 'UNICEF'
+        //     : service.service_implementing_agency,
         service_response_day_time: service.service_response_day_time,
         service_type: serviceMap[service.service_type],
         service_type_other: service.service_type_other

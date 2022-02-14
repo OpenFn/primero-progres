@@ -1,11 +1,10 @@
 fn(state => {
   const { host, token } = state.configuration;
-  //== Logging Primero referral collected before we map to DTP Interoperability form. 
+  //== Logging Primero referral collected before we map to DTP Interoperability form.
   console.log(
     'Primero case data to be mapped to DTP...',
     JSON.stringify(state.cases, null, 2)
-  ); 
-  
+  );
 
   //== Fetching Primero user data to complete referral mappings below
   return http
@@ -202,7 +201,7 @@ each(
     //== For every 1 Primero service, send 1 DTP referral =======//
     return each(services_section, state => {
       const service = state.data;
-      console.log('Starting to map services...')
+      console.log('Starting to map services...');
 
       //===============================================================================//
       //=== Mappings for Primero referral --> Progres v4 ==============================//
@@ -215,7 +214,7 @@ each(
         full_name: user && user.full_name ? user.full_name : 'Primero CP',
         //=================================================================//
         request_type: 'ReceiveIncomingReferral',
-        service_implementing_agency: "ProGres – Testing",
+        service_implementing_agency: 'ProGres – Testing',
 
         //USE THE service_implementing_agency MAPPING BELOW AFTER TESTING
         // service_implementing_agency:
