@@ -95,6 +95,12 @@ To begin, Primero partners will select 1 user who will receive the referrals fro
 As the programme expands, the Primero team will support in configuring the interoperability solution to allow for 1 user per agency (for example, “plan_international_intake”, or “save_the_children_intake”, or “irc_intake”) who will receive referrals assigned to their agency.
 
 3. **Implementing Agency:** All services have been configured to be exchanged with UNHCR. A case worker has been set up in Primero and users will select “UNHCR” as the Implementing Agency, and will select “unhcr_cw” to send the referral to proGres v4.
+4. **Updating Service Mappings in OpenFn Jobs:** The service mappings from the [mapping specifications](https://docs.google.com/spreadsheets/d/1j5bVbg1-c3Pwyx3DiALxaOD4ulGTEdEGJCrgu2DVT38/edit#gid=284761480) have been added to the OpenFn jobs. Follow the steps below to update the service mappings in the jobs:
+- Primero > Progres flow updates should be made [here](https://github.com/OpenFn/primero-progres/blob/ddd166027c237f9e3a3db3860f82b573610089cb/jobs/2.b.uploadReferrals.js#L34). Note that the services in this job should be added as follows: `Primero value (DB Value that OpenFn converts): 'Primero value (that OpenFn sends to Progres)',`. For example: `alternative_care: 'Alternative Care',`
+- Progres > Primero updates should be made [here](https://github.com/OpenFn/primero-progres/blob/ddd166027c237f9e3a3db3860f82b573610089cb/jobs/1.upsertExtracts.js#L45). Note that this service map currently only has four items and new services should be added as follows: `'Progres business Value in v4
+interventiontype': 'Primero value (DB Value that OpenFn sends to Primero)',` for example: `'Alternative Care': 'alternative_care',`. 
+- **Reminder**: Make any mapping changes to the mapping specifications document before updating the staging job mappings. 
+
 
 ## Security and Compliance
 
