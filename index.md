@@ -84,16 +84,10 @@ This initial implementation assumes the following:
 When implementing this interoperability solution for a new Primero instance, implementers and Primero system administrators should consider the following: 
 
 1. **Required Fields:** Are there any fields on the Primero case or related forms that are (1) instance-specific localizations and (2) required when a case is registered? 
-
-For example, if your Primero administrator has configured a custom field that is unique to your implementation (e.g., “languages spoken by the child”) and is required in order to register a case, then this field must be included in the mapping specifications. (The source value must either come from a corresponding field in proGres v4, or a default value must be provided, otherwise this required field will be entered with a blank value.)
-
-
+- For example, if your Primero administrator has configured a custom field that is unique to your implementation (e.g., “languages spoken by the child”) and is required in order to register a case, then this field must be included in the mapping specifications. (The source value must either come from a corresponding field in proGres v4, or a default value must be provided, otherwise this required field will be entered with a blank value.)
 2. **Focal Point User:** Has the “focal point user” for receiving referrals from UNHCR been identified? Is this 1 user, or multiple users (i.e., 1 user per partner agency)? 
-
-To begin, Primero partners will select 1 user who will receive the referrals from proGres v4, and reassign the cases to the appropriate case worker/manager/focal points. This user will be the “progresv4_primero_intake”. For Ethiopia, this user will be the lead system administrators from each agency. 
-
-As the programme expands, the Primero team will support in configuring the interoperability solution to allow for 1 user per agency (for example, “plan_international_intake”, or “save_the_children_intake”, or “irc_intake”) who will receive referrals assigned to their agency.
-
+- To begin, Primero partners will select 1 user who will receive the referrals from proGres v4, and reassign the cases to the appropriate case worker/manager/focal points. This user will be the “progresv4_primero_intake”. For Ethiopia, this user will be the lead system administrators from each agency. 
+- As the programme expands, the Primero team will support in configuring the interoperability solution to allow for 1 user per agency (for example, “plan_international_intake”, or “save_the_children_intake”, or “irc_intake”) who will receive referrals assigned to their agency.
 3. **Implementing Agency:** All services have been configured to be exchanged with UNHCR. A case worker has been set up in Primero and users will select “UNHCR” as the Implementing Agency, and will select “unhcr_cw” to send the referral to proGres v4.
 4. **Updating Service Mappings in OpenFn Jobs:** The service mappings from the [mapping specifications](https://docs.google.com/spreadsheets/d/1j5bVbg1-c3Pwyx3DiALxaOD4ulGTEdEGJCrgu2DVT38/edit#gid=284761480) have been added to the OpenFn jobs. Follow the steps below to update the service mappings in the jobs:
 - Primero > Progres flow updates should be made [here](https://github.com/OpenFn/primero-progres/blob/ddd166027c237f9e3a3db3860f82b573610089cb/jobs/2.b.uploadReferrals.js#L34). Note that the services in this job should be added as follows: `Primero value (DB Value that OpenFn converts): 'Primero value (that OpenFn sends to Progres)',`. For example: `alternative_care: 'Alternative Care',`
