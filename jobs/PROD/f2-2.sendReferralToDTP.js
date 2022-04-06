@@ -208,7 +208,7 @@ each(
         //=================================================================//
         request_type: 'ReceiveIncomingReferral',
         //== TODO: Update mappings after prod testing
-        service_implementing_agency: 'ProGres – Testing', //NOTE: Temporary mapping for prod test
+        service_implementing_agency: 'ProGres - Testing', //TODO: USE MAPPING BELOW FOR GO-LIVE
         // service_implementing_agency:
         //   service.service_implementing_agency === 'UNHCR'
         //     ? 'UNICEF'
