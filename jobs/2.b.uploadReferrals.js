@@ -214,8 +214,8 @@ each(
         full_name: user && user.full_name ? user.full_name : 'Primero CP',
         //=================================================================//
         request_type: 'ReceiveIncomingReferral',
-         service_implementing_agency: 'ProGres - Testing',
-       // service_implementing_agency: 'ProGres – Testing',
+        service_implementing_agency: 'Ethiopia - Gambella',
+        //service_implementing_agency: 'ProGres – Testing',
 
         //USE THE service_implementing_agency MAPPING BELOW AFTER TESTING
         // service_implementing_agency:
