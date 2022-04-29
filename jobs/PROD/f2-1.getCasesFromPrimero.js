@@ -11,7 +11,7 @@ fn(state => {
   return getCases(
     {
       remote: true,
-      'associated_user_names[0]': 'unhcr_cw',
+      'associated_user_names[0]': 'unhcr_cw@cpims-gambella.primero.org',
       last_updated_at: `${state.cursor}..`,
     },
     state => ({
