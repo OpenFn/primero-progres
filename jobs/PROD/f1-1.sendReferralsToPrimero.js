@@ -208,7 +208,7 @@ each(
       language: lang[0] ? lang : null,
       status: 'open',
       case_id: data.progres_primeroid ? data.progres_primeroid : undefined,
-      owned_by: 'progresv4_primero_intake', //Gambella intake user
+      owned_by: 'progresv4_primero_intake@cpims-gambella.primero.org', //Gambella intake user
       module_id: 'primeromodule-cp',
     };
 
