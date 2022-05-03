@@ -124,6 +124,7 @@ See Github for the solution documentation: https://github.com/OpenFn/primero-pro
 - [Primero IO Training for Administrators](https://docs.google.com/presentation/d/1u8A2Ke4n7i4_IXF65wA5yKeBIcfUijVvnUwnvPjEtM4/edit#slide=id.ga81cdd0b96_0_755)
 - [Primero-Progres IO Flows & Testing Steps](https://docs.google.com/presentation/u/2/d/1H9ncQvGcWrT6nVn--wAYKxjNIzKoMt7IkbFiEc1_F6s/edit#slide=id.geff43a9d2b_0_128)
 - [Updating this GitHub website](https://github.com/OpenFn/primero-progres/edit/gh-pages/index.md)
+- [Updating service values on OpenFn.org](https://docs.google.com/presentation/d/1BtaKiA89RrdsfP_K0HI8Qi63apC20zjffampGC8d1D0/edit#slide=id.g1269df7622b_0_108)
 
 **Template interagency solution documentation** (that can be re-used/replicated)
 - [Github site with detailed documentation](https://github.com/OpenFn/unicef-unhcr-io)
