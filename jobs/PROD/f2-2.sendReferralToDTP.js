@@ -5,14 +5,17 @@ fn(state => {
   console.log('Primero referral to send to DTP found for case: ', caseid);
 
   //== Fetching Primero user data to complete referral mappings below
-  return get(`${host}/api/v2/users`, {
-    headers: {
-      Authorization: `Basic ${token}`,
-    },
-  })(state).then(({ data }) => {
-    const users = data.data;
-    return { ...state, users };
-  });
+  return http
+    .get({
+      url: `${host}/api/v2/users`,
+      headers: {
+        Authorization: `Basic ${token}`,
+      },
+    })(state)
+    .then(({ data }) => {
+      const users = data.data;
+      return { ...state, users };
+    });
 });
 
 each(
@@ -257,17 +260,19 @@ each(
       console.log('case_id_display:', shortid);
 
       //=== Here we send the referrals to DTP ======///
-      return post(urlDTP, {
-        data: referralMapping,
-        headers: {
-          'Ocp-Apim-Subscription-Key':
-            configuration['Ocp-Apim-Subscription-Key'],
-        },
-        agentOptions: {
-          key,
-          cert,
-        },
-      })(state)
+      return http
+        .post({
+          url: urlDTP,
+          data: referralMapping,
+          headers: {
+            'Ocp-Apim-Subscription-Key':
+              configuration['Ocp-Apim-Subscription-Key'],
+          },
+          agentOptions: {
+            key,
+            cert,
+          },
+        })(state)
         .then(() => {
           console.log('Response uploaded to DTP/Progres.');
           return state;
