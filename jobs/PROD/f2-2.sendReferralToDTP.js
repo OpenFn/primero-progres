@@ -278,9 +278,15 @@ each(
           return state;
         })
         .catch(error => {
-          let newError = error;
-          newError.config = 'REDACTED';
-          throw newError;
+          const safeError = error;
+          safeError.config = '***';
+          safeError.request = '***';
+          safeError.response = {
+            ...safeError.response,
+            config: '***',
+            request: '***',
+          };
+          throw safeError;
         });
       return state;
     })(state);
