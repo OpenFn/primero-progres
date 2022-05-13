@@ -275,6 +275,12 @@ each(
         .catch(error => {
           let newError = error;
           newError.config = 'REDACTED';
+          newError.request = '***';
+          newError.response = {
+            ...newError.response,
+            config: '***',
+            request: '***',
+          };
           throw newError;
         });
       return state;
