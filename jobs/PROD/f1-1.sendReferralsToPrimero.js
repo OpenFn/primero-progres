@@ -213,6 +213,7 @@ each(
     };
 
     console.log('Mapping referral data to Primero: ', body.unhcr_individual_no);
+    console.log('Preparing to send this data to Primero:', body);
 
     return getCases(
       {
