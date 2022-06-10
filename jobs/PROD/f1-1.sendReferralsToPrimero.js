@@ -233,6 +233,7 @@ each(
             }
           )(state);
         } else if (state.data.length === 1) {
+          console.log(`Matching Primero case found; updating...`); 
           return updateCase(state.data[0].id, {
             data: state => body,
           })(state);
