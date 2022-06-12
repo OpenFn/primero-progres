@@ -222,33 +222,22 @@ each(
       },
       next => {
         if (next.data.length === 0) {
-          return createCase(
-            {
-              data: state => ({
-                ...body,
-              }),
-            },
-            state => {
-              console.log(`New case created for case id:${state.data.case_id}`);
-              return state;
-            }
-          )(next);
+          return createCase({ data: body }, state => {
+            console.log(`New case created for case id:${state.data.case_id}`);
+            return state;
+          })(next);
         }
 
         if (next.data.length === 1) {
           console.log(`Matching Primero case found; updating...`);
-          return updateCase(next.data[0].id, {
-            data: state => body,
-          })(next);
+          return updateCase(next.data[0].id, { data: body })(next);
         }
 
         body.case_id = next.data[0].case_id;
         console.log(
           `Upserting first matching case with case id ${body.case_id}`
         );
-        return updateCase(next.data[0].id, {
-          data: state => body,
-        })(next);
+        return updateCase(next.data[0].id, { data: body })(next);
       }
     )(state);
   })
