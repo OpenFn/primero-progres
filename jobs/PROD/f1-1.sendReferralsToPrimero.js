@@ -220,8 +220,8 @@ each(
         remote: true,
         unhcr_individual_no: data['individuals.progres_id'],
       },
-      state => {
-        if (state.data.length === 0) {
+      next => {
+        if (next.data.length === 0) {
           return createCase(
             {
               data: state => ({
@@ -232,20 +232,20 @@ each(
               console.log(`New case created for case id:${state.data.case_id}`);
               return state;
             }
-          )(state);
-        } else if (state.data.length === 1) {
-          console.log(`Matching Primero case found; updating...`); 
-          return updateCase(state.data[0].id, {
+          )(next);
+        } else if (next.data.length === 1) {
+          console.log(`Matching Primero case found; updating...`);
+          return updateCase(next.data[0].id, {
             data: state => body,
-          })(state);
+          })(next);
         } else {
-          body.case_id = state.data[0].case_id;
+          body.case_id = next.data[0].case_id;
           console.log(
             `Upserting first matching case with case id ${body.case_id}`
           );
-          return updateCase(state.data[0].id, {
+          return updateCase(next.data[0].id, {
             data: state => body,
-          })(state);
+          })(next);
         }
       }
     )(state);
