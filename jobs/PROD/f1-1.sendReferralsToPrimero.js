@@ -235,7 +235,7 @@ each(
 
         body.case_id = next.data[0].case_id;
         console.log(
-          `Upserting first matching case with case id ${body.case_id}`
+          `Multiple cases found! Upserting first matching case with case id ${body.case_id}`
         );
         return updateCase(next.data[0].id, { data: body })(next);
       }
