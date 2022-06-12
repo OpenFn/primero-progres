@@ -222,9 +222,9 @@ each(
       },
       next => {
         if (next.data.length === 0) {
-          return createCase({ data: body }, state => {
-            console.log(`New case created for case id:${state.data.case_id}`);
-            return state;
+          return createCase({ data: body }, resp => {
+            console.log(`New case created for case id:${resp.data.case_id}`);
+            return resp;
           })(next);
         }
 
