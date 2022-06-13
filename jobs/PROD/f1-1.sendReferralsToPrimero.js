@@ -1,6 +1,6 @@
 each(
   dataPath('interventions[*]'),
-  alterState(state => {
+  fn(state => {
     const { data } = state;
 
     const calculateAge = dob => {
@@ -220,33 +220,32 @@ each(
         remote: true,
         unhcr_individual_no: data['individuals.progres_id'],
       },
-      state => {
-        if (state.data.length === 0) {
-          return createCase(
-            {
-              data: state => ({
-                ...body,
-              }),
-            },
-            state => {
-              console.log(`New case created for case id:${state.data.case_id}`);
-              return state;
-            }
-          )(state);
-        } else if (state.data.length === 1) {
-          console.log(`Matching Primero case found; updating...`); 
-          return updateCase(state.data[0].id, {
-            data: state => body,
-          })(state);
-        } else {
-          body.case_id = state.data[0].case_id;
-          console.log(
-            `Upserting first matching case with case id ${body.case_id}`
-          );
-          return updateCase(state.data[0].id, {
-            data: state => body,
-          })(state);
+      next => {
+        if (next.data.length === 0) {
+          return createCase({ data: body }, resp => {
+            console.log(`New case created for case id:${resp.data.case_id}`);
+            return resp;
+          })(next);
         }
+
+        if (next.data.length === 1) {
+          console.log(`Matching Primero case found; updating...`);
+          return updateCase(next.data[0].id, { data: body }, resp => {
+            console.log(
+              `Updated ${resp.data.id} @ ${resp.data.last_updated_at}`
+            );
+            return resp;
+          })(next);
+        }
+
+        body.case_id = next.data[0].case_id;
+        console.log(
+          `Multiple cases found! Upserting first matching case with case id ${body.case_id}`
+        );
+        return updateCase(next.data[0].id, { data: body }, resp => {
+          console.log(`Updated ${resp.data.id} @ ${resp.data.last_updated_at}`);
+          return resp;
+        })(next);
       }
     )(state);
   })
