@@ -1,6 +1,6 @@
 fn(state => {
   console.log('Current cursor value:', state.lastRunDateTime);
-  const manualCursor = '2021-12-09T02:00:00.000Z';
+  const manualCursor = '2022-08-11T12:00:00.000Z';
 
   return getCases(
     {
@@ -61,7 +61,8 @@ fn(state => {
                 'No reason specified.',
               request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
             };
-
+            console.log("Primero DATA");
+            console.log(state.data);
             console.log(
               `Decision to send to DTP for case ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`
             );
