@@ -61,8 +61,6 @@ fn(state => {
                 'No reason specified.',
               request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
             };
-            console.log("Primero DATA");
-            console.log(state.data);
             console.log(
               `Decision to send to DTP for case ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`
             );
