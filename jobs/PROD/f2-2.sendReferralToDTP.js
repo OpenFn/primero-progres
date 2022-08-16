@@ -56,89 +56,6 @@ each(
     };
     state.serviceMap = serviceMap;
 
-    const protectionMap = {
-      physical_abuse_violence: 'DS-LBM',
-      sexual_abuse_violence: 'DS-UBM',
-      rape: 'DS-V',
-      emotional_or_psychological: 'DS-H',
-      neglect: 'DS-C',
-      abandonment: 'DS- EB',
-      child_labour: 'DS-RC',
-      hazardous_work: 'DS-SC',
-      sexual_exploitation: 'CR',
-      slavery_sale_abduction: 'CR-CP',
-      in_conflict_with_the_law: 'CR-CS',
-      associated_with_armed: 'CR-CC',
-      deprived_of_liberty: 'CR-TP',
-      serious_medical_condition: 'CR-LW',
-      functional_difficulty_seeing: 'CR-LO',
-      functional_difficulty_hearing: 'CR-NE',
-      functional_difficulty_walking: 'CR-SE',
-      functional_difficulty_remembering: 'CR-AF',
-      difficulty_with_self_care: 'CR-CL',
-      difficulty_communicating: 'SC-SC',
-      unaccompanied: 'SC-UC',
-      separated: 'SC-CH',
-      orphan: 'SC-IC',
-      psychosocial_distress: 'SC-FC',
-      mental_disorder: 'WR-WR',
-      substance_abuse: 'WR-SF',
-      belongs_to_marginalised: 'WR-LC',
-      lack_of_documentation_birth_registration: 'ER-NF',
-      child_marriage: 'ER-MC',
-      female_genital_mutilation_fgm: 'ER-FR',
-      pregnancy_child_parent: 'SP-PT',
-      denial_of_resources_opportunities_or_services: 'SP-GP',
-      highly_vulnerable_care: 'SP-CG',
-      child_survivor_of_explosive: 'DS-BD',
-      other: 'DS-DF',
-      statelessness: 'DS-PM',
-      arrested_detained: 'DS-PS',
-      disabled: 'DS-MM',
-      serious_health_issue: 'DS-MS',
-      caafag: 'DS-SD',
-      street_child: 'SM-MI',
-      child_mother: 'SM-MN',
-      living_with_vulnerable_person: 'SM-DP',
-      worst_forms_of_child_labor: 'SM-CI',
-      child_headed_household: 'SM-CC',
-      mentally_distressed: 'SM-OT',
-      emotional_abuse: 'SM-AD',
-      child_neglect: 'FU-TR',
-      physical_abuse: 'FU-FR',
-      sgbv__rape_sodomy: 'LP-ND',
-      sgbv__physical_assault: 'LP-BN',
-      sgbv__sexual_assault: 'LP-NA',
-      sgbv__child_marriage: 'LP-MM',
-      sgbv__sex_for_goods_services: 'LP-MD',
-      sgbv__teenage_pregnancy: 'LP-RR',
-      sgbv__psychological_emotional_abuse: 'LP-RD',
-      sgbv__fgm: 'LP-DA',
-      sgbv__commercial_sexual_exploitation: 'LP-DO',
-      lp_dt__detained_held_elsewhere_f8f8d21: 'LP-DT',
-      lp_ih__in_hiding_a554ced: 'LP-IH',
-      lp_wp__absence_of_witness_protection_89f64dc: 'LP-WP',
-      lp_an__violence__abuse_or_neglect_b424522: 'LP-AN',
-      lp_rp__at_risk_due_to_profile_fb7c70c: 'LP-RP',
-      lp_ms__marginalized_from_society_or_community_e07cb83: 'LP-MS',
-      lp_ls__lack_of_durable_solutions_prospects_f9e8a11: 'LP-LS',
-      lp_ap__alleged_perpetrator_db9e2f5: 'LP-AP',
-      lp_cr__criminal_record_5a18ced: 'LP-CR',
-      lp_st__security_threat_to_unhcr_partner_staff_or_others_28d5c9c: 'LP-ST',
-      lp_af__formerly_associated_with_armed_forces_or_groups_ac746df: 'LP-AF',
-      tr_pi__psychological_and_or_physical_impairment_due_to_torture_be29dff:
-        'TR-PI',
-      tr_ho__forced_to_egregious_acts_ff05b1c: 'TR-HO',
-      tr_wv__witness_of_violence_to_other_74e79f8: 'TR-WV',
-      sv_va__victim__survivor_of__sgbv_in_country_of_asylum_5422ac9: 'SV-VA',
-      sv_vf__victim__survivor_of__sgbv_during_flight__64638f7: 'SV-VF',
-      sv_vo__victim__survivor_of__sgbv_in_country_of_origin_a3f9c27: 'SV-VO',
-      sv_gm__female_genital_mutilation_132d9d6: 'SV-GM',
-      sv_hp__harmful_traditional_practices_c68c552: 'SV-HP',
-      sv_hk__threat_of_honour_killing_violence_e3b4fbb: 'SV-HK',
-      sv_fm__forced__early_marriage__b1a8ba0: 'SV-FM',
-      sv_ss__survival_sex__0a5cc10: 'SV-SS',
-    };
     const languageMap = {
       language1: 'Anyuak',
       language2: 'Nuer',
@@ -182,13 +99,6 @@ each(
     data.language
       ? data.language.forEach(l => lang.push(languageMap[l]))
       : lang.push(languageMap['language6']);
-
-    let protection = [];
-    data.protection_concerns
-      ? data.protection_concerns.forEach(pc =>
-          protection.push(protectionMap[pc])
-        )
-      : protection.push(protectionMap['physical_abuse_violence']);
 
     const referrals = [];
 
