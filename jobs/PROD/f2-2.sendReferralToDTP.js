@@ -242,10 +242,6 @@ each(
         telephone_current: data.telephone_current
           ? data.telephone_current.toString()
           : null,
-        protection_concerns: protection[0] ? protection : null, //e.g., 'CR-AF'
-        protection_concerns_other: data.protection_concerns_other
-          ? data.protection_concerns_other
-          : null,
         language: lang[0] ? lang.join(', ') : null, //e.g., 'language1,language2'
         id: `${data.case_id}#${service.unique_id.substr(-12)}`,
       };
