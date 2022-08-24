@@ -1,20 +1,23 @@
 fn(state => {
   const { host, token } = state.configuration;
   //== Logging Primero referral before we map to DTP Interoperability form
-  const caseid = state.cases.id;
-  console.log('Primero referral to send to DTP found for case: ', caseid);
+  // const caseid = state.cases ? state.cases.map(c => c.case_id) : undefined;
+  // console.log('Primero referral to send to DTP found for case: ', caseid);
 
   //== Fetching Primero user data to complete referral mappings below
   return http
     .get({
-      url: `${host}/api/v2/users`,
+      url: `${host}/api/v2/users?per=100000&page=1`, //show ALL users
       headers: {
         Authorization: `Basic ${token}`,
       },
     })(state)
     .then(({ data }) => {
       const users = data.data;
-      return { ...state, users };
+      const cpimsAdmin = users.find(
+        u => u.email === state.configuration.cpimsAdmin
+      );
+      return { ...state, users, cpimsAdmin };
     });
 });
 
@@ -22,11 +25,19 @@ each(
   '$.cases[*]',
   fn(state => {
     console.log('Creating referral for each unhcr service...');
-    const { data, configuration, users } = state;
+    const { data, configuration, users, cpimsAdmin } = state;
     const { urlDTP, key, cert } = configuration;
     const { services_section } = data;
 
     const user = users.find(user => user.user_name === data.owned_by);
+
+    // cpimsAdmin info if caseworker profile is not completed
+    const cpimsAdminEmail = cpimsAdmin
+      ? cpimsAdmin.email
+      : 'notavailable@primero.org';
+    const cpimsAdminName = cpimsAdmin ? cpimsAdmin.full_name : 'CPIMS+';
+    const cpimsAdminPhone = cpimsAdmin ? cpimsAdmin.phone : '0000000000';
+    const cpimsAdminPosition = 'CPIMS+ Administrator';
 
     const serviceMap = {
       alternative_care: 'Alternative Care',
@@ -110,15 +121,16 @@ each(
       //=== Mappings for Primero referral --> Progres v4 ==============================//
       const referralMapping = {
         //== Fields pulled from Primero user - defined in case.owned_by =======//
+        //== Default to sending the CPIMS Admin details if caseworker info not available ==//
         primero_user: data.owned_by,
-        position: user && user.position ? user.position : 'Case Worker',
-        email: user && user.email ? user.email : 'caseworker@primero.org',
-        phone: user && user.phone ? user.phone : '0000000000',
-        full_name: user && user.full_name ? user.full_name : 'Primero CP',
+        position: user && user.position ? user.position : cpimsAdminPosition,
+        email: user && user.email ? user.email : cpimsAdminEmail,
+        phone: user && user.phone ? user.phone : cpimsAdminPhone,
+        full_name: user && user.full_name ? user.full_name : cpimsAdminName,
         //=================================================================//
         request_type: 'ReceiveIncomingReferral',
-        //== TODO: Update mappings after prod testing
         service_implementing_agency: 'ProGres – Testing',
+        //service_implementing_agency: 'UNICEF', //TODO: Add BU before go-live
         //service_implementing_agency: 'ProGres - Testing', //TODO: USE MAPPING BELOW FOR GO-LIVE
         // service_implementing_agency:
         //   service.service_implementing_agency === 'UNHCR'
