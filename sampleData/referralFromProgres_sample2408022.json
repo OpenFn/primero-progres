@@ -1,0 +1,84 @@
+{
+  "__query_params": {},
+  "interventions": [
+    {
+      "user.title": "Associate Child Protection and SGBV Officer",
+      "individuals.progres_registrationgroupid": {
+        "Id": "d7b9a8b4-2317-ed11-8147-001dd8b71fe5",
+        "KeyAttributes": [],
+        "LogicalName": "progres_registrationgroup",
+        "Name": "989-22-00200",
+        "RowVersion": null
+      },
+      "user.internalemailaddress": "scl-test@unhcr.org",
+      "languages.progres_readlevel": "125080000",
+      "childprotection.progres_priority": "125080001",
+      "progres_lpinterventionid": "c52ac5bd-cd22-ed11-813e-00155d50ebba",
+      "individuals.progres_commonyusedname": "Alfie",
+      "progres_interventionserviceprovider": "6f904798-cb7a-ec11-811c-00155de64d66",
+      "languages.progres_speaklevel": "125080000",
+      "languages.progres_comprehensionlevel": "125080000",
+      "progres_interventionstartdate": "2022-08-22T00:00:00Z",
+      "languages.progres_writelevel": "125080000",
+      "individuals.progres_coalocationlevel1": {
+        "Id": "1c21fcc5-ae7f-e811-80d6-001dd8b71fe4",
+        "KeyAttributes": [],
+        "LogicalName": "progres_locationlevel",
+        "Name": "Gambela",
+        "RowVersion": null
+      },
+      "specificneeds.progres_spnsubcategory2": {
+        "Id": "917995ac-9876-e611-80c9-00155d340529",
+        "KeyAttributes": [],
+        "LogicalName": "progres_specificneeddetailscode",
+        "Name": "Unaccompanied child",
+        "RowVersion": null
+      },
+      "spncategory2code": "SC",
+      "progres_interventiontype2": "b0b00885-b3c3-e611-80ca-00155d340529",
+      "individuals.progres_coalocationlevel2": {
+        "Id": "5021fcc5-ae7f-e811-80d6-001dd8b71fe4",
+        "KeyAttributes": [],
+        "LogicalName": "progres_locationlevel",
+        "Name": "Agnuak",
+        "RowVersion": null
+      },
+      "progres_interventionnumber": "989-22-PRTITV-0000051",
+      "individuals.progres_familyname": "S-C",
+      "spnsubcategory2code": "SC-UC",
+      "individuals.progres_primaryphonenumber": "+4612312345",
+      "progres_comments_nonrestrictedstore": "[{\"CreatedBy\":\"Jessica S-C\",\"Text\":\"testing testing 1,2,3\",\"CreatedOn\":\"2022-08-23T10:24:27.5388612Z\"}]",
+      "individuals.progres_id": "989-00000226",
+      "languages.progres_mothertongue": "125080000",
+      "progres_businessunit": "0dbc2704-b526-ec11-8111-00155d5cc459",
+      "individuals.progres_dateofbirth": "2014-06-06T00:00:00Z",
+      "progres_interventiondescription": "<p>This is a check for the address</p>",
+      "interventiontype.progres_description": "Alternative Care",
+      "languages.progres_languagecodeid": {
+        "Id": "6acd5026-6b8f-e111-b138-005056ac02a7",
+        "KeyAttributes": [],
+        "LogicalName": "progres_languagecode",
+        "Name": "Afrikaans",
+        "RowVersion": null
+      },
+      "individuals.progres_givenname": "Alfred",
+      "individuals.progres_sex": "125080001",
+      "specificneeds.progres_spncategory2": {
+        "Id": "abc5b4fb-8f76-e611-80c9-00155d340529",
+        "KeyAttributes": [],
+        "LogicalName": "progres_specificneedcode",
+        "Name": "Unaccompanied or separated child",
+        "RowVersion": null
+      },
+      "progres_businessowner": "4c8e70d8-716a-e811-80d3-001dd8b71fe3",
+      "individuals.progres_coalocationlevel3": {
+        "Id": "098d4f5c-3e0a-eb11-8118-001dd8b71fe3",
+        "KeyAttributes": [],
+        "LogicalName": "progres_locationlevel",
+        "Name": "Abobo",
+        "RowVersion": null
+      }
+    }
+  ],
+  "request_type": "PrimeroOutgoingReferral"
+}
