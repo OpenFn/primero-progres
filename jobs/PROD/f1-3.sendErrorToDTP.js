@@ -36,6 +36,7 @@ alterState(state => {
     console.log(
       `Sending error message to DTP for case ${data.case_id} with progres_interventionnumber ${data.progres_interventionnumber}`
     );
+    console.log(`Request status ${data.status}`);
     return http
       .post({
         url: urlDTP,

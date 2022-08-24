@@ -1,8 +1,10 @@
 fn(state => {
   const { host, token } = state.configuration;
   //== Logging Primero referral before we map to DTP Interoperability form
-  // const caseid = state.cases ? state.cases.map(c => c.case_id) : undefined;
-  // console.log('Primero referral to send to DTP found for case: ', caseid);
+  const caseid = state.cases
+    ? state.cases.map(c => c.case_id) || state.cases.id
+    : undefined;
+  console.log('Primero referral to send to DTP found for cases: ', caseid);
 
   //== Fetching Primero user data to complete referral mappings below
   return http
@@ -24,7 +26,7 @@ fn(state => {
 each(
   '$.cases[*]',
   fn(state => {
-    console.log('Creating referral for each unhcr service...');
+    console.log('Searching for unhcr service to send as referrals...');
     const { data, configuration, users, cpimsAdmin } = state;
     const { urlDTP, key, cert } = configuration;
     const { services_section } = data;
