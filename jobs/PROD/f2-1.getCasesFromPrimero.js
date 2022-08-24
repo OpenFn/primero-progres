@@ -1,7 +1,7 @@
 // Set up a manual cursor and referrals array.
 fn(state => {
   console.log('Last sync end date:', state.lastRunDateTime);
-  const manualCursor = '2022-05-05T11:40:04.033Z';
+  const manualCursor = '2022-08-09T10:40:04.033Z';
   const cursor = state.lastRunDateTime || manualCursor;
   return { ...state, referralIds: [], cursor };
 });
