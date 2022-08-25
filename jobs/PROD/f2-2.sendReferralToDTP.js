@@ -131,7 +131,7 @@ each(
         full_name: user && user.full_name ? user.full_name : cpimsAdminName,
         //=================================================================//
         request_type: 'ReceiveIncomingReferral',
-        service_implementing_agency: 'ProGres – Testing',
+        service_implementing_agency: 'UNICEF',
         //service_implementing_agency: 'UNICEF', //TODO: Add BU before go-live
         //service_implementing_agency: 'ProGres - Testing', //TODO: USE MAPPING BELOW FOR GO-LIVE
         // service_implementing_agency:
