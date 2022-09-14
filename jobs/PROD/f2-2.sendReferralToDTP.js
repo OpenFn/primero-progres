@@ -4,7 +4,11 @@ fn(state => {
   const caseid = state.cases
     ? state.cases.map(c => c.case_id) || state.cases.id
     : undefined;
-  console.log('Primero referral to send to DTP found for cases: ', caseid);
+  console.log(
+    '# Primero referrals to send to Progresv4/DTP :: ',
+    caseid.length
+  );
+  console.log('Primero case id(s) :: ', caseid);
   console.log('Finding referring user contact info in Primero...');
 
   //== Fetching Primero user data to complete referral mappings below
