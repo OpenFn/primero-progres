@@ -5,6 +5,7 @@ fn(state => {
     ? state.cases.map(c => c.case_id) || state.cases.id
     : undefined;
   console.log('Primero referral to send to DTP found for cases: ', caseid);
+  console.log('Finding referring user contact info in Primero...');
 
   //== Fetching Primero user data to complete referral mappings below
   return http
@@ -19,6 +20,7 @@ fn(state => {
       const cpimsAdmin = users.find(
         u => u.email === state.configuration.cpimsAdmin
       );
+      console.log('Referring user contact info fetched...');
       return { ...state, users, cpimsAdmin };
     });
 });
@@ -33,7 +35,7 @@ each(
 
     const user = users.find(user => user.user_name === data.owned_by);
 
-    // cpimsAdmin info if caseworker profile is not completed
+    // provide cpimsAdmin info if caseworker profile is not completed
     const cpimsAdminEmail = cpimsAdmin
       ? cpimsAdmin.email
       : 'notavailable@primero.org';
@@ -132,7 +134,6 @@ each(
         //=================================================================//
         request_type: 'ReceiveIncomingReferral',
         service_implementing_agency: 'UNICEF',
-        //service_implementing_agency: 'UNICEF', //TODO: Add BU before go-live
         //service_implementing_agency: 'ProGres - Testing', //TODO: USE MAPPING BELOW FOR GO-LIVE
         // service_implementing_agency:
         //   service.service_implementing_agency === 'UNHCR'
