@@ -143,6 +143,7 @@ See Github for the solution documentation: https://github.com/OpenFn/primero-pro
 **UNHCR Help Desk**
 - Send an email to the UNHCR Help Desk at hqussd@unhcr.org
 - Jessica Stuart-Clarke, UNHCR Interoperability Focal Point at stuartcl@unhcr.org
+- Teena Josephh, UNHCR Interoperability Focal Point at joseph@unhcr.org
 
 **UNICEF**: 
 - Jan Panchalingam, Primero Interoperability Focal Point at jpanchalingam@unicef.org 
