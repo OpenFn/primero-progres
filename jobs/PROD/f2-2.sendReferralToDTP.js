@@ -11,22 +11,25 @@ fn(state => {
   console.log('Primero case id(s) :: ', caseid);
   console.log('Finding referring user contact info in Primero...');
 
-  //== Fetching Primero user data to complete referral mappings below
-  return http
-    .get({
-      url: `${host}/api/v2/users?per=100000&page=1`, //show ALL users
-      headers: {
-        Authorization: `Basic ${token}`,
-      },
-    })(state)
-    .then(({ data }) => {
-      const users = data.data;
-      const cpimsAdmin = users.find(
-        u => u.email === state.configuration.cpimsAdmin
-      );
-      console.log('Referring user contact info fetched...');
-      return { ...state, users, cpimsAdmin };
-    });
+  if (caseid.length > 0) {
+    //== Fetching Primero user data to complete referral mappings below
+    return http
+      .get({
+        url: `${host}/api/v2/users?per=100000&page=1`, //show ALL users
+        headers: {
+          Authorization: `Basic ${token}`,
+        },
+      })(state)
+      .then(({ data }) => {
+        const users = data.data;
+        const cpimsAdmin = users.find(
+          u => u.email === state.configuration.cpimsAdmin
+        );
+        console.log('Referring user contact info fetched...');
+        return { ...state, users, cpimsAdmin };
+      });
+  }
+  return { ...state };
 });
 
 each(
