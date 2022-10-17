@@ -9,9 +9,10 @@ fn(state => {
     caseid.length
   );
   console.log('Primero case id(s) :: ', caseid);
-  console.log('Finding referring user contact info in Primero...');
+
 
   if (caseid.length > 0) {
+    console.log('Finding referring user contact info in Primero...');
     //== Fetching Primero user data to complete referral mappings below
     return http
       .get({
