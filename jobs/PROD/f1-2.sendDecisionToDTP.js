@@ -10,7 +10,7 @@ fn(state => {
     state => {
       const { data, configuration } = state;
       const { urlDTP, key, cert } = configuration;
-      console.log('Primero cases fetched for: ', data.case_id);
+      console.log('Primero cases fetched for ids: ', data.case_id);
       const today = new Date();
       const yesterday = new Date(new Date().getTime());
       yesterday.setDate(yesterday.getDate() - 1);
