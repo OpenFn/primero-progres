@@ -1,13 +1,12 @@
 fn(state => {
-  const manualCursor = '2022-11-22T00:00:00.000Z..2022-12-01T00:00:00.000Z';
+  const manualCursor = '2023-03-28T00:00:00.000Z';
   console.log(
     `Current cursor value: '${state.lastRunDateTime || manualCursor}..'`
   );
 
   return getCases(
     {
-      last_updated_at: `${manualCursor}`,
-      //last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
+      last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
       per: 100000, //to override paging default of 20 cases per page
     },
     state => {
