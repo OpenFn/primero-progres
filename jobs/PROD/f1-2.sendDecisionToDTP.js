@@ -1,5 +1,5 @@
 fn(state => {
-  const manualCursor = '2023-01-01T00:00:00.000Z..2023-01-02T00:00:00.000Z';
+  const manualCursor = '2022-12-25T00:00:00.000Z..2023-01-01T00:00:00.000Z';
   console.log(
     `Current cursor value: '${state.lastRunDateTime || manualCursor}..'`
   );
