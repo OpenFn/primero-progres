@@ -1,6 +1,6 @@
 fn(state => {
   console.log('Current cursor value:', state.lastRunDateTime);
-  const manualCursor = '2022-10-30T13:00:07.445Z';
+  const manualCursor = '2022-11-20T13:00:07.445Z';
 
   return getCases(
     {
