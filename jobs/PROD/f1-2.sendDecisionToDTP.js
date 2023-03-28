@@ -64,9 +64,11 @@ fn(state => {
                 'No reason specified.',
               request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
             };
+            const caseIdDisplay = data.case_id_display;
             console.log(
-              `Decision to send to DTP for case ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`
+              `Decision to send to DTP for case_id ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber})`
             );
+            console.log(`Primero case_id_display:  ${caseIdDisplay}`);
             console.log(`Decision status: ${decision.status}`);
             return http
               .post({
