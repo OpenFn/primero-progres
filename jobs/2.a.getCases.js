@@ -1,14 +1,7 @@
-// PLAN...
-// 1. get UNHCR cases updated recently => state.cases
-// 2. get referrals for all state.cases => state.referrals
-// 3. remove items from state.cases.services_section
-//    if unique_id not found in state.referrals
-// 4. post cases (with updated services_sections) to inbox.
-
 // Set up a manual cursor and referrals array.
 fn(state => {
   console.log('Last sync end date:', state.lastRunDateTime);
-  const manualCursor = '2022-03-30T00:10:00.587Z';
+  const manualCursor = '2022-08-09T10:40:04.033Z';
   const cursor = state.lastRunDateTime || manualCursor;
   return { ...state, referralIds: [], cursor };
 });
@@ -18,9 +11,7 @@ fn(state => {
   return getCases(
     {
       remote: true,
-      //QUESTION: TO REMOVE? Or update if this user option changes?
-      'associated_user_names[0]': 'unhcr_cw',
-      'associated_user_names[1]': 'unhcr_cw1',
+      'associated_user_names[0]': 'unhcr_cw@cpims-gambella.primero.org',
       last_updated_at: `${state.cursor}..`,
     },
     state => ({
@@ -32,10 +23,6 @@ fn(state => {
           c.services_section.some(
             s => s.service_implementing_agency === 'UNHCR'
           )
-        // ADDED: to replace below filtering
-        // Only get 'UNHCR' services && those created since last sync
-        // (service.service_implementing_agency_individual === 'unhcr_cw' ||
-        // service.service_implementing_agency_individual === 'unhcr_cw1') &&
       ),
     })
   )(state);
@@ -65,27 +52,13 @@ fn(state => ({
   })),
 }));
 
-// Post data to OpenFn inbox
-// Note: We don't post data to OpenFn Inbox anymore
-// fn(state => {
-//   const { openfnInboxUrl, xApiKey } = state.configuration;
-
-//   return each(state.cases, state => {
-//     return http
-//       .post({
-//         url: openfnInboxUrl,
-//         data: { _json: [state.data] },
-//         headers: { 'x-api-key': xApiKey },
-//       })(state)
-//       .then(() => {
-//         console.log('Case posted to openfn inbox.');
-//         return state;
-//       })
-//       .catch(error => {
-//         throw { ...error, config: 'REDACTED' };
-//       });
-//   })(state);
-// });
+fn(state => {
+  console.log(
+    'Referrals extracted from Primero :: ',
+    JSON.stringify(state.cases, null, 2)
+  );
+  return state;
+});
 
 // After job completes successfully, update cursor
 fn(state => {
