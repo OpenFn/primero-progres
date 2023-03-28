@@ -66,7 +66,7 @@ fn(state => {
             };
             const caseIdDisplay = data.case_id_display;
             console.log(
-              `Decision to send to DTP for case_id ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber})`
+              `Decision to send to DTP for case_id ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`
             );
             console.log(`Primero case_id_display:  ${caseIdDisplay}`);
             console.log(`Decision status: ${decision.status}`);
