@@ -186,6 +186,10 @@ each(
         recordid
       );
       console.log('case_id_display:', shortid);
+      console.log(
+        'Referral data :: ',
+        JSON.stringify(referralMapping, null, 2)
+      );
 
       //=== Here we send the referrals to DTP ======///
       return http

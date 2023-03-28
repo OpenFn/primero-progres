@@ -37,6 +37,10 @@ fn(state => {
         return state;
       }
       console.log('Number of matching referrals: ', referralsToSend.length);
+      console.log(
+        'Primero referrals to send to DTP: ',
+        JSON.stringify(referralsToSend, null, 2)
+      );
       return each(referralsToSend, state => {
         const { data } = state;
         const { services_section } = data;
@@ -66,6 +70,7 @@ fn(state => {
               `Decision to send to DTP for case ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`
             );
             console.log(`Decision status: ${decision.status}`);
+            console.log('Decision body:', JSON.stringify(decision, null, 2));
             return http
               .post({
                 url: urlDTP,

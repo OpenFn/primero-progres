@@ -212,7 +212,11 @@ each(
       module_id: 'primeromodule-cp',
     };
 
-    console.log('Mapping referral data to Primero: ', body.unhcr_individual_no);
+    console.log(
+      'Mapping referral data to Primero: ',
+      JSON.stringify(body, null, 2)
+    );
+    //console.log('Mapping referral data to Primero: ', body.unhcr_individual_no);
 
     return getCases(
       {

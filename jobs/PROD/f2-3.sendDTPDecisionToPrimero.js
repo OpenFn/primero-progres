@@ -41,6 +41,7 @@ each(state.data.interventions, state => {
     `Decision to send back to Primero for case ${case_id} with service_id ${service_id}`
   );
   console.log('Decision status: ', decision.status);
+  console.log('Decision body :: ', JSON.stringify(decision, null, 2));
 
   return getReferrals({ externalId: 'case_id', id: case_id }, state => {
     const referrals = state.data;

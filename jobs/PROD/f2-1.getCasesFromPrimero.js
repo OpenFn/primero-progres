@@ -52,6 +52,14 @@ fn(state => ({
   })),
 }));
 
+fn(state => {
+  console.log(
+    'Referrals extracted from Primero :: ',
+    JSON.stringify(state.cases, null, 2)
+  );
+  return state;
+});
+
 // After job completes successfully, update cursor
 fn(state => {
   let lastRunDateTime = state.cases
