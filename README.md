@@ -4,13 +4,14 @@
 
 OpenFn documentation for interoperability interagency referrals exchange solution in Gambella, Ethiopia. See below for the **Implementation Checklist**. 
 
-## Change Managements
-*Note that commits to `staging` and `master` will be audo-deployed to connected projects on OpenFn.org. Always work on a branch!*
+## Change Management
+*Note that commits to `staging` and `master` will be auto-deployed to connected projects on OpenFn.org.*
 
+- Always work on a branch!
 - Please test all changes on the `staging` branch/ staging OpenFn.org project FIRST! 
-- Once changes pass on `staging`, you can commit this change to `master`. 
+- Once changes pass on `staging`, you can commit* specific change to `master`. 
 
-⚠️ Consider that jobs on `staging` branch may have additional logs for troubleshooting and testing assistance. ⚠️
+⚠️ * Consider that jobs on `staging` branch may have additional logs for troubleshooting and testing assistance. ⚠️
 
 
 ## Implementation Checklist
