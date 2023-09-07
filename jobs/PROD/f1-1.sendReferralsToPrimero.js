@@ -51,7 +51,7 @@ each(
     state.serviceMap = serviceMap;
 
     const serviceMapArray = [];
-    for (const service in serviceMap) serviceMapArray.push(service);
+    for (service in serviceMap) serviceMapArray.push(service);
     if (!serviceMapArray.includes(progres_description)) {
       throw new Error(
         `Service value shared is not an accepted UNICEF service type. Please see the mapping specifications.`
@@ -219,7 +219,6 @@ each(
         remote: true,
         unhcr_individual_no: data['individuals.progres_id'],
       },
-      {},
       next => {
         if (next.data.length === 0) {
           return createCase({ data: body }, resp => {
