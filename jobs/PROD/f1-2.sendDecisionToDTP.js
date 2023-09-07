@@ -1,11 +1,13 @@
 fn(state => {
-  console.log('Current cursor value:', state.lastRunDateTime);
-  const manualCursor = '2022-11-20T13:00:07.445Z';
+  const manualCursor = '2023-03-28T00:00:00.000Z';
+  console.log(
+    `Current cursor value: '${state.lastRunDateTime || manualCursor}..'`
+  );
 
   return getCases(
     {
-      remote: true,
       last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
+      per: 100000, //to override paging default of 20 cases per page
     },
     state => {
       const { data, configuration } = state;
@@ -66,9 +68,11 @@ fn(state => {
                 'No reason specified.',
               request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
             };
+            const caseIdDisplay = data.case_id_display;
             console.log(
-              `Decision to send to DTP for case ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`
+              `Decision to send to DTP for case_id ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`
             );
+            console.log(`Primero case_id_display:  ${caseIdDisplay}`);
             console.log(`Decision status: ${decision.status}`);
             console.log('Decision body:', JSON.stringify(decision, null, 2));
             return http

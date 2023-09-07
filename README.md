@@ -4,7 +4,15 @@
 
 OpenFn documentation for interoperability interagency referrals exchange solution in Gambella, Ethiopia. See below for the **Implementation Checklist**. 
 
-*Note that commits to `master` will be audo-deployed to OpenFn.org. Always work on a branch!*
+## Change Management
+*Note that commits to `staging` and `master` will be auto-deployed to connected projects on OpenFn.org.*
+
+- Always work on a branch!
+- Please test all changes on the `staging` branch/ staging OpenFn.org project FIRST! 
+- Once changes pass on `staging`, you can commit* specific change to `master`. 
+
+⚠️ * Consider that jobs on `staging` branch may have additional logs for troubleshooting and testing assistance. ⚠️
+
 
 ## Implementation Checklist
 ### (1) Functional Requirements
@@ -34,7 +42,7 @@ https://antirrio.azure-api.net/primero-uat/ReceiveDecisionOutgoingReferral
 - [x] **System Data Flow diagrams finalized?** [See Diagrams](https://docs.google.com/presentation/d/1S_BuMzJ2MzcvJCoHUPWxkfwYkFP-V-ValIWH4EP3Cj8/edit)
 - [x] **Technical specifications finalized?** [See links](https://docs.google.com/document/d/1my6LFr6Fq98wG3dDcURcl9THBrWG7hHLurchJC59Zos/edit?usp=sharing)
 - [x] Finalize Mapping specs v2 (with transformation rules, technical specs) finalized? [See Gambella mapping specs](https://docs.google.com/spreadsheets/d/1j5bVbg1-c3Pwyx3DiALxaOD4ulGTEdEGJCrgu2DVT38/edit#gid=1470043016).
-- [ ] Assumptions documented? (re: human workflows, data entry, consent, other criteria)
+- [x] Assumptions documented? (re: human workflows, data entry, consent, other criteria)
 - [x] Testing plan drafted 
 
 ### (4) Flow Triggers

@@ -50,11 +50,12 @@ each(
     };
     state.serviceMap = serviceMap;
 
-    const serviceMapArray = [];
-    for (service in serviceMap) serviceMapArray.push(service);
+    const serviceMapArray = Object.keys(serviceMap);
+
     if (!serviceMapArray.includes(progres_description)) {
+      const errMessage = `Service '${progres_description}' with progres_interventionnumber '${data.progres_interventionnumber}'`;
       throw new Error(
-        `Service value shared is not an accepted UNICEF service type. Please see the mapping specifications.`
+        `${errMessage} is not an accepted UNICEF service type.\n\tPlease see the mapping specifications.`
       );
     }
 
