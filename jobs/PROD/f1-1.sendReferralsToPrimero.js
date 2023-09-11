@@ -54,7 +54,7 @@ each(
 
     if (!serviceMapArray.includes(progres_description)) {
       
-      const errMessage = `Service value shared '${progres_description}' with progres_interventionnumber '${data.progres_interventionnumber}'`;
+      const errMessage = `Service value shared (${progres_description}) with progres_interventionnumber '${data.progres_interventionnumber}'`;
       throw new Error(
         `${errMessage} is not an accepted UNICEF service type.\n\tPlease see the mapping specifications.`
       );
