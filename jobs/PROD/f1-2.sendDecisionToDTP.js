@@ -7,7 +7,7 @@ fn(state => {
   return getCases(
     {
       last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
-      per: 100000, //to override paging default of 20 cases per page
+      per: 2000, //to override paging default of 20 cases per page
     },
     state => {
       const { data, configuration } = state;
