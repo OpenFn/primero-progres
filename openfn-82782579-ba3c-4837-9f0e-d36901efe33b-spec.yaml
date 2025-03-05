@@ -1,0 +1,977 @@
+name: primero-progres-v4-prod
+description: null
+collections: null
+credentials:
+  "aisha@openfn.org-DTP-UAT---ReceiveDecisionOutgoingReferral-":
+    name: 'DTP UAT - ReceiveDecisionOutgoingReferral '
+    owner: aisha@openfn.org
+  "aisha@openfn.org-DTP-UAT---ReceiveIncomingReferral-":
+    name: 'DTP UAT - ReceiveIncomingReferral '
+    owner: aisha@openfn.org
+  aisha@openfn.org-DTP-UAT---sendDecision:
+    name: DTP UAT - sendDecision
+    owner: aisha@openfn.org
+  "aisha@openfn.org-Primero-Gambella-Demo---Get-Referrals-":
+    name: 'Primero Gambella Demo - Get Referrals '
+    owner: aisha@openfn.org
+  aisha@openfn.org-Primero-Gambella-Demo-API-user:
+    name: Primero Gambella Demo API user
+    owner: aisha@openfn.org
+workflows:
+  Flow1-1.-Send-Referrals-to-Primero:
+    name: Flow1-1. Send Referrals to Primero
+    jobs:
+      Flow1-1-Send-Referrals-to-Primero:
+        name: Flow1-1 Send Referrals to Primero
+        adaptor: '@openfn/language-primero@latest'
+        credential: aisha@openfn.org-Primero-Gambella-Demo-API-user
+        body: |
+          each(
+            dataPath('interventions[*]'),
+            fn(state => {
+              const { data } = state;
+
+              const calculateAge = dob => {
+                const diff = Date.now() - dob.getTime();
+                const age_dt = new Date(diff);
+
+                return Math.abs(age_dt.getUTCFullYear() - 1970); //.toString();
+              };
+
+              const formatDate = (date, format) => {
+                if (!date) return null;
+                date = date.split(/\s|T/g)[0]; // split date by 'T' or by space
+
+                const parts = date.match(/(\d+)/g); // match all digits
+                if (!parts) return null;
+
+                let year, day;
+                if (parts[0].length === 4) {
+                  year = parts[0];
+                  day = parts[2];
+                } else {
+                  year = parts[2];
+                  day = parts[0];
+                }
+
+                const yearFinal = String(year).length > 2 ? year : `20${year}`;
+                const month = String(parts[1]).length === 2 ? parts[1] : `0${parts[1]}`;
+                const dayFinal = String(day).length === 2 ? day : `0${day}`;
+
+                if (format.substring(0, 4) === 'YYYY') {
+                  const separator = format.substring(4, 5);
+                  return `${yearFinal}${separator}${month}${separator}${dayFinal}`;
+                }
+                if (format.substring(0, 2) === 'DD') {
+                  const separator = format.substring(2, 3);
+                  return `${dayFinal}${separator}${month}${separator}${yearFinal}`;
+                }
+              };
+
+              const progres_description = data['interventiontype.progres_description'];
+
+              const serviceMap = {
+                'Alternative Care': 'alternative_care',
+                BID: 'focuses_non_specialized_mhpss_care',
+                BIA: 'focuses_non_specialized_mhpss_care',
+                'Family Tracing and Reunification': 'food',
+              };
+              state.serviceMap = serviceMap;
+
+              const serviceMapArray = Object.keys(serviceMap);
+
+              if (!serviceMapArray.includes(progres_description)) {
+                const errMessage = `Service value shared (${progres_description}) with progres_interventionnumber '${data.progres_interventionnumber}'`;
+                throw new Error(
+                  `${errMessage} is not an accepted UNICEF service type.\n\tPlease see the mapping specifications.`
+                );
+              }
+
+              const sexMap = {
+                125080000: 'female',
+                125080001: 'male',
+                125080002: 'other_b25f252',
+                125080003: 'unknown_4b34795',
+              };
+
+              const languageMap = {
+                Anyuak: 'language1',
+                Acholi: 'language10',
+                Amharic: 'language5',
+                Bari: 'language4',
+                Bembe: 'language7',
+                'Dinka, Northeastern': 'language3',
+                'Dinka, Northwestern; Alor': 'language3',
+                'Dinka, South Central': 'language3',
+                'Dinka, Southeastern;': 'language3',
+                'Dinka, Southeastern': 'language3',
+                'Dinka, Southwestern; Rek': 'language3',
+                Nuer: 'language2',
+                Somali: 'language8',
+                'Cutchi-swahili': 'language1',
+                Swahili: 'language1',
+                'Swahili, Congo': 'language1',
+                Zande: 'language5',
+              };
+
+              let lang = [];
+              lang.push(
+                data['languages.progres_languagecodeid']
+                  ? languageMap[data['languages.progres_languagecodeid'].Name] ||
+                      'language6'
+                  : undefined
+              );
+
+              const address1 = data['individuals.progres_coalocationlevel1']
+                ? data['individuals.progres_coalocationlevel1'].Name
+                : '';
+              const address2 = data['individuals.progres_coalocationlevel2']
+                ? data['individuals.progres_coalocationlevel2'].Name
+                : '';
+              const address3 = data['individuals.progres_coalocationlevel3']
+                ? data['individuals.progres_coalocationlevel3'].Name
+                : '';
+              const address4 = data['individuals.progres_coalocationlevel4']
+                ? data['individuals.progres_coalocationlevel4'].Name
+                : '';
+              const address5 = data['individuals.progres_coalocationlevel5']
+                ? data['individuals.progres_coalocationlevel5'].Name
+                : '';
+              const address6 = data['individuals.progres_coalocationlevel6']
+                ? data['individuals.progres_coalocationlevel6']
+                : '';
+
+              const address_current =
+                address1 +
+                ' ' +
+                address2 +
+                ' ' +
+                address3 +
+                ' ' +
+                address4 +
+                ' ' +
+                address5 +
+                ' ' +
+                address6;
+
+              const progres_sex = data['individuals.progres_sex'];
+              const provided =
+                (progres_description &&
+                  data['individuals.progres_id'] &&
+                  data['individuals.progres_registrationgroupid'] &&
+                  data['individuals.progres_givenname'] &&
+                  data['individuals.progres_familyname']) !== undefined;
+
+              const missingFields = [];
+              // CHECK MISSING FIELDS ==================================
+              if (!progres_description)
+                missingFields.push('interventiontype.progres_description');
+              if (!data['individuals.progres_id'])
+                missingFields.push('individuals.progres_id');
+              if (!data['individuals.progres_registrationgroupid'])
+                missingFields.push('individuals.progres_registrationgroupid');
+              if (!data['individuals.progres_givenname'])
+                missingFields.push('individuals.progres_givenname');
+              if (!data['individuals.progres_familyname'])
+                missingFields.push('individuals.progres_familyname');
+              if (!data['individuals.progres_dateofbirth'])
+                missingFields.push('individuals.progres_dateofbirth');
+              if (!data['individuals.progres_sex'])
+                missingFields.push('individuals.progres_sex');
+
+              if (!provided) {
+                throw new Error(
+                  `Intervention referral is missing fields required for sending to Primero: ${missingFields.join(
+                    ','
+                  )}. Please include missing fields and re-send the request`
+                );
+              }
+              // =======================================================
+
+              const service_type = data['interventiontype.progres_description'];
+
+              const today = formatDate(new Date().toISOString(), 'YYYY-MM-DD');
+
+              const body = {
+                services_section: [
+                  {
+                    service_response_day_time: data.progres_interventionstartdate,
+                    service_request_external: true, //Confirm primero mapping
+                    service_request_title: data['user.title'],
+                    service_request_agency: data['user.progres_partner']
+                      ? data['user.progres_partner'].Name
+                      : 'UNHCR',
+                    service_request_phone: data['user.mobilephone'],
+                    service_request_email: data['user.internalemailaddress'],
+                    service_referral_notes: [
+                      data.progres_interventiondescription,
+                      data.progres_reasonforreferral,
+                    ]
+                      .filter(Boolean)
+                      .join(',')
+                      .replace(/<\/p>/g, ' ')
+                      .replace(/<p>/g, ' '),
+                    service_type:
+                      serviceMap[service_type] || 'focuses_non_specialized_mhpss_care',
+                    service_implementing_agency: 'UNICEF', //default request for Gambella instead of progres_businessunit
+                    service_response_type: 'service_provision',
+                    service_referral: 'external_referral',
+                    unhcr_referral_status: 'pending',
+                    progres_interventionnumber: data.progres_interventionnumber,
+                  },
+                ],
+                unhcr_individual_no: data['individuals.progres_id'],
+                unhcr_id_no: data['individuals.progres_registrationgroupid'].Name,
+                name_first: data['individuals.progres_givenname'],
+                name_middle: data['individuals.progres_middlename'],
+                name_last: data['individuals.progres_familyname'],
+                name_nickname: data['individuals.progres_commonyusedname'],
+                date_of_birth: data['individuals.progres_dateofbirth'].split('T')[0],
+                age: data['individuals.progres_dateofbirth']
+                  ? calculateAge(new Date(data['individuals.progres_dateofbirth']))
+                  : undefined,
+                sex: data['individuals.progres_sex'] ? sexMap[progres_sex] : undefined,
+                telephone_current: data['individuals.progres_primaryphonenumber'],
+                address_current,
+                //protection_concerns: protection[0] ? protection : null,
+                language: lang[0] ? lang : null,
+                status: 'open',
+                case_id: data.progres_primeroid ? data.progres_primeroid : undefined,
+                owned_by: 'progresv4_primero_intake@cpims-gambella.primero.org', //Gambella intake user
+                module_id: 'primeromodule-cp',
+              };
+
+              console.log('Mapping referral data to Primero: ', body.unhcr_individual_no);
+
+              return getCases(
+                {
+                  remote: true,
+                  unhcr_individual_no: data['individuals.progres_id'],
+                },{},
+                next => {
+                  console.log("this is next")
+                  console.log(next)
+                  if (next.data.length === 0) {
+                    return createCase({ data: body }, resp => {
+                      console.log(`New case created for case id:${resp.data.case_id}`);
+                      return resp;
+                    })(next);
+                  }
+
+                  if (next.data.length === 1) {
+                    console.log(`Matching Primero case found; updating...`);
+                    return updateCase(next.data[0].id, { data: body }, resp => {
+                      console.log(
+                        `Updated ${resp.data.id} @ ${resp.data.last_updated_at}`
+                      );
+                      return resp;
+                    })(next);
+                  }
+
+                  body.case_id = next.data[0].case_id;
+                  console.log(
+                    `Multiple cases found! Upserting first matching case with case id ${body.case_id}`
+                  );
+                  return updateCase(next.data[0].id, { data: body }, resp => {
+                    console.log(`Updated ${resp.data.id} @ ${resp.data.last_updated_at}`);
+                    return resp;
+                  })(next);
+                }
+              )(state);
+            })
+          );
+
+      Flow1-1-Send-Upload-Error-to-DTP-catch:
+        name: Flow1-1 Send Upload Error to DTP catch
+        adaptor: '@openfn/language-http@latest'
+        credential: 'aisha@openfn.org-DTP-UAT---ReceiveDecisionOutgoingReferral-'
+        body: |
+          alterState(state => {
+            const { configuration } = state;
+            const error = state.error || '';
+            const { urlDTP, key, cert } = state.configuration;
+
+            let closure_reason = '';
+            let isError = false;
+            for (elt of error) {
+              if (String(elt).includes('TypeError')) {
+                isError = true;
+                closure_reason =
+                  'Intervention referral has provided invalid data. Please review the data values shared and re-send the request.';
+              }
+              if (String(elt).includes('Intervention referral')) {
+                isError = true;
+                closure_reason =
+                  'Intervention referral is missing fields required for sending to Primero. Please include missing fields and re-send the request.';
+              }
+              if (String(elt).includes('Service value shared')) {
+                isError = true;
+                closure_reason = `Intervention type value shared is not one of the 4 accepted interagency referral service types. Please see the mapping specifications.`;
+              }
+            }
+
+            const data = {
+              case_id: state.data.interventions[0].case_id,
+              primero_user: state.data.interventions[0].owned_by,
+              progres_interventionnumber:
+                state.data.interventions[0].progres_interventionnumber,
+              status: 'Delivery Fail',
+              closure_reason,
+              request_type: 'Feedback',
+            };
+
+            if (isError) {
+              console.log(
+                `Sending error message to DTP for case ${data.case_id} with progres_interventionnumber ${data.progres_interventionnumber}`
+              );
+              console.log(`Request status ${data.status}`);
+              return http
+                .post({
+                  url: urlDTP,
+                  data: data,
+                  headers: {
+                    'Ocp-Apim-Subscription-Key':
+                      configuration['Ocp-Apim-Subscription-Key'],
+                  },
+                  agentOptions: {
+                    key,
+                    cert,
+                  },
+                })(state)
+                .then(() => {
+                  console.log('Error sent to DTP/Progres.');
+                  return state;
+                })
+                .catch(error => {
+                  let newError = error;
+                  newError.config = 'REDACTED';
+                  throw newError;
+                });
+            } else {
+              console.log('No error message sent to DTP.');
+              return state;
+            }
+          });
+
+      Flow1-1-Send-Upload-Success-to-DTP-success:
+        name: Flow1-1 Send Upload Success to DTP success
+        adaptor: '@openfn/language-http@latest'
+        credential: 'aisha@openfn.org-DTP-UAT---ReceiveDecisionOutgoingReferral-'
+        body: |
+          alterState(state => {
+            const { configuration } = state;
+            const { urlDTP, key, cert } = configuration;
+
+            const pluckFromReference = (index, value) =>
+              index ? index[value] : 'Not defined';
+
+            const primero_user =
+              state.data.owned_by ||
+              pluckFromReference(state.references[1][0], 'owned_by');
+
+            const data = {
+              status: 'Pending Acknowledgement',
+              primero_user,
+              case_id:
+                state.data.case_id ||
+                pluckFromReference(state.references[1][0], 'case_id') ||
+                pluckFromReference(state.references[1][0], 'id'),
+              progres_interventionnumber: state.references[0].progres_interventionnumber,
+            };
+
+            console.log(
+              `Sending success message to DTP for case_id ${data.case_id} and progres_interventionnumber ${data.progres_interventionnumber}`
+            );
+
+            return post(urlDTP, {
+                body: data,
+                headers: {
+                  'Ocp-Apim-Subscription-Key': configuration['Ocp-Apim-Subscription-Key'],
+                },
+                agentOptions: {
+                  key,
+                  cert,
+                },
+              })(state)
+              .then(() => {
+                console.log('Message sent to DTP/Progres.');
+                return state;
+              })
+              .catch(error => {
+                let newError = error;
+                newError.config = 'REDACTED';
+                throw newError;
+              });
+          });
+
+    triggers:
+      webhook:
+        type: webhook
+        enabled: false
+    edges:
+      webhook->Flow1-1-Send-Referrals-to-Primero:
+        source_trigger: webhook
+        target_job: Flow1-1-Send-Referrals-to-Primero
+        condition_type: js_expression
+        condition_label: New Progres v4 --> Primero referral
+        condition_expression: |
+          state.data["request_type"] == "PrimeroOutgoingReferral"
+        enabled: true
+      Flow1-1-Send-Referrals-to-Primero->Flow1-1-Send-Upload-Error-to-DTP-catch:
+        source_job: Flow1-1-Send-Referrals-to-Primero
+        target_job: Flow1-1-Send-Upload-Error-to-DTP-catch
+        condition_type: on_job_failure
+        enabled: true
+      Flow1-1-Send-Referrals-to-Primero->Flow1-1-Send-Upload-Success-to-DTP-success:
+        source_job: Flow1-1-Send-Referrals-to-Primero
+        target_job: Flow1-1-Send-Upload-Success-to-DTP-success
+        condition_type: on_job_success
+        enabled: true
+  Flow1-2.-Send-Decision-to-DTP:
+    name: Flow1-2. Send Decision to DTP
+    jobs:
+      Flow1-2-Send-Decision-to-DTP:
+        name: Flow1-2 Send Decision to DTP
+        adaptor: '@openfn/language-primero@2.3.4'
+        credential: aisha@openfn.org-DTP-UAT---sendDecision
+        body: |
+          fn(state => {
+            const manualCursor = '2024-04-09T21:00:17.471Z';
+            console.log(
+              `Current cursor value: '${state.lastRunDateTime || manualCursor}'`
+            );
+
+            return getCases(
+              {
+                last_updated_at: `${state.lastRunDateTime || manualCursor}..`,
+                per: 2000, //to override paging default of 20 cases per page
+              },
+              state => {
+                const { data, configuration } = state;
+                const { urlDTP, key, cert } = configuration;
+                console.log('Primero cases fetched for ids: ', data.case_id);
+                const today = new Date();
+                const yesterday = new Date(new Date().getTime());
+                yesterday.setDate(yesterday.getDate() - 1);
+
+                const referralsToSend = data.filter(
+                  (
+                    ref //check if the service was an external referral & the decision changed
+                  ) =>
+                    ref.services_section &&
+                    ref.services_section.some(
+                      service =>
+                        service.service_request_agency === 'UNHCR' &&
+                        service.service_referral === 'external_referral' &&
+                        (service.unhcr_referral_status === 'accepted' ||
+                          service.unhcr_referral_status === 'rejected')
+                    )
+                );
+
+                state.referralsToSend = referralsToSend;
+                if (referralsToSend.length === 0) {
+                  console.log(
+                    'No change in UNHCR Referral Status detected. No decisions to send to DTP.'
+                  );
+                  return state;
+                }
+                console.log('Number of matching referrals: ', referralsToSend.length);
+                return each(referralsToSend, state => {
+                  const { data } = state;
+                  const { services_section } = data;
+
+                  const allowedStatus = ['accepted', 'rejected'];
+                  return each(services_section, state => {
+                    if (
+                      state.data.service_referral === 'external_referral' &&
+                      allowedStatus.includes(state.data.unhcr_referral_status)
+                    ) {
+                      const decision = {
+                        case_id: data.case_id,
+                        primero_user: data.owned_by,
+                        progres_interventionnumber: state.data.progres_interventionnumber,
+                        status:
+                          state.data.unhcr_referral_status === 'accepted'
+                            ? 'acknowledged'
+                            : state.data.unhcr_referral_status === 'rejected'
+                            ? 'rejected'
+                            : 'Pending Acknowledgement',
+                        closure_reason:
+                          state.data.unhcr_referral_rejection_reason ||
+                          'No reason specified.',
+                        request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode
+                      };
+                      const caseIdDisplay = data.case_id_display;
+                      console.log(
+                        `Decision to send to DTP for case_id ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`
+                      );
+                      console.log(`Primero case_id_display:  ${caseIdDisplay}`);
+                      console.log(`Decision status: ${decision.status}`);
+                      return http
+                        .post({
+                          url: urlDTP,
+                          data: decision,
+                          headers: {
+                            'Ocp-Apim-Subscription-Key':
+                              state.configuration['Ocp-Apim-Subscription-Key'],
+                          },
+                          agentOptions: {
+                            key,
+                            cert,
+                          },
+                        })(state)
+                        .then(() => {
+                          console.log('Decision has been sent.');
+                          return state;
+                        })
+                        .catch(error => {
+                          let newError = error;
+                          newError.config = 'REDACTED';
+                          throw newError;
+                        });
+                    }
+                    return state;
+                  })(state);
+                })(state);
+              }
+            )(state);
+          });
+
+          fn(state => {
+            let lastRunDateTime = state.referralsToSend
+              .map(c => c.last_updated_at)
+              .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+
+            lastRunDateTime =
+              new Date(lastRunDateTime) > new Date()
+                ? lastRunDateTime
+                : new Date().toISOString();
+
+            console.log('New cursor value:', lastRunDateTime);
+            return { ...state, data: {}, references: [], lastRunDateTime };
+          });
+
+    triggers:
+      cron:
+        type: cron
+        cron_expression: '0 * * * *'
+        enabled: false
+    edges:
+      cron->Flow1-2-Send-Decision-to-DTP:
+        source_trigger: cron
+        target_job: Flow1-2-Send-Decision-to-DTP
+        condition_type: always
+        enabled: true
+  Flow2-1.-Get-Referrals-from-Primero:
+    name: Flow2-1. Get Referrals from Primero
+    jobs:
+      Flow2-1-Get-Referrals-from-Primero:
+        name: Flow2-1 Get Referrals from Primero
+        adaptor: '@openfn/language-primero@latest'
+        credential: 'aisha@openfn.org-Primero-Gambella-Demo---Get-Referrals-'
+        body: |
+          // Set up a manual cursor and referrals array.
+          fn(state => {
+            console.log('Last sync end date:', state.lastRunDateTime);
+            const manualCursor = '2022-08-09T10:40:04.033Z';
+            const cursor = state.lastRunDateTime || manualCursor;
+            return { ...state, referralIds: [], cursor };
+          });
+           getCases(
+              {
+                remote: true,
+                // 'associated_user_names[0]': 'unhcr_cw@cpims-gambella.primero.org',
+                last_updated_at: `${$.cursor}..`,
+              })
+          // Get cases with UNHCR referrals
+          fn(state => {
+            return {
+                ...state,
+                cases: state.data.filter(
+                      c =>
+                        c.services_section &&
+                        c.services_section.length > 0 &&
+                        c.services_section.some(
+                          s => s.service_implementing_agency === 'UNHCR'
+                        )
+                    )
+              }})
+            
+
+          // Get referral details for each UNCHR case which have been created since the last run
+          each(
+            '$.cases[*]',
+            getReferrals({ externalId: 'record_id', id: dataValue('id') }, state => {
+              // STEP 3: filter referrals where 'created_at_date' >= lastRUnDateTime || manualCursor
+              state.data
+                .filter(r => new Date(r.created_at) >= new Date(state.cursor))
+                .map(r => {
+                  state.referralIds.push(r.service_record_id);
+                });
+              return state;
+            })
+          );
+
+          fn(state => ({
+            ...state,
+            cases: state.cases.map(c => ({
+              ...c,
+              services_section: c.services_section
+                .filter(s => state.referralIds.includes(s.unique_id))
+                .filter(s => s.service_implementing_agency === 'UNHCR'),
+            })),
+          }));
+
+          // After job completes successfully, update cursor
+          fn(state => {
+            let lastRunDateTime = state.cases
+              .map(c => c.last_updated_at)
+              .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+
+            lastRunDateTime =
+              new Date(lastRunDateTime) > new Date()
+                ? lastRunDateTime
+                : new Date().toISOString();
+
+            console.log('Next sync start date:', lastRunDateTime);
+            return { ...state, data:{}, references: [], lastRunDateTime };
+          });
+
+      Flow2-2-Send-Referral-to-DTP:
+        name: Flow2-2 Send Referral to DTP
+        adaptor: '@openfn/language-http@latest'
+        credential: 'aisha@openfn.org-DTP-UAT---ReceiveIncomingReferral-'
+        body: |
+          fn(state => {
+            const { host, token } = state.configuration;
+            //== Logging Primero referral before we map to DTP Interoperability form
+            const caseid = state.cases
+              ? state.cases.map(c => c.case_id) || state.cases.id
+              : undefined;
+            console.log(
+              '# Primero referrals to send to Progresv4/DTP :: ',
+              caseid.length
+            );
+            console.log('Primero case id(s) :: ', caseid);
+
+            if (caseid.length > 0) {
+              console.log('Finding referring user contact info in Primero...');
+              //== Fetching Primero user data to complete referral mappings below
+              return get(`${host}/api/v2/users?per=100000&page=1`, {
+                  headers: {
+                    Authorization: `Basic ${token}`,
+                  },
+                })(state)
+                .then(({ data }) => {
+                  const users = data.data;
+                  const cpimsAdmin = users.find(
+                    u => u.email === state.configuration.cpimsAdmin
+                  );
+                  console.log('Referring user contact info fetched...');
+                  return { ...state, users, cpimsAdmin };
+                });
+            }
+            return { ...state };
+          });
+
+          each(
+            '$.cases[*]',
+            fn(state => {
+              console.log('Searching for unhcr service to send as referrals...');
+              const { data, configuration, users, cpimsAdmin } = state;
+              const { urlDTP, key, cert } = configuration;
+              const { services_section } = data;
+
+              const user = users.find(user => user.user_name === data.owned_by);
+
+              // provide cpimsAdmin info if caseworker profile is not completed
+              const cpimsAdminEmail = cpimsAdmin
+                ? cpimsAdmin.email
+                : 'notavailable@primero.org';
+              const cpimsAdminName = cpimsAdmin ? cpimsAdmin.full_name : 'CPIMS+';
+              const cpimsAdminPhone = cpimsAdmin ? cpimsAdmin.phone : '0000000000';
+              const cpimsAdminPosition = 'CPIMS+ Administrator';
+
+              const serviceMap = {
+                alternative_care: 'Alternative Care',
+                focuses_non_specialized_mhpss_care: 'Child Protection Service',
+                food: 'Family Reunification Service',
+                security_e_g_safe_shelter: 'Safehouse Service',
+                education_formal: 'Psychosocial Service',
+                non_formal_education: 'Police/Other Service',
+                family_tracing_and_reunification: 'Legal Assistance Service',
+                basic_psychosocial_support: 'Livelihoods Service',
+                specialized_mhpss_services: 'Family Mediation Service',
+                non_food_items: 'Education Service',
+                cash_assistance: 'NFI/Clothes/Shoes Service',
+                livelihoods: 'Water/Sanitation Service',
+                medical: 'Registration Service',
+                nutrition: 'Food Service',
+                legal_support: 'Adolescent and Youth Empowerment',
+                documentation: 'Early Childhood Service',
+                services_for_children_with_disabilities: 'Other Service',
+                sexual_and_reproductive_health: 'Sexual and reproductive health',
+                shelter: 'Shelter',
+                wash: 'WASH',
+                durable_solution_in_coordination_with_unhcr:
+                  'Durable solution (in coordination with UNHCR)',
+                relocation: 'Relocation',
+                other_please_specify: 'Other',
+              };
+              state.serviceMap = serviceMap;
+
+              const languageMap = {
+                language1: 'Anyuak',
+                language2: 'Nuer',
+                language3: 'Dinka',
+                language4: 'Bari',
+                language5: 'Amharic',
+                language6: 'Other',
+                language7: 'Bembe',
+                language8: 'Somali',
+                language10: 'Acholi',
+                murle_fce1c91: 'Murle',
+                if_other_language__please_specify_335944b: 'Other',
+                _amharic: 'Amharic',
+                _arabic: 'Arabic',
+                _boma: 'Boma',
+                _didinga: 'Didinga',
+                _english: 'English',
+                _french: 'French',
+                _karamojong: 'Karamojong',
+                _kifulero: 'Fuliiru, Kifulero',
+                _kikongo: 'Kikongo',
+                _kinyabiyisha: 'Kinyabwisha',
+                _kinyarwanda: 'Rwanda, Kinyarwanda',
+                _kirundi: 'Rundi, Kirundi',
+                _lingala: 'Lingala',
+                _lokoya: 'Lokoya',
+                _lopit: 'Lopit',
+                _luo: 'Luo',
+                _makonde: 'Makonde',
+                _mashi: 'Mashi',
+                _moro: 'Moro',
+                _murle: 'Murle',
+                _oromo: 'Oromo',
+                _sign_language: 'Sign Language',
+                _tira: 'Tira',
+                _toposa: 'Toposa',
+                _toro: 'Toro',
+              };
+
+              let lang = [];
+              data.language
+                ? data.language.forEach(l => lang.push(languageMap[l]))
+                : lang.push(languageMap['language6']);
+
+              const referrals = [];
+
+              //== For every 1 Primero service, send 1 DTP referral =======//
+              return each(services_section, state => {
+                const service = state.data;
+
+                //===============================================================================//
+                //=== Mappings for Primero referral --> Progres v4 ==============================//
+                const referralMapping = {
+                  //== Fields pulled from Primero user - defined in case.owned_by =======//
+                  //== Default to sending the CPIMS Admin details if caseworker info not available ==//
+                  primero_user: data.owned_by,
+                  position: user && user.position ? user.position : cpimsAdminPosition,
+                  email: user && user.email ? user.email : cpimsAdminEmail,
+                  phone: user && user.phone ? user.phone : cpimsAdminPhone,
+                  full_name: user && user.full_name ? user.full_name : cpimsAdminName,
+                  //=================================================================//
+                  request_type: 'ReceiveIncomingReferral',
+                  service_implementing_agency: 'UNICEF',
+                  //service_implementing_agency: 'ProGres - Testing', //TODO: USE MAPPING BELOW FOR GO-LIVE
+                  // service_implementing_agency:
+                  //   service.service_implementing_agency === 'UNHCR'
+                  //     ? 'UNICEF'
+                  //     : service.service_implementing_agency,
+                  service_response_day_time: service.service_response_day_time,
+                  service_type: serviceMap[service.service_type],
+                  service_type_other: service.service_type_other
+                    ? service.service_type_other
+                    : null,
+                  service_referral_notes: service.service_referral_notes
+                    ? service.service_referral_notes
+                    : 'Primero referral',
+                  owned_by_agency_id: 'UNICEF', //E.g., UNICEF, Save the Children International
+                  unhcr_individual_no: data.unhcr_individual_no,
+                  unhcr_id_no: data.unhcr_id_no,
+                  name_first: data.name_first,
+                  name_last: data.name_last,
+                  name_middle: data.name_middle ? data.name_middle : null,
+                  name_nickname: data.name_nickname ? data.name_nickname : null,
+                  date_of_birth: data.date_of_birth
+                    ? new Date(data.date_of_birth).toISOString().split('T')[0]
+                    : undefined,
+                  sex:
+                    data.sex === 'unknown_4b34795'
+                      ? 'unknown'
+                      : data.sex === 'other_b25f252'
+                      ? 'other'
+                      : data.sex,
+                  address_current: data.address_current,
+                  telephone_current: data.telephone_current
+                    ? data.telephone_current.toString()
+                    : null,
+                  language: lang[0] ? lang.join(', ') : null, //e.g., 'language1,language2'
+                  id: `${data.case_id}#${service.unique_id.substr(-12)}`,
+                };
+                //===== End of referral mapping ================================================//
+
+                const shortid = data.case_id_display;
+                const recordid = referralMapping.id;
+                console.log(
+                  'Mapping Primero data to DTP for referral with id: ',
+                  recordid
+                );
+                console.log('case_id_display:', shortid);
+          console.log(referralMapping)
+                //=== Here we send the referrals to DTP ======///
+                return post(urlDTP, {
+                    body: referralMapping,
+                    headers: {
+                      'Ocp-Apim-Subscription-Key':
+                        configuration['Ocp-Apim-Subscription-Key'],
+                    },
+                    agentOptions: {
+                      key,
+                      cert,
+                    },
+                  })(state)
+                  .then(() => {
+                    console.log('Response uploaded to DTP/Progres.');
+                    return state;
+                  })
+                  .catch(error => {
+                    const safeError = error;
+                    safeError.config = '***';
+                    safeError.request = '***';
+                    safeError.response = {
+                      ...safeError.response,
+                      config: '***',
+                      request: '***',
+                    };
+                    throw safeError;
+                  });
+                return state;
+              })(state);
+            })
+          );
+
+    triggers:
+      cron:
+        type: cron
+        cron_expression: '0 * * * *'
+        enabled: false
+    edges:
+      cron->Flow2-1-Get-Referrals-from-Primero:
+        source_trigger: cron
+        target_job: Flow2-1-Get-Referrals-from-Primero
+        condition_type: always
+        enabled: true
+      Flow2-1-Get-Referrals-from-Primero->Flow2-2-Send-Referral-to-DTP:
+        source_job: Flow2-1-Get-Referrals-from-Primero
+        target_job: Flow2-2-Send-Referral-to-DTP
+        condition_type: on_job_success
+        enabled: true
+  Flow2-3.-Send-DTP-Decision-to-Primero:
+    name: Flow2-3. Send DTP Decision to Primero
+    jobs:
+      Flow2-3-Send-DTP-Decision-to-Primero:
+        name: Flow2-3 Send DTP Decision to Primero
+        adaptor: '@openfn/language-primero@latest'
+        credential: aisha@openfn.org-Primero-Gambella-Demo-API-user
+        body: |
+          each(state.data.interventions, state => {
+            const { data } = state;
+            console.log(
+              'Decision received for progres intervention id: ',
+              data.progres_orgreferralid
+            );
+            const case_id = data.progres_orgreferralid.split('#')[0];
+            const service_id = data.progres_orgreferralid.split('#')[1];
+
+            const findReferral = (referrals, service_id) => {
+              const referral = referrals.find(
+                referral => referral.service_record_id.substr(-12) === service_id
+              );
+              return referral;
+            };
+
+            const reason =
+              data.progres_interoperabiltyreferralrejectionreason === '125080000'
+                ? 'Individual Not Found'
+                : data.progres_interoperabiltyreferralrejectionreason === '125080001'
+                ? 'Individual Not Match UNHCR ID'
+                : data.progres_interoperabiltyreferralrejectionreason === '125080002'
+                ? 'Not applicable'
+                : data.progres_interoperabiltyreferralrejectionreason;
+
+            const rejection = `${reason}: ${data.progres_interoperabilityreferralrejectionomment}`;
+
+            const decision = {
+              status:
+                data.progres_reviewdecision === '125080000'
+                  ? 'accepted'
+                  : data.progres_reviewdecision === '125080001'
+                  ? 'rejected'
+                  : data.progres_reviewdecision,
+              type: 'Referral', //hardcoded
+              record_type: 'case', //hardcoded
+              rejected_reason: reason ? rejection : reason,
+            };
+
+            console.log(
+              `Decision to send back to Primero for case ${case_id} with service_id ${service_id}`
+            );
+            console.log('Decision status: ', decision.status);
+
+            return getReferrals({ externalId: 'case_id', id: case_id }, state => {
+              const referrals = state.data;
+              const referral = findReferral(referrals, service_id);
+
+              if (!referral) {
+                console.log(`No referral found for case_id ${case_id}. Skipping update.`);
+                return state;
+              }
+
+              decision['id'] = referral.id;
+              decision['record_id'] = referral.record_id;
+              console.log(
+                `Found case ${case_id} to update with decision with Primero referral id: ${referral.id}`
+              );
+              return updateReferrals(
+                {
+                  externalId: 'case_id',
+                  id: case_id,
+                  referral_id: referral.id,
+                  data: decision,
+                },
+                state => {
+                  console.log(
+                    `Referral decision update succcessful for case: ${case_id}`
+                  );
+                  return state;
+                }
+              )(state);
+            })(state).catch(() => {
+              throw new Error('No case found. Referral decision cannot be synced.');
+            });
+          });
+
+    triggers:
+      webhook:
+        type: webhook
+        enabled: false
+    edges:
+      webhook->Flow2-3-Send-DTP-Decision-to-Primero:
+        source_trigger: webhook
+        target_job: Flow2-3-Send-DTP-Decision-to-Primero
+        condition_type: js_expression
+        condition_label: Progres Referral Decision --> Primero
+        condition_expression: |
+          state.data["request_type"] == "PrimeroIncomingReferralDecision"
+        enabled: true
