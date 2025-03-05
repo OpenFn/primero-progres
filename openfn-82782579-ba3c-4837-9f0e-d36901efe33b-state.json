@@ -30,6 +30,11 @@
       "id": "d58da455-416b-4a61-9d25-7a7d43770acf",
       "name": "DTP UAT - ReceiveIncomingReferral ",
       "owner": "aisha@openfn.org"
+    },
+    "aisha@openfn.org-DTP-test": {
+      "id": "5b7b0c76-4207-4b26-a0ca-bee6fd3232c3",
+      "name": "DTP test",
+      "owner": "aisha@openfn.org"
     }
   },
   "scheduled_deletion": null,
@@ -117,38 +122,6 @@
         }
       }
     },
-    "Flow1-2.-Send-Decision-to-DTP": {
-      "id": "be30ca82-60e4-4f3f-a026-d99805998bfd",
-      "name": "Flow1-2. Send Decision to DTP",
-      "inserted_at": "2025-03-05T07:46:42.433040Z",
-      "lock_version": 6,
-      "triggers": {
-        "cron": {
-          "enabled": false,
-          "id": "a35fdbda-69b5-492e-84a1-fb7a0fc83b72",
-          "type": "cron",
-          "cron_expression": "0 * * * *"
-        }
-      },
-      "jobs": {
-        "Flow1-2-Send-Decision-to-DTP": {
-          "id": "1e14aaa5-15ac-47a4-bcea-7af3b6e38415",
-          "name": "Flow1-2 Send Decision to DTP",
-          "body": "fn(state => {\n  const manualCursor = '2024-04-09T21:00:17.471Z';\n  console.log(\n    `Current cursor value: '${state.lastRunDateTime || manualCursor}'`\n  );\n\n  return getCases(\n    {\n      last_updated_at: `${state.lastRunDateTime || manualCursor}..`,\n      per: 2000, //to override paging default of 20 cases per page\n    },\n    state => {\n      const { data, configuration } = state;\n      const { urlDTP, key, cert } = configuration;\n      console.log('Primero cases fetched for ids: ', data.case_id);\n      const today = new Date();\n      const yesterday = new Date(new Date().getTime());\n      yesterday.setDate(yesterday.getDate() - 1);\n\n      const referralsToSend = data.filter(\n        (\n          ref //check if the service was an external referral & the decision changed\n        ) =>\n          ref.services_section &&\n          ref.services_section.some(\n            service =>\n              service.service_request_agency === 'UNHCR' &&\n              service.service_referral === 'external_referral' &&\n              (service.unhcr_referral_status === 'accepted' ||\n                service.unhcr_referral_status === 'rejected')\n          )\n      );\n\n      state.referralsToSend = referralsToSend;\n      if (referralsToSend.length === 0) {\n        console.log(\n          'No change in UNHCR Referral Status detected. No decisions to send to DTP.'\n        );\n        return state;\n      }\n      console.log('Number of matching referrals: ', referralsToSend.length);\n      return each(referralsToSend, state => {\n        const { data } = state;\n        const { services_section } = data;\n\n        const allowedStatus = ['accepted', 'rejected'];\n        return each(services_section, state => {\n          if (\n            state.data.service_referral === 'external_referral' &&\n            allowedStatus.includes(state.data.unhcr_referral_status)\n          ) {\n            const decision = {\n              case_id: data.case_id,\n              primero_user: data.owned_by,\n              progres_interventionnumber: state.data.progres_interventionnumber,\n              status:\n                state.data.unhcr_referral_status === 'accepted'\n                  ? 'acknowledged'\n                  : state.data.unhcr_referral_status === 'rejected'\n                  ? 'rejected'\n                  : 'Pending Acknowledgement',\n              closure_reason:\n                state.data.unhcr_referral_rejection_reason ||\n                'No reason specified.',\n              request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode\n            };\n            const caseIdDisplay = data.case_id_display;\n            console.log(\n              `Decision to send to DTP for case_id ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`\n            );\n            console.log(`Primero case_id_display:  ${caseIdDisplay}`);\n            console.log(`Decision status: ${decision.status}`);\n            return http\n              .post({\n                url: urlDTP,\n                data: decision,\n                headers: {\n                  'Ocp-Apim-Subscription-Key':\n                    state.configuration['Ocp-Apim-Subscription-Key'],\n                },\n                agentOptions: {\n                  key,\n                  cert,\n                },\n              })(state)\n              .then(() => {\n                console.log('Decision has been sent.');\n                return state;\n              })\n              .catch(error => {\n                let newError = error;\n                newError.config = 'REDACTED';\n                throw newError;\n              });\n          }\n          return state;\n        })(state);\n      })(state);\n    }\n  )(state);\n});\n\nfn(state => {\n  let lastRunDateTime = state.referralsToSend\n    .map(c => c.last_updated_at)\n    .sort((a, b) => new Date(b.date) - new Date(a.date))[0];\n\n  lastRunDateTime =\n    new Date(lastRunDateTime) > new Date()\n      ? lastRunDateTime\n      : new Date().toISOString();\n\n  console.log('New cursor value:', lastRunDateTime);\n  return { ...state, data: {}, references: [], lastRunDateTime };\n});\n",
-          "adaptor": "@openfn/language-primero@2.3.4",
-          "project_credential_id": "2702fc68-a660-4511-a121-03e5c6bd1679"
-        }
-      },
-      "edges": {
-        "cron->Flow1-2-Send-Decision-to-DTP": {
-          "enabled": true,
-          "id": "1da0e8be-b2e5-40d9-9e2b-fa9a2b1cea36",
-          "target_job_id": "1e14aaa5-15ac-47a4-bcea-7af3b6e38415",
-          "source_trigger_id": "a35fdbda-69b5-492e-84a1-fb7a0fc83b72",
-          "condition_type": "always"
-        }
-      }
-    },
     "Flow1-1.-Send-Referrals-to-Primero": {
       "id": "cb0614f1-3ac2-49d8-8f15-1a0f2fe2f064",
       "name": "Flow1-1. Send Referrals to Primero",
@@ -207,6 +180,54 @@
           "target_job_id": "4eeea794-c0d5-4e84-b6a8-f2a4fbcfb89c",
           "source_job_id": "f8b86d17-f141-44e1-9efb-72cd901a4964",
           "condition_type": "on_job_success"
+        }
+      }
+    },
+    "Flow1-2.-Send-Decision-to-DTP": {
+      "id": "be30ca82-60e4-4f3f-a026-d99805998bfd",
+      "name": "Flow1-2. Send Decision to DTP",
+      "inserted_at": "2025-03-05T11:19:47.079454Z",
+      "lock_version": 43,
+      "triggers": {
+        "cron": {
+          "enabled": false,
+          "id": "a35fdbda-69b5-492e-84a1-fb7a0fc83b72",
+          "type": "cron",
+          "cron_expression": "0 * * * *"
+        }
+      },
+      "jobs": {
+        "Get-Decisions-from-Primero": {
+          "id": "1e14aaa5-15ac-47a4-bcea-7af3b6e38415",
+          "name": "Get Decisions from Primero",
+          "body": "getCases(\n    {\n      last_updated_at: `${state.lastRunDateTime || manualCursor}..`,\n      per: 2000, //to override paging default of 20 cases per page\n    }\n)\n\nfn(state => {\n  const manualCursor = '2024-04-09T21:00:17.471Z';\n  console.log(\n    `Current cursor value: '${state.lastRunDateTime || manualCursor}'`\n  );\n  const { data, configuration } = state;\n  state.decision = []\n  console.log('Primero cases fetched for ids: ', data.case_id);\n      const today = new Date();\n      const yesterday = new Date(new Date().getTime());\n      yesterday.setDate(yesterday.getDate() - 1);\n\n      const referralsToSend = data.filter(\n        (\n          ref //check if the service was an external referral & the decision changed\n        ) =>\n          ref.services_section &&\n          ref.services_section.some(\n            service =>\n              service.service_request_agency === 'UNHCR' &&\n              service.service_referral === 'external_referral' &&\n              (service.unhcr_referral_status === 'accepted' ||\n                service.unhcr_referral_status === 'rejected')\n          )\n      );\n\n      state.referralsToSend = referralsToSend;\n      if (referralsToSend.length === 0) {\n        console.log(\n          'No change in UNHCR Referral Status detected. No decisions to send to DTP.'\n        );\n        return state;\n      }\n      console.log('Number of matching referrals: ', referralsToSend.length);\n      return each(referralsToSend, state => {\n        const { data } = state;\n        const { services_section } = data;\n\n        const allowedStatus = ['accepted', 'rejected'];\n        return each(services_section, state => {\n          if (\n            state.data.service_referral === 'external_referral' &&\n            allowedStatus.includes(state.data.unhcr_referral_status)\n          ) {\n            const decision = {\n              case_id: data.case_id,\n              primero_user: data.owned_by,\n              progres_interventionnumber: state.data.progres_interventionnumber,\n              status:\n                state.data.unhcr_referral_status === 'accepted'\n                  ? 'acknowledged'\n                  : state.data.unhcr_referral_status === 'rejected'\n                  ? 'rejected'\n                  : 'Pending Acknowledgement',\n              closure_reason:\n                state.data.unhcr_referral_rejection_reason ||\n                'No reason specified.',\n              request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode\n            };\n            const caseIdDisplay = data.case_id_display;\n            console.log(\n              `Decision to send to DTP for case_id ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`\n            );\n            console.log(`Primero case_id_display:  ${caseIdDisplay}`);\n            console.log(`Decision status: ${decision.status}`);\n            state.decision.push(decision)\n            return state;\n          }\n          return state;\n        })(state);\n      })(state);\n});\n\nfnIf($.decision.length > 0, state => {\n  let lastRunDateTime = state.referralsToSend\n    .map(c => c.last_updated_at)\n    .sort((a, b) => new Date(b.date) - new Date(a.date))[0];\n\n  lastRunDateTime =\n    new Date(lastRunDateTime) > new Date()\n      ? lastRunDateTime\n      : new Date().toISOString();\n\n  console.log('New cursor value:', lastRunDateTime);\n  return { ...state, data: {}, references: [], lastRunDateTime };\n});\n",
+          "adaptor": "@openfn/language-primero@latest",
+          "project_credential_id": "2702fc68-a660-4511-a121-03e5c6bd1679"
+        },
+        "Send-Decision-to-DTP": {
+          "id": "f360311e-9548-4e53-85b4-d492530811a8",
+          "name": "Send Decision to DTP",
+          "body": "each(\n  '$.decision[*]',\n  post(\n    state => state.configuration.urlDTP,\n    state => ({\n      body: state.data,\n      headers: {\n        'Ocp-Apim-Subscription-Key': state.configuration['Ocp-Apim-Subscription-Key'],\n      },\n      agentOptions: {\n        key: state.configuration.key,\n        cert: state.configuration.cert,\n      },\n    })\n  )\n);\n\nfn(state => {\n  console.log('Decision has been sent.');\n  return state;\n});\n\nfn(state => {\n  if (state.error) {\n    console.log(state.request);\n    let newError = state.error;\n    newError.config = 'REDACTED';\n    throw newError;\n  }\n  return state;\n});\n\n\nfn(state => {\n  let lastRunDateTime = state.referralsToSend\n    .map(c => c.last_updated_at)\n    .sort((a, b) => new Date(b.date) - new Date(a.date))[0];\n\n  lastRunDateTime =\n    new Date(lastRunDateTime) > new Date()\n      ? lastRunDateTime\n      : new Date().toISOString();\n\n  console.log('New cursor value:', lastRunDateTime);\n  return { ...state, data: {}, references: [], lastRunDateTime };\n});",
+          "adaptor": "@openfn/language-http@latest",
+          "project_credential_id": "5b7b0c76-4207-4b26-a0ca-bee6fd3232c3"
+        }
+      },
+      "edges": {
+        "cron->Get-Decisions-from-Primero": {
+          "enabled": true,
+          "id": "1da0e8be-b2e5-40d9-9e2b-fa9a2b1cea36",
+          "target_job_id": "1e14aaa5-15ac-47a4-bcea-7af3b6e38415",
+          "source_trigger_id": "a35fdbda-69b5-492e-84a1-fb7a0fc83b72",
+          "condition_type": "always"
+        },
+        "Get-Decisions-from-Primero->Send-Decision-to-DTP": {
+          "enabled": true,
+          "id": "42ea59d8-69a3-44e9-8f8b-492a65b1bb22",
+          "target_job_id": "f360311e-9548-4e53-85b4-d492530811a8",
+          "source_job_id": "1e14aaa5-15ac-47a4-bcea-7af3b6e38415",
+          "condition_type": "js_expression",
+          "condition_label": "Has Decision",
+          "condition_expression": "state.decision.length > 0"
         }
       }
     }
