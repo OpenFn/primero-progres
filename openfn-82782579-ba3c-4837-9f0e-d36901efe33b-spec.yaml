@@ -27,7 +27,7 @@ workflows:
         credential: aisha@openfn.org-Primero-Gambella-Demo-API-user
         body: |
           each(
-            dataPath('interventions[*]'),
+            dataPath('interventions[*]'),//
             fn(state => {
               const { data } = state;
 
