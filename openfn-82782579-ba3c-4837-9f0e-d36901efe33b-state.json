@@ -4,7 +4,7 @@
   "description": null,
   "concurrency": null,
   "inserted_at": "2024-12-21T10:22:08Z",
-  "updated_at": "2025-02-26T06:47:01Z",
+  "updated_at": "2025-03-05T11:26:51Z",
   "project_credentials": {
     "aisha@openfn.org-Primero-Gambella-Demo-API-user": {
       "id": "3f6e87dd-f417-416d-8f4f-786bfda92009",
@@ -46,16 +46,25 @@
     "Flow2-1.-Get-Referrals-from-Primero": {
       "id": "07eb38e6-c1bd-4025-b682-f38f0f46e6c9",
       "name": "Flow2-1. Get Referrals from Primero",
-      "inserted_at": "2025-03-04T09:58:33.763401Z",
-      "lock_version": 36,
-      "triggers": {
-        "cron": {
-          "enabled": false,
-          "id": "86a4b29a-a7ef-4c4e-9e51-f4ad1887fc0b",
-          "type": "cron",
-          "cron_expression": "0 * * * *"
+      "edges": {
+        "cron->Flow2-1-Get-Referrals-from-Primero": {
+          "enabled": true,
+          "id": "96a03881-b9ba-482e-b5f5-f0accd91af20",
+          "target_job_id": "de1f076a-78c5-45a7-bb3b-5a856375cc90",
+          "source_trigger_id": "86a4b29a-a7ef-4c4e-9e51-f4ad1887fc0b",
+          "condition_type": "always"
+        },
+        "Flow2-1-Get-Referrals-from-Primero->Flow2-2-Send-Referral-to-DTP": {
+          "enabled": true,
+          "id": "b34245b8-5a9b-4ee7-b5d7-d5034971ad8a",
+          "target_job_id": "065fb969-4585-4a07-bcee-286eabfdbefa",
+          "source_job_id": "de1f076a-78c5-45a7-bb3b-5a856375cc90",
+          "condition_type": "on_job_success"
         }
       },
+      "concurrency": null,
+      "inserted_at": "2024-12-21T10:41:10Z",
+      "updated_at": "2025-03-04T09:58:33Z",
       "jobs": {
         "Flow2-1-Get-Referrals-from-Primero": {
           "id": "de1f076a-78c5-45a7-bb3b-5a856375cc90",
@@ -72,35 +81,34 @@
           "project_credential_id": "d58da455-416b-4a61-9d25-7a7d43770acf"
         }
       },
-      "edges": {
-        "cron->Flow2-1-Get-Referrals-from-Primero": {
-          "enabled": true,
-          "id": "96a03881-b9ba-482e-b5f5-f0accd91af20",
-          "target_job_id": "de1f076a-78c5-45a7-bb3b-5a856375cc90",
-          "source_trigger_id": "86a4b29a-a7ef-4c4e-9e51-f4ad1887fc0b",
-          "condition_type": "always"
-        },
-        "Flow2-1-Get-Referrals-from-Primero->Flow2-2-Send-Referral-to-DTP": {
-          "enabled": true,
-          "id": "b34245b8-5a9b-4ee7-b5d7-d5034971ad8a",
-          "target_job_id": "065fb969-4585-4a07-bcee-286eabfdbefa",
-          "source_job_id": "de1f076a-78c5-45a7-bb3b-5a856375cc90",
-          "condition_type": "on_job_success"
+      "triggers": {
+        "cron": {
+          "enabled": false,
+          "id": "86a4b29a-a7ef-4c4e-9e51-f4ad1887fc0b",
+          "type": "cron",
+          "cron_expression": "0 * * * *"
         }
-      }
+      },
+      "deleted_at": null,
+      "lock_version": 36
     },
     "Flow2-3.-Send-DTP-Decision-to-Primero": {
       "id": "39fb7861-4faa-4fc1-9ef9-07f8b8a23089",
       "name": "Flow2-3. Send DTP Decision to Primero",
-      "inserted_at": "2025-03-04T10:16:51.356932Z",
-      "lock_version": 7,
-      "triggers": {
-        "webhook": {
-          "enabled": false,
-          "id": "d44972d5-7104-4fde-98b2-53dc0f771608",
-          "type": "webhook"
+      "edges": {
+        "webhook->Flow2-3-Send-DTP-Decision-to-Primero": {
+          "enabled": true,
+          "id": "c4a1cc79-4bca-4084-93b0-8d558c7dd1af",
+          "target_job_id": "7f40b1c6-0697-4a60-a31e-faf3f7c252ca",
+          "source_trigger_id": "d44972d5-7104-4fde-98b2-53dc0f771608",
+          "condition_type": "js_expression",
+          "condition_label": "Progres Referral Decision --> Primero",
+          "condition_expression": "state.data[\"request_type\"] == \"PrimeroIncomingReferralDecision\"\n"
         }
       },
+      "concurrency": null,
+      "inserted_at": "2024-12-21T10:41:10Z",
+      "updated_at": "2025-03-05T11:26:51Z",
       "jobs": {
         "Flow2-3-Send-DTP-Decision-to-Primero": {
           "id": "7f40b1c6-0697-4a60-a31e-faf3f7c252ca",
@@ -110,30 +118,47 @@
           "project_credential_id": "3f6e87dd-f417-416d-8f4f-786bfda92009"
         }
       },
-      "edges": {
-        "webhook->Flow2-3-Send-DTP-Decision-to-Primero": {
-          "enabled": true,
-          "id": "c4a1cc79-4bca-4084-93b0-8d558c7dd1af",
-          "target_job_id": "7f40b1c6-0697-4a60-a31e-faf3f7c252ca",
-          "source_trigger_id": "d44972d5-7104-4fde-98b2-53dc0f771608",
-          "condition_type": "js_expression",
-          "condition_label": "Progres Referral Decision --> Primero",
-          "condition_expression": "state.data[\"request_type\"] == \"PrimeroIncomingReferralDecision\""
+      "triggers": {
+        "webhook": {
+          "enabled": false,
+          "id": "d44972d5-7104-4fde-98b2-53dc0f771608",
+          "type": "webhook"
         }
-      }
+      },
+      "deleted_at": null,
+      "lock_version": 8
     },
     "Flow1-1.-Send-Referrals-to-Primero": {
       "id": "cb0614f1-3ac2-49d8-8f15-1a0f2fe2f064",
       "name": "Flow1-1. Send Referrals to Primero",
-      "inserted_at": "2025-03-05T08:34:44.724630Z",
-      "lock_version": 15,
-      "triggers": {
-        "webhook": {
-          "enabled": false,
-          "id": "7657d40c-5d35-4fb4-b6ce-c6502228774e",
-          "type": "webhook"
+      "edges": {
+        "Flow1-1-Send-Referrals-to-Primero->Flow1-1-Send-Upload-Error-to-DTP-catch": {
+          "enabled": true,
+          "id": "b392c49a-d5fb-4b84-b69e-8d2ef9f9d0d0",
+          "target_job_id": "6bfb78b5-4c7c-44a9-8b9c-308b94a477f9",
+          "source_job_id": "f8b86d17-f141-44e1-9efb-72cd901a4964",
+          "condition_type": "on_job_failure"
+        },
+        "webhook->Flow1-1-Send-Referrals-to-Primero": {
+          "enabled": true,
+          "id": "2fe767cc-d829-4d62-808d-e6b2ec95e37e",
+          "target_job_id": "f8b86d17-f141-44e1-9efb-72cd901a4964",
+          "source_trigger_id": "7657d40c-5d35-4fb4-b6ce-c6502228774e",
+          "condition_type": "js_expression",
+          "condition_label": "New Progres v4 --> Primero referral",
+          "condition_expression": "state.data[\"request_type\"] == \"PrimeroOutgoingReferral\"\n"
+        },
+        "Flow1-1-Send-Referrals-to-Primero->Flow1-1-Send-Upload-Success-to-DTP-success": {
+          "enabled": true,
+          "id": "3720d406-a83d-4af5-884a-0137bb48dcd3",
+          "target_job_id": "4eeea794-c0d5-4e84-b6a8-f2a4fbcfb89c",
+          "source_job_id": "f8b86d17-f141-44e1-9efb-72cd901a4964",
+          "condition_type": "on_job_success"
         }
       },
+      "concurrency": null,
+      "inserted_at": "2024-12-21T10:41:10Z",
+      "updated_at": "2025-03-05T11:26:51Z",
       "jobs": {
         "Flow1-1-Send-Referrals-to-Primero": {
           "id": "f8b86d17-f141-44e1-9efb-72cd901a4964",
@@ -157,61 +182,19 @@
           "project_credential_id": "6afc1380-6715-4c62-bed6-6fd64ee02699"
         }
       },
-      "edges": {
-        "webhook->Flow1-1-Send-Referrals-to-Primero": {
-          "enabled": true,
-          "id": "2fe767cc-d829-4d62-808d-e6b2ec95e37e",
-          "target_job_id": "f8b86d17-f141-44e1-9efb-72cd901a4964",
-          "source_trigger_id": "7657d40c-5d35-4fb4-b6ce-c6502228774e",
-          "condition_type": "js_expression",
-          "condition_label": "New Progres v4 --> Primero referral",
-          "condition_expression": "state.data[\"request_type\"] == \"PrimeroOutgoingReferral\""
-        },
-        "Flow1-1-Send-Referrals-to-Primero->Flow1-1-Send-Upload-Error-to-DTP-catch": {
-          "enabled": true,
-          "id": "b392c49a-d5fb-4b84-b69e-8d2ef9f9d0d0",
-          "target_job_id": "6bfb78b5-4c7c-44a9-8b9c-308b94a477f9",
-          "source_job_id": "f8b86d17-f141-44e1-9efb-72cd901a4964",
-          "condition_type": "on_job_failure"
-        },
-        "Flow1-1-Send-Referrals-to-Primero->Flow1-1-Send-Upload-Success-to-DTP-success": {
-          "enabled": true,
-          "id": "3720d406-a83d-4af5-884a-0137bb48dcd3",
-          "target_job_id": "4eeea794-c0d5-4e84-b6a8-f2a4fbcfb89c",
-          "source_job_id": "f8b86d17-f141-44e1-9efb-72cd901a4964",
-          "condition_type": "on_job_success"
+      "triggers": {
+        "webhook": {
+          "enabled": false,
+          "id": "7657d40c-5d35-4fb4-b6ce-c6502228774e",
+          "type": "webhook"
         }
-      }
+      },
+      "deleted_at": null,
+      "lock_version": 16
     },
     "Flow1-2.-Send-Decision-to-DTP": {
       "id": "be30ca82-60e4-4f3f-a026-d99805998bfd",
       "name": "Flow1-2. Send Decision to DTP",
-      "inserted_at": "2025-03-05T11:19:47.079454Z",
-      "lock_version": 43,
-      "triggers": {
-        "cron": {
-          "enabled": false,
-          "id": "a35fdbda-69b5-492e-84a1-fb7a0fc83b72",
-          "type": "cron",
-          "cron_expression": "0 * * * *"
-        }
-      },
-      "jobs": {
-        "Get-Decisions-from-Primero": {
-          "id": "1e14aaa5-15ac-47a4-bcea-7af3b6e38415",
-          "name": "Get Decisions from Primero",
-          "body": "getCases(\n    {\n      last_updated_at: `${state.lastRunDateTime || manualCursor}..`,\n      per: 2000, //to override paging default of 20 cases per page\n    }\n)\n\nfn(state => {\n  const manualCursor = '2024-04-09T21:00:17.471Z';\n  console.log(\n    `Current cursor value: '${state.lastRunDateTime || manualCursor}'`\n  );\n  const { data, configuration } = state;\n  state.decision = []\n  console.log('Primero cases fetched for ids: ', data.case_id);\n      const today = new Date();\n      const yesterday = new Date(new Date().getTime());\n      yesterday.setDate(yesterday.getDate() - 1);\n\n      const referralsToSend = data.filter(\n        (\n          ref //check if the service was an external referral & the decision changed\n        ) =>\n          ref.services_section &&\n          ref.services_section.some(\n            service =>\n              service.service_request_agency === 'UNHCR' &&\n              service.service_referral === 'external_referral' &&\n              (service.unhcr_referral_status === 'accepted' ||\n                service.unhcr_referral_status === 'rejected')\n          )\n      );\n\n      state.referralsToSend = referralsToSend;\n      if (referralsToSend.length === 0) {\n        console.log(\n          'No change in UNHCR Referral Status detected. No decisions to send to DTP.'\n        );\n        return state;\n      }\n      console.log('Number of matching referrals: ', referralsToSend.length);\n      return each(referralsToSend, state => {\n        const { data } = state;\n        const { services_section } = data;\n\n        const allowedStatus = ['accepted', 'rejected'];\n        return each(services_section, state => {\n          if (\n            state.data.service_referral === 'external_referral' &&\n            allowedStatus.includes(state.data.unhcr_referral_status)\n          ) {\n            const decision = {\n              case_id: data.case_id,\n              primero_user: data.owned_by,\n              progres_interventionnumber: state.data.progres_interventionnumber,\n              status:\n                state.data.unhcr_referral_status === 'accepted'\n                  ? 'acknowledged'\n                  : state.data.unhcr_referral_status === 'rejected'\n                  ? 'rejected'\n                  : 'Pending Acknowledgement',\n              closure_reason:\n                state.data.unhcr_referral_rejection_reason ||\n                'No reason specified.',\n              request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode\n            };\n            const caseIdDisplay = data.case_id_display;\n            console.log(\n              `Decision to send to DTP for case_id ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`\n            );\n            console.log(`Primero case_id_display:  ${caseIdDisplay}`);\n            console.log(`Decision status: ${decision.status}`);\n            state.decision.push(decision)\n            return state;\n          }\n          return state;\n        })(state);\n      })(state);\n});\n\nfnIf($.decision.length > 0, state => {\n  let lastRunDateTime = state.referralsToSend\n    .map(c => c.last_updated_at)\n    .sort((a, b) => new Date(b.date) - new Date(a.date))[0];\n\n  lastRunDateTime =\n    new Date(lastRunDateTime) > new Date()\n      ? lastRunDateTime\n      : new Date().toISOString();\n\n  console.log('New cursor value:', lastRunDateTime);\n  return { ...state, data: {}, references: [], lastRunDateTime };\n});\n",
-          "adaptor": "@openfn/language-primero@latest",
-          "project_credential_id": "2702fc68-a660-4511-a121-03e5c6bd1679"
-        },
-        "Send-Decision-to-DTP": {
-          "id": "f360311e-9548-4e53-85b4-d492530811a8",
-          "name": "Send Decision to DTP",
-          "body": "each(\n  '$.decision[*]',\n  post(\n    state => state.configuration.urlDTP,\n    state => ({\n      body: state.data,\n      headers: {\n        'Ocp-Apim-Subscription-Key': state.configuration['Ocp-Apim-Subscription-Key'],\n      },\n      agentOptions: {\n        key: state.configuration.key,\n        cert: state.configuration.cert,\n      },\n    })\n  )\n);\n\nfn(state => {\n  console.log('Decision has been sent.');\n  return state;\n});\n\nfn(state => {\n  if (state.error) {\n    console.log(state.request);\n    let newError = state.error;\n    newError.config = 'REDACTED';\n    throw newError;\n  }\n  return state;\n});\n\n\nfn(state => {\n  let lastRunDateTime = state.referralsToSend\n    .map(c => c.last_updated_at)\n    .sort((a, b) => new Date(b.date) - new Date(a.date))[0];\n\n  lastRunDateTime =\n    new Date(lastRunDateTime) > new Date()\n      ? lastRunDateTime\n      : new Date().toISOString();\n\n  console.log('New cursor value:', lastRunDateTime);\n  return { ...state, data: {}, references: [], lastRunDateTime };\n});",
-          "adaptor": "@openfn/language-http@latest",
-          "project_credential_id": "5b7b0c76-4207-4b26-a0ca-bee6fd3232c3"
-        }
-      },
       "edges": {
         "cron->Get-Decisions-from-Primero": {
           "enabled": true,
@@ -227,9 +210,38 @@
           "source_job_id": "1e14aaa5-15ac-47a4-bcea-7af3b6e38415",
           "condition_type": "js_expression",
           "condition_label": "Has Decision",
-          "condition_expression": "state.decision.length > 0"
+          "condition_expression": "state.decision.length > 0\n"
         }
-      }
+      },
+      "concurrency": null,
+      "inserted_at": "2024-12-21T10:41:10Z",
+      "updated_at": "2025-03-05T11:26:51Z",
+      "jobs": {
+        "Get-Decisions-from-Primero": {
+          "id": "1e14aaa5-15ac-47a4-bcea-7af3b6e38415",
+          "name": "Get Decisions from Primero",
+          "body": "getCases(\n    {\n      last_updated_at: `${state.lastRunDateTime || manualCursor}..`,\n      per: 2000, //to override paging default of 20 cases per page\n    }\n)\n\nfn(state => {\n  const manualCursor = '2024-04-09T21:00:17.471Z';\n  console.log(\n    `Current cursor value: '${state.lastRunDateTime || manualCursor}'`\n  );\n  const { data, configuration } = state;\n  state.decision = []\n  console.log('Primero cases fetched for ids: ', data.case_id);\n      const today = new Date();\n      const yesterday = new Date(new Date().getTime());\n      yesterday.setDate(yesterday.getDate() - 1);\n\n      const referralsToSend = data.filter(\n        (\n          ref //check if the service was an external referral & the decision changed\n        ) =>\n          ref.services_section &&\n          ref.services_section.some(\n            service =>\n              service.service_request_agency === 'UNHCR' &&\n              service.service_referral === 'external_referral' &&\n              (service.unhcr_referral_status === 'accepted' ||\n                service.unhcr_referral_status === 'rejected')\n          )\n      );\n\n      state.referralsToSend = referralsToSend;\n      if (referralsToSend.length === 0) {\n        console.log(\n          'No change in UNHCR Referral Status detected. No decisions to send to DTP.'\n        );\n        return state;\n      }\n      console.log('Number of matching referrals: ', referralsToSend.length);\n      return each(referralsToSend, state => {\n        const { data } = state;\n        const { services_section } = data;\n\n        const allowedStatus = ['accepted', 'rejected'];\n        return each(services_section, state => {\n          if (\n            state.data.service_referral === 'external_referral' &&\n            allowedStatus.includes(state.data.unhcr_referral_status)\n          ) {\n            const decision = {\n              case_id: data.case_id,\n              primero_user: data.owned_by,\n              progres_interventionnumber: state.data.progres_interventionnumber,\n              status:\n                state.data.unhcr_referral_status === 'accepted'\n                  ? 'acknowledged'\n                  : state.data.unhcr_referral_status === 'rejected'\n                  ? 'rejected'\n                  : 'Pending Acknowledgement',\n              closure_reason:\n                state.data.unhcr_referral_rejection_reason ||\n                'No reason specified.',\n              request_type: 'ReceiveDecisionOutgoingReferral', //default hardcode\n            };\n            const caseIdDisplay = data.case_id_display;\n            console.log(\n              `Decision to send to DTP for case_id ${decision.case_id} and progres_interventionnumber ${decision.progres_interventionnumber}`\n            );\n            console.log(`Primero case_id_display:  ${caseIdDisplay}`);\n            console.log(`Decision status: ${decision.status}`);\n            state.decision.push(decision)\n            return state;\n          }\n          return state;\n        })(state);\n      })(state);\n});\n\nfnIf($.decision.length > 0, state => {\n  let lastRunDateTime = state.referralsToSend\n    .map(c => c.last_updated_at)\n    .sort((a, b) => new Date(b.date) - new Date(a.date))[0];\n\n  lastRunDateTime =\n    new Date(lastRunDateTime) > new Date()\n      ? lastRunDateTime\n      : new Date().toISOString();\n\n  console.log('New cursor value:', lastRunDateTime);\n  return { ...state, data: {}, references: [], lastRunDateTime };\n});\n",
+          "adaptor": "@openfn/language-primero@latest",
+          "project_credential_id": "2702fc68-a660-4511-a121-03e5c6bd1679"
+        },
+        "Send-Decision-to-DTP": {
+          "id": "f360311e-9548-4e53-85b4-d492530811a8",
+          "name": "Send Decision to DTP",
+          "body": "each(\n  '$.decision[*]',\n  post(\n    state => state.configuration.urlDTP,\n    state => ({\n      body: state.data,\n      headers: {\n        'Ocp-Apim-Subscription-Key': state.configuration['Ocp-Apim-Subscription-Key'],\n      },\n      agentOptions: {\n        key: state.configuration.key,\n        cert: state.configuration.cert,\n      },\n    })\n  )\n);\n\nfn(state => {\n  console.log('Decision has been sent.');\n  return state;\n});\n\nfn(state => {\n  if (state.error) {\n    console.log(state.request);\n    let newError = state.error;\n    newError.config = 'REDACTED';\n    throw newError;\n  }\n  return state;\n});\n\n\nfn(state => {\n  let lastRunDateTime = state.referralsToSend\n    .map(c => c.last_updated_at)\n    .sort((a, b) => new Date(b.date) - new Date(a.date))[0];\n\n  lastRunDateTime =\n    new Date(lastRunDateTime) > new Date()\n      ? lastRunDateTime\n      : new Date().toISOString();\n\n  console.log('New cursor value:', lastRunDateTime);\n  return { ...state, data: {}, references: [], lastRunDateTime };\n});\n",
+          "adaptor": "@openfn/language-http@latest",
+          "project_credential_id": "5b7b0c76-4207-4b26-a0ca-bee6fd3232c3"
+        }
+      },
+      "triggers": {
+        "cron": {
+          "enabled": false,
+          "id": "a35fdbda-69b5-492e-84a1-fb7a0fc83b72",
+          "type": "cron",
+          "cron_expression": "0 * * * *"
+        }
+      },
+      "deleted_at": null,
+      "lock_version": 44
     }
   },
   "requires_mfa": false
