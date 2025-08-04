@@ -1,4 +1,7 @@
-# UNICEF <> UNHCR Interagency Interoperability: Gambella Pilot
+# UNICEF <> UNHCR Interagency Interoperability: Gambella
+
+## Project Status
+This OpenFn project is no longer active since July 2025. All configuration for OpenFn automated workflows has been backed up on the linked Github repository and may be used in the future by UNICEF and UNHCR parties if they decide to continue this project in different sites (TBD). Contact [support@openfn.org](mailto://support@openfn.org) if you require assistance restarting this proejct.
 
 ## Programmatic Requirements for Primero and proGres v4 Interoperability
 
