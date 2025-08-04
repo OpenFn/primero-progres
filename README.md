@@ -2,6 +2,8 @@
 
 **>> See the Github site for the complete project overview and finalized documenation: [openfn.github.io/primero-progres/](https://openfn.github.io/primero-progres/)** 
 
+**>> See branch `adaptors-version-upgrade` for the project configuration compatible with OpenFn v2.**
+
 OpenFn documentation for interoperability interagency referrals exchange solution in Gambella, Ethiopia. See below for the **Implementation Checklist**. 
 
 ## Change Management
