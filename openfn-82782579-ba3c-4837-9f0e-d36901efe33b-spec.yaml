@@ -26,7 +26,7 @@ workflows:
     jobs:
       Flow1-1-Send-Referrals-to-Primero:
         name: Flow1-1 Send Referrals to Primero
-        adaptor: '@openfn/language-primero@latest'
+        adaptor: '@openfn/language-primero@3.0.9'
         credential: aisha@openfn.org-Primero-Gambella-Demo-API-user
         body: |
           each(
@@ -286,7 +286,7 @@ workflows:
 
       Flow1-1-Send-Upload-Error-to-DTP-catch:
         name: Flow1-1 Send Upload Error to DTP catch
-        adaptor: '@openfn/language-http@latest'
+        adaptor: '@openfn/language-http@6.5.4'
         credential: 'aisha@openfn.org-DTP-UAT---ReceiveDecisionOutgoingReferral-'
         body: |
           alterState(state => {
@@ -358,7 +358,7 @@ workflows:
 
       Flow1-1-Send-Upload-Success-to-DTP-success:
         name: Flow1-1 Send Upload Success to DTP success
-        adaptor: '@openfn/language-http@latest'
+        adaptor: '@openfn/language-http@6.5.4'
         credential: 'aisha@openfn.org-DTP-UAT---ReceiveDecisionOutgoingReferral-'
         body: |
           alterState(state => {
@@ -412,14 +412,6 @@ workflows:
         type: webhook
         enabled: false
     edges:
-      webhook->Flow1-1-Send-Referrals-to-Primero:
-        source_trigger: webhook
-        target_job: Flow1-1-Send-Referrals-to-Primero
-        condition_type: js_expression
-        condition_label: New Progres v4 --> Primero referral
-        condition_expression: |
-          state.data["request_type"] == "PrimeroOutgoingReferral"
-        enabled: true
       Flow1-1-Send-Referrals-to-Primero->Flow1-1-Send-Upload-Error-to-DTP-catch:
         source_job: Flow1-1-Send-Referrals-to-Primero
         target_job: Flow1-1-Send-Upload-Error-to-DTP-catch
@@ -430,12 +422,21 @@ workflows:
         target_job: Flow1-1-Send-Upload-Success-to-DTP-success
         condition_type: on_job_success
         enabled: true
+      webhook->Flow1-1-Send-Referrals-to-Primero:
+        source_trigger: webhook
+        target_job: Flow1-1-Send-Referrals-to-Primero
+        condition_type: js_expression
+        condition_label: New Progres v4 --> Primero referral
+        condition_expression: |
+          state.data["request_type"] == "PrimeroOutgoingReferral"
+
+        enabled: true
   Flow1-2.-Send-Decision-to-DTP:
     name: Flow1-2. Send Decision to DTP
     jobs:
       Get-Decisions-from-Primero:
         name: Get Decisions from Primero
-        adaptor: '@openfn/language-primero@latest'
+        adaptor: '@openfn/language-primero@3.0.9'
         credential: aisha@openfn.org-DTP-UAT---sendDecision
         body: |
           getCases(
@@ -534,7 +535,7 @@ workflows:
 
       Send-Decision-to-DTP:
         name: Send Decision to DTP
-        adaptor: '@openfn/language-http@latest'
+        adaptor: '@openfn/language-http@6.5.4'
         credential: aisha@openfn.org-DTP-test
         body: |
           each(
@@ -583,6 +584,7 @@ workflows:
             console.log('New cursor value:', lastRunDateTime);
             return { ...state, data: {}, references: [], lastRunDateTime };
           });
+
     triggers:
       cron:
         type: cron
@@ -601,13 +603,14 @@ workflows:
         condition_label: Has Decision
         condition_expression: |
           state.decision.length > 0
+
         enabled: true
   Flow2-1.-Get-Referrals-from-Primero:
     name: Flow2-1. Get Referrals from Primero
     jobs:
       Flow2-1-Get-Referrals-from-Primero:
         name: Flow2-1 Get Referrals from Primero
-        adaptor: '@openfn/language-primero@latest'
+        adaptor: '@openfn/language-primero@3.0.9'
         credential: 'aisha@openfn.org-Primero-Gambella-Demo---Get-Referrals-'
         body: |
           // Set up a manual cursor and referrals array.
@@ -679,7 +682,7 @@ workflows:
 
       Flow2-2-Send-Referral-to-DTP:
         name: Flow2-2 Send Referral to DTP
-        adaptor: '@openfn/language-http@latest'
+        adaptor: '@openfn/language-http@6.5.4'
         credential: 'aisha@openfn.org-DTP-UAT---ReceiveIncomingReferral-'
         body: |
           fn(state => {
@@ -922,7 +925,7 @@ workflows:
     jobs:
       Flow2-3-Send-DTP-Decision-to-Primero:
         name: Flow2-3 Send DTP Decision to Primero
-        adaptor: '@openfn/language-primero@latest'
+        adaptor: '@openfn/language-primero@3.0.9'
         credential: aisha@openfn.org-Primero-Gambella-Demo-API-user
         body: |
           each(state.data.interventions, state => {
@@ -1014,4 +1017,5 @@ workflows:
         condition_label: Progres Referral Decision --> Primero
         condition_expression: |
           state.data["request_type"] == "PrimeroIncomingReferralDecision"
+
         enabled: true
